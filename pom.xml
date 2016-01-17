@@ -693,8 +693,7 @@
 				</plugins>
 			</build>
 
-
-			<!-- deploy -->
+			<!-- deploy mvn clean deploy -P release -Dgpg.passphrase=123456 -->
 			<distributionManagement>
 				<snapshotRepository>
 					<id>oss</id>
