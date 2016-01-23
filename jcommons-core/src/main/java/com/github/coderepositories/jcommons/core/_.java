@@ -47,15 +47,14 @@ public abstract class _ {
 
 	/**
 	 * 断言一个对象的值为非空
-	 * <p>
-	 * obj 为Null -> false <br>
-	 * obj 为{@code CharSequence}(字符序列)，{@code obj.toString().trim().length()==0}
-	 * , 返回 false <br>
-	 * obj 为{@code Array}(数组), {@code obj.length == 0}, 返回 false <br>
-	 * obj 为{@code Iterable}(可迭代), {@code obj.iterator().hasNext()==false}, 返回
-	 * false <br>
-	 * obj 为{@code Map}(键值对), {@code obj.isEmpty()==true}, 返回 false
-	 * </p>
+	 * 
+	 * <pre>
+	 * 	obj 为Null, 返回 false
+	 * 	obj 为{@code CharSequence}(字符序列)，{@code obj.toString().trim().length()==0}, 返回 false
+	 * 	obj 为{@code Array}(数组), {@code obj.length == 0}, 返回 false
+	 * 	obj 为{@code Iterable}(可迭代), {@code obj.iterator().hasNext()==false}, 返回 false
+	 * 	obj 为{@code Map}(键值对), {@code obj.isEmpty()==true}, 返回 false
+	 * </pre>
 	 * 
 	 * @param obj
 	 * @return
@@ -181,13 +180,118 @@ public abstract class _ {
 		return reference;
 	}
 
-	public static void main(String[] args) {
-		try {
-			checkNotEmpty(null);
-		} catch (Exception e) {
-			e.printStackTrace();
+	/**
+	 * <pre>
+	 * 	原始类型数组转换为对象类型数组
+	 * 	如果参数为Null或者不是数组类型，则直接返回参数本身
+	 * 	如果参数已经是对象数组类型，则直接返回参数本书
+	 * 	
+	 * 		toObjectArray(int[]) == Integer[]
+	 * 		toObjectArray(double[]) == Double[]
+	 * 		...
+	 * 		toObjectArray(primitiveArray) == wrapArray
+	 * 
+	 * </pre>
+	 * 
+	 * @param primitiveArray
+	 * @return
+	 */
+	public static Object toObjectArray(Object primitiveArray) {
+		// 非空检查
+		if (isNull(primitiveArray)) {
+			return primitiveArray;
 		}
 
+		// 获取参数的类型
+		Class<? extends Object> parameterClass = primitiveArray.getClass();
+
+		// 判断参数类型是否为数组类型
+		if (!parameterClass.isArray()) {
+			return primitiveArray;
+		}
+
+		// 数组元素类型
+		Class<?> componentType = parameterClass.getComponentType();
+		
+		// 判断参数是否为原始类型数组
+		if (!componentType.isPrimitive()) {
+			return primitiveArray;
+		}
+		
+		// 原始类型数组 -> 包装类型数组
+		if(byte.class == componentType){
+			byte[] src = (byte[]) primitiveArray;
+			Byte[] dest = new Byte[src.length];
+			for (int i = 0; i < src.length; i++) {
+				dest[i] = src[i];
+			}
+			return dest;
+		}
+		
+		if(short.class == componentType){
+			short[] src = (short[]) primitiveArray;
+			Short[] dest = new Short[src.length];
+			for (int i = 0; i < src.length; i++) {
+				dest[i] = src[i];
+			}
+			return dest;
+		}
+
+		if(char.class == componentType){
+			char[] src = (char[]) primitiveArray;
+			Character[] dest = new Character[src.length];
+			for (int i = 0; i < src.length; i++) {
+				dest[i] = src[i];
+			}
+			return dest;
+		}
+		
+		if(int.class == componentType){
+			int[] src = (int[]) primitiveArray;
+			Integer[] dest = new Integer[src.length];
+			for (int i = 0; i < src.length; i++) {
+				dest[i] = src[i];
+			}
+			return dest;
+		}
+
+		if(int.class == componentType){
+			int[] src = (int[]) primitiveArray;
+			Integer[] dest = new Integer[src.length];
+			for (int i = 0; i < src.length; i++) {
+				dest[i] = src[i];
+			}
+			return dest;
+		}
+
+		if(long.class == componentType){
+			long[] src = (long[]) primitiveArray;
+			Long[] dest = new Long[src.length];
+			for (int i = 0; i < src.length; i++) {
+				dest[i] = src[i];
+			}
+			return dest;
+		}
+
+		if(float.class == componentType){
+			float[] src = (float[]) primitiveArray;
+			Float[] dest = new Float[src.length];
+			for (int i = 0; i < src.length; i++) {
+				dest[i] = src[i];
+			}
+			return dest;
+		}
+
+		if(double.class == componentType){
+			double[] src = (double[]) primitiveArray;
+			Double[] dest = new Double[src.length];
+			for (int i = 0; i < src.length; i++) {
+				dest[i] = src[i];
+			}
+			return dest;
+		}
+		
+		throw new RuntimeException("不支持的原始类型数组：" + parameterClass);
 	}
 
 }

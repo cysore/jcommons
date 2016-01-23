@@ -34,6 +34,13 @@
 	</scm>
 
 	<dependencies>
+		
+		<dependency>
+			<groupId>com.github.coderepositories</groupId>
+			<artifactId>jcommons-core</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
 		<!-- test -->
 		<dependency>
 			<groupId>junit</groupId>
