@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	excel - ExcelTemplate
+		sheet - SheetConfiguration
+			list - ListLabel
+			map - MapLabel
+			listMap - ListMapLabel
+				head - HeadLabel
+			mapList - MapListLabel
+				cell - CellLabel
+ -->
+<excel namespace="" templatePath="" >
+	<sheet id="222" name="111" property="" >
+		<!-- 
+			开始行
+			开始列
+			行间隔
+				1. 一般的每行之间相隔的行数
+				2. 奇数行与相邻的下一行相隔多少行
+				3. 偶数行与相邻的下一行相隔多少行
+				4. 指定每行之间的间隔，
+					如：1,2,3 就表示	
+						第一行与第二行相隔1行
+						第二行与第三行相隔2行
+						第三行与第四行相隔3行
+			列间隔
+				与行间隔类同
+
+			每行显示多少个数据
+				1. 一般每行显示相同的个数
+				2. 奇数行显示多少个
+				3. 偶数行显示多少个
+				4. 指定每行显示多少个
+			
+			英文单词：
+				row     行
+				column  列
+				interval 间隔
+				each row count 每行多少个
+				even	偶数
+				odd		奇数
+				index	下标
+				x 		横坐标
+				y		纵坐标
+		-->
+		<list property="" startRow="1" startColumn="1" rowInterval="1" eachRowCount="" >
+			<cell x="10" y="10" index="100"/>
+			<cell x="11" y="11" index="110"/>
+		</list>
+
+		<!-- 
+			散列数据
+				1. 指定每个key数据的位置
+		-->
+		<map property="">
+			<cell x="1" y ="1" key="name" />
+			<cell x="10" y ="10" key="age" />
+			<cell x="100" y ="100" key="birth" />
+		</map>
+
+		<!-- 
+			线性数据嵌套散列数据
+				1. 约定List中的每个Map的key都是相同
+				2. 指定key所在的位置
+		-->
+		<listMap property="">
+			<head x="1">
+				<cell y="1" key="age" />
+				<cell x="2" y="2" key="birth" />
+			</head>
+		</listMap>
+
+		<!-- 
+			散列数据里面嵌套线性数据
+				1. 每个单元格里面的数据是一个列表
+				2. 每个单元格看起来就是一个下拉列表
+				3. 配置每个单元格的数据是多选还是单选
+		-->
+		<mapList property="" multiSelect="true" >
+			<cell x="1" y="1" key="age" multiSelect="false" />
+			<cell x="10" y="10" key="birth" />
+		</mapList>
+
+	</sheet>
+</excel>
+
+

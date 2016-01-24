@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.github.coderepositories</groupId>
@@ -109,8 +110,8 @@
 		<com.fasterxml.jackson.version>2.5.4</com.fasterxml.jackson.version>
 		<com.alibaba.fastjson.version>1.2.5</com.alibaba.fastjson.version>
 
-
-
+		<!-- xStream -->
+		<com.thoughtworks.xstream.version>1.4.8</com.thoughtworks.xstream.version>
 
 		<!-- dom -->
 		<dom4j.version>1.6.1</dom4j.version>
@@ -339,6 +340,12 @@
 				<version>${joda-time.version}</version>
 			</dependency>
 
+			<!-- xStream -->
+			<dependency>
+				<groupId>com.thoughtworks.xstream</groupId>
+				<artifactId>xstream</artifactId>
+				<version>${com.thoughtworks.xstream.version}</version>
+			</dependency>
 			<!-- quartz -->
 			<dependency>
 				<groupId>org.quartz-scheduler</groupId>
@@ -676,7 +683,7 @@
 							</execution>
 						</executions>
 					</plugin>
-					
+
 					<!-- nexus-staging -->
 					<plugin>
 						<groupId>org.sonatype.plugins</groupId>
@@ -713,6 +720,6 @@
 
 	<modules>
 		<module>jcommons-core</module>
-    <module>jcommons-datatransfer</module>
-  </modules>
+		<module>jcommons-datatransfer</module>
+	</modules>
 </project>
