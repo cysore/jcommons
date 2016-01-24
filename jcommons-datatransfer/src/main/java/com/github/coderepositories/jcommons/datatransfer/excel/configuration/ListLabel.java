@@ -1,15 +1,34 @@
 package com.github.coderepositories.jcommons.datatransfer.excel.configuration;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
+
+@XStreamAlias("list")
 public class ListLabel extends PropertyLabel {
 
+	@XStreamAsAttribute
 	private Integer startRow;
+
+	@XStreamAsAttribute
 	private Integer startColumn;
+
+	@XStreamAsAttribute
 	private Integer rowInterval;
+
+	@XStreamAsAttribute
 	private Integer eachRowCount;
+
+	@XStreamImplicit(itemFieldName = "cell")
+	private List<CellLabel> cells = new ArrayList<>();
 	
-	private List<CellLabel> cellLabels;
+	public ListLabel addCell(CellLabel cell){
+		cells.add(cell);
+		return this;
+	}
 	
 	public Integer getStartRow() {
 		return startRow;
@@ -43,14 +62,12 @@ public class ListLabel extends PropertyLabel {
 		this.eachRowCount = eachRowCount;
 	}
 
-	public List<CellLabel> getCellLabels() {
-		return cellLabels;
+	public List<CellLabel> getCells() {
+		return cells;
 	}
 
-	public void setCellLabels(List<CellLabel> cellLabels) {
-		this.cellLabels = cellLabels;
+	public void setCells(List<CellLabel> cells) {
+		this.cells = cells;
 	}
-	
-	
-	
+
 }

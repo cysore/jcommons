@@ -1,20 +1,54 @@
 package com.github.coderepositories.jcommons.datatransfer.excel.configuration;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
+
+@XStreamAlias("sheet")
 public class SheetLabel extends PropertyLabel {
 
+	@XStreamAsAttribute
 	private String id;
+
+	@XStreamAsAttribute
 	private String name;
 
-	private List<ListLabel> listLabels;
+	@XStreamImplicit(itemFieldName = "list")
+	private List<ListLabel> lists = new ArrayList<>();
 
-	private List<MapLabel> mapLabels;
+	@XStreamImplicit(itemFieldName = "map")
+	private List<MapLabel> maps = new ArrayList<>();
 
-	private List<ListMapLabel> listMapLabels;
+	@XStreamImplicit(itemFieldName = "listMap")
+	private List<ListMapLabel> listMaps = new ArrayList<>();
 
-	private List<MapListLabel> mapListLabels;
+	@XStreamImplicit(itemFieldName = "mapList")
+	private List<MapListLabel> mapLists = new ArrayList<>();
+	
+	
+	public SheetLabel addList(ListLabel list){
+		lists.add(list);
+		return this;
+	}
 
+	public SheetLabel addMap(MapLabel map){
+		maps.add(map);
+		return this;
+	}
+
+	public SheetLabel addListMap(ListMapLabel listMap){
+		listMaps.add(listMap);
+		return this;
+	}
+
+	public SheetLabel addMapList(MapListLabel mapList){
+		mapLists.add(mapList);
+		return this;
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -31,36 +65,36 @@ public class SheetLabel extends PropertyLabel {
 		this.name = name;
 	}
 
-	public List<ListLabel> getListLabels() {
-		return listLabels;
+	public List<ListLabel> getLists() {
+		return lists;
 	}
 
-	public void setListLabels(List<ListLabel> listLabels) {
-		this.listLabels = listLabels;
+	public void setLists(List<ListLabel> lists) {
+		this.lists = lists;
 	}
 
-	public List<MapLabel> getMapLabels() {
-		return mapLabels;
+	public List<MapLabel> getMaps() {
+		return maps;
 	}
 
-	public void setMapLabels(List<MapLabel> mapLabels) {
-		this.mapLabels = mapLabels;
+	public void setMaps(List<MapLabel> maps) {
+		this.maps = maps;
 	}
 
-	public List<ListMapLabel> getListMapLabels() {
-		return listMapLabels;
+	public List<ListMapLabel> getListMaps() {
+		return listMaps;
 	}
 
-	public void setListMapLabels(List<ListMapLabel> listMapLabels) {
-		this.listMapLabels = listMapLabels;
+	public void setListMaps(List<ListMapLabel> listMaps) {
+		this.listMaps = listMaps;
 	}
 
-	public List<MapListLabel> getMapListLabels() {
-		return mapListLabels;
+	public List<MapListLabel> getMapLists() {
+		return mapLists;
 	}
 
-	public void setMapListLabels(List<MapListLabel> mapListLabels) {
-		this.mapListLabels = mapListLabels;
+	public void setMapLists(List<MapListLabel> mapLists) {
+		this.mapLists = mapLists;
 	}
 
 }

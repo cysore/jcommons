@@ -1,14 +1,29 @@
 package com.github.coderepositories.jcommons.datatransfer.excel.configuration;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
+
+@XStreamAlias("excel")
 public class ExcelTemplate {
-
+	
+	@XStreamAsAttribute
 	private String namespace;
+	
+	@XStreamAsAttribute
 	private String templatePath;
-
-	private List<SheetLabel> sheetLabels;
-
+	
+	@XStreamImplicit(itemFieldName="sheet")
+	private List<SheetLabel> sheets = new ArrayList<>();
+	
+	public ExcelTemplate addSheet(SheetLabel sheet){
+		sheets.add(sheet);
+		return this;
+	}
+	
 	public String getNamespace() {
 		return namespace;
 	}
@@ -25,12 +40,12 @@ public class ExcelTemplate {
 		this.templatePath = templatePath;
 	}
 
-	public List<SheetLabel> getSheetLabels() {
-		return sheetLabels;
+	public List<SheetLabel> getSheets() {
+		return sheets;
 	}
 
-	public void setSheetLabels(List<SheetLabel> sheetLabels) {
-		this.sheetLabels = sheetLabels;
+	public void setSheets(List<SheetLabel> sheets) {
+		this.sheets = sheets;
 	}
 
 }

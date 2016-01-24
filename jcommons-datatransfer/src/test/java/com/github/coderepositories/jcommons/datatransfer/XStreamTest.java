@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -18,6 +19,7 @@ import com.github.coderepositories.jcommons.datatransfer.excel.configuration.Map
 import com.github.coderepositories.jcommons.datatransfer.excel.configuration.MapListLabel;
 import com.github.coderepositories.jcommons.datatransfer.excel.configuration.SheetLabel;
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 public class XStreamTest {
 
@@ -64,7 +66,6 @@ public class XStreamTest {
 
 	@Test
 	public void test1() {
-		
 		try {
 			
 			XStream xstream = new XStream();
@@ -106,11 +107,11 @@ public class XStreamTest {
 			CellLabel cellLabel = new CellLabel();
 			cellLabel.setX(1);
 			cellLabel.setY(2);
-			listLabel.setCellLabels(Arrays.asList(cellLabel));
+			listLabel.setCells(Arrays.asList(cellLabel));
 			
-			sheetLabel.setListLabels(Arrays.asList(listLabel));
+			sheetLabel.setLists(Arrays.asList(listLabel));
 			
-			template.setSheetLabels(Arrays.asList(sheetLabel));
+			template.addSheet(sheetLabel);
 			
 			oos.writeObject(template);
 			oos.flush();
@@ -119,7 +120,66 @@ public class XStreamTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+	}
+
+	@Test
+	public void test2() {
+		try {
+			
+			XStream xstream = new XStream();
+			xstream.autodetectAnnotations(true);
+			
+			ExcelTemplate template = new ExcelTemplate();
+			
+			SheetLabel sheetLabel = new SheetLabel();
+			
+			ListLabel listLabel = new ListLabel();
+			
+			CellLabel cellLabel = new CellLabel();
+			cellLabel.setX(1);
+			cellLabel.setY(2);
+			listLabel.addCell(cellLabel);
+			
+			sheetLabel.addList(listLabel);
+			
+			template.addSheet(sheetLabel);
+			
+			String xml = xstream.toXML(template);
+			System.out.println(xml);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void test3() {
+		try {
+			
+			XStream xstream = new XStream();
+			xstream.autodetectAnnotations(true);
+			
+			XStreamAlias alias = ExcelTemplate.class.getAnnotation(XStreamAlias.class);
+			String rootAlias = alias.value();
+			
+			xstream.alias(rootAlias, ExcelTemplate.class);
+			String path = "E:\\Workspace\\eclipse\\jcommons\\jcommons-datatransfer\\documents\\template.xml";
+			ExcelTemplate template = new ExcelTemplate();
+			
+			xstream.fromXML(new File(path), template);
+			
+			List<SheetLabel> sheets = template.getSheets();
+			SheetLabel sheetLabel = sheets.get(0);
+			CellLabel cellLabel = sheetLabel.getMapLists().get(0).getCells().get(0);
+			System.out.println(cellLabel.getX());
+			System.out.println(cellLabel.getKey());
+			
+			
+			System.out.println(sheets.get(0).getName());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

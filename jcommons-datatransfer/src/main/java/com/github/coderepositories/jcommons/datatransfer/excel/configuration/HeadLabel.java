@@ -2,10 +2,23 @@ package com.github.coderepositories.jcommons.datatransfer.excel.configuration;
 
 import java.util.List;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
+
+@XStreamAlias("head")
 public class HeadLabel {
+
+	@XStreamAsAttribute
 	private Integer x;
 
-	private List<CellLabel> cellLabels;
+	@XStreamImplicit(itemFieldName = "cell")
+	private List<CellLabel> cells;
+
+	public HeadLabel addCell(CellLabel cell) {
+		cells.add(cell);
+		return this;
+	}
 
 	public Integer getX() {
 		return x;
@@ -15,12 +28,12 @@ public class HeadLabel {
 		this.x = x;
 	}
 
-	public List<CellLabel> getCellLabels() {
-		return cellLabels;
+	public List<CellLabel> getCells() {
+		return cells;
 	}
 
-	public void setCellLabels(List<CellLabel> cellLabels) {
-		this.cellLabels = cellLabels;
+	public void setCells(List<CellLabel> cells) {
+		this.cells = cells;
 	}
 
 }

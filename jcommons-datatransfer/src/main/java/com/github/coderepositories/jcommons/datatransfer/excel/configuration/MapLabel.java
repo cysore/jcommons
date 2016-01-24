@@ -1,16 +1,28 @@
 package com.github.coderepositories.jcommons.datatransfer.excel.configuration;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MapLabel extends PropertyLabel {
-	private List<CellLabel> cellLabels;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
-	public List<CellLabel> getCellLabels() {
-		return cellLabels;
+@XStreamAlias("map")
+public class MapLabel extends PropertyLabel {
+
+	@XStreamImplicit(itemFieldName = "cell")
+	private List<CellLabel> cells = new ArrayList<>();
+
+	public MapLabel addCell(CellLabel cell){
+		cells.add(cell);
+		return this;
+	}
+	
+	public List<CellLabel> getCells() {
+		return cells;
 	}
 
-	public void setCellLabels(List<CellLabel> cellLabels) {
-		this.cellLabels = cellLabels;
+	public void setCells(List<CellLabel> cells) {
+		this.cells = cells;
 	}
 
 }

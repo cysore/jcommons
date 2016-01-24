@@ -1,13 +1,26 @@
 package com.github.coderepositories.jcommons.datatransfer.excel.configuration;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
+
+@XStreamAlias("mapList")
 public class MapListLabel extends PropertyLabel {
 
+	@XStreamAsAttribute
 	private Boolean multiSelect = true;
 
-	private List<CellLabel> cellLabels;
-
+	@XStreamImplicit(itemFieldName = "cell")
+	private List<CellLabel> cells = new ArrayList<>();
+	
+	public MapListLabel addCell(CellLabel cell){
+		cells.add(cell);
+		return this;
+	}
+	
 	public Boolean getMultiSelect() {
 		return multiSelect;
 	}
@@ -16,12 +29,12 @@ public class MapListLabel extends PropertyLabel {
 		this.multiSelect = multiSelect;
 	}
 
-	public List<CellLabel> getCellLabels() {
-		return cellLabels;
+	public List<CellLabel> getCells() {
+		return cells;
 	}
 
-	public void setCellLabels(List<CellLabel> cellLabels) {
-		this.cellLabels = cellLabels;
+	public void setCells(List<CellLabel> cells) {
+		this.cells = cells;
 	}
 
 }

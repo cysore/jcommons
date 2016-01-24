@@ -1,24 +1,25 @@
 <object-stream>
   <excel>
-    <sheetLabels class="java.util.Arrays$ArrayList">
-      <a class="sheet-array">
-        <sheet>
-          <list class="java.util.Arrays$ArrayList">
-            <a class="list-array">
-              <list>
-                <cellLabels class="java.util.Arrays$ArrayList">
-                  <a class="cell-array">
-                    <cell>
-                      <x>1</x>
-                      <y>2</y>
-                    </cell>
-                  </a>
-                </cellLabels>
-              </list>
-            </a>
-          </list>
-        </sheet>
-      </a>
-    </sheetLabels>
+    <sheets>
+      <sheet>
+        <lists class="java.util.Arrays$ArrayList">
+          <a class="list-array">
+            <list>
+              <cells class="java.util.Arrays$ArrayList">
+                <a class="cell-array">
+                  <cell>
+                    <x>1</x>
+                    <y>2</y>
+                  </cell>
+                </a>
+              </cells>
+            </list>
+          </a>
+        </lists>
+        <maps/>
+        <listMaps/>
+        <mapLists/>
+      </sheet>
+    </sheets>
   </excel>
 </object-stream>

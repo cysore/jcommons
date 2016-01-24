@@ -1,11 +1,24 @@
 package com.github.coderepositories.jcommons.datatransfer.excel.configuration;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+
+@XStreamAlias("cell")
 public class CellLabel {
 
+	@XStreamAsAttribute
 	private Integer x;
+
+	@XStreamAsAttribute
 	private Integer y;
+
+	@XStreamAsAttribute
 	private Integer index;
+
+	@XStreamAsAttribute
 	private String key;
+
+	@XStreamAsAttribute
 	private Boolean multiSelect;
 
 	public Integer getX() {
