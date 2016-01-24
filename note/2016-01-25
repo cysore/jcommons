@@ -7,3 +7,5 @@ sync && echo 3 > /proc/sys/vm/drop_caches
 */10 * * * * /opt/task/clearCache.sh
 
 http://192.168.1.12:9993/jenkins/project/jcommons
+
+clean deploy -P release -Dgpg.passphrase=lz09221007
