@@ -8,7 +8,7 @@
 	<packaging>pom</packaging>
 	<version>1.0</version>
 
-	<name>codes-parent</name>
+	<name>jcommons</name>
 	<url>https://github.com/coderepositories/jcommons</url>
 	<description>My Java Commons Lib</description>
 
