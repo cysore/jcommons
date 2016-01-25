@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-transfer-excel>
+  <properties>
+    <property name="name" value="zhangsan"/>
+  </properties>
+  <resources>
+    <resource class="com.sdf.sdf.A" file="document/template1.xml"/>
+  </resources>
+</data-transfer-excel>
+
+
