@@ -65,3 +65,23 @@ configuretion
   },
   "productNumber": "c55222c8-2c89-466b-9c8c-59ca6c6cec4d"
 }
+
+
+
+.travis.yml
+
+	language: java
+
+	jdk:
+	  - oraclejdk7
+	  - oraclejdk8
+
+	install:
+	  - mvn install -Dmaven.test.skip=true
+
+	before_script:
+	  - mvn clean
+
+	notifications:
+	  email:
+	    - 1243610991@qq.com
