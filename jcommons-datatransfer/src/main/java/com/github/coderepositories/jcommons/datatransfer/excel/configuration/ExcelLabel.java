@@ -8,7 +8,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 @XStreamAlias("excel")
-public class ExcelTemplate {
+public class ExcelLabel {
 	
 	@XStreamAsAttribute
 	private String namespace;
@@ -19,7 +19,7 @@ public class ExcelTemplate {
 	@XStreamImplicit(itemFieldName="sheet")
 	private List<SheetLabel> sheets = new ArrayList<>();
 	
-	public ExcelTemplate addSheet(SheetLabel sheet){
+	public ExcelLabel addSheet(SheetLabel sheet){
 		sheets.add(sheet);
 		return this;
 	}

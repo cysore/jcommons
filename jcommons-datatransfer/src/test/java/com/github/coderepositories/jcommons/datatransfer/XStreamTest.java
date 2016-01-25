@@ -11,7 +11,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.github.coderepositories.jcommons.datatransfer.excel.configuration.CellLabel;
-import com.github.coderepositories.jcommons.datatransfer.excel.configuration.ExcelTemplate;
+import com.github.coderepositories.jcommons.datatransfer.excel.configuration.ExcelLabel;
 import com.github.coderepositories.jcommons.datatransfer.excel.configuration.HeadLabel;
 import com.github.coderepositories.jcommons.datatransfer.excel.configuration.ListLabel;
 import com.github.coderepositories.jcommons.datatransfer.excel.configuration.ListMapLabel;
@@ -30,7 +30,7 @@ public class XStreamTest {
 
 			XStream xstream = new XStream();
 
-			xstream.alias("excel", ExcelTemplate.class);
+			xstream.alias("excel", ExcelLabel.class);
 			xstream.alias("sheet", SheetLabel.class);
 			
 			xstream.alias("list", ListLabel.class);
@@ -70,7 +70,7 @@ public class XStreamTest {
 			
 			XStream xstream = new XStream();
 			
-			xstream.alias("excel", ExcelTemplate.class);
+			xstream.alias("excel", ExcelLabel.class);
 			xstream.aliasField("sheet", SheetLabel.class, "sheetLabels");
 			
 			
@@ -98,7 +98,7 @@ public class XStreamTest {
 			FileWriter writer = new FileWriter(new File(path));
 			ObjectOutputStream oos = xstream.createObjectOutputStream(writer);
 			
-			ExcelTemplate template = new ExcelTemplate();
+			ExcelLabel template = new ExcelLabel();
 			
 			SheetLabel sheetLabel = new SheetLabel();
 			
@@ -129,7 +129,7 @@ public class XStreamTest {
 			XStream xstream = new XStream();
 			xstream.autodetectAnnotations(true);
 			
-			ExcelTemplate template = new ExcelTemplate();
+			ExcelLabel template = new ExcelLabel();
 			
 			SheetLabel sheetLabel = new SheetLabel();
 			
@@ -159,12 +159,12 @@ public class XStreamTest {
 			XStream xstream = new XStream();
 			xstream.autodetectAnnotations(true);
 			
-			XStreamAlias alias = ExcelTemplate.class.getAnnotation(XStreamAlias.class);
+			XStreamAlias alias = ExcelLabel.class.getAnnotation(XStreamAlias.class);
 			String rootAlias = alias.value();
 			
-			xstream.alias(rootAlias, ExcelTemplate.class);
+			xstream.alias(rootAlias, ExcelLabel.class);
 			String path = "E:\\Workspace\\eclipse\\jcommons\\jcommons-datatransfer\\documents\\template.xml";
-			ExcelTemplate template = new ExcelTemplate();
+			ExcelLabel template = new ExcelLabel();
 			
 			xstream.fromXML(new File(path), template);
 			

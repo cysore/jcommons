@@ -8,4 +8,60 @@ sync && echo 3 > /proc/sys/vm/drop_caches
 
 http://192.168.1.12:9993/jenkins/project/jcommons
 
-clean deploy -P release -Dgpg.passphrase=lz09221007
+clean deploy -P release -Dgpg.passphrase=12345678
+
+configuretion
+	配置信息封装
+
+	解析配置信息
+		1. 使用xStream插件加载XML配置信息
+		2. 缓存sheet标记对应的配置信息
+		3. 提供获取模板的接口
+
+		Excel配置解析器
+			ExcelConfigParser
+				// 加载配置信息
+				loadConfig(File config);
+				// 缓存配置信息
+				cacheConfig();
+
+		Excel配置模板
+			ExcelConfigTemplate
+			getSheetConfig(sheetID);
+
+		Excel操作接口
+			ExcelOperation
+			读
+				Object read(String sheetId, File excel);
+			写
+				void write(String sheetId, File excel, List listData);
+
+				void write(String sheetId, File excel, List<Map> listMapData);
+
+				void write(String sheetId, File excel, Map mapData);
+
+				void write(String sheetId, File excel, Map<List> mapListData);
+
+		Excel模板
+			ExcelTemplate
+		
+		Excel总配置文件
+			data-transfer-excel.xml
+
+
+	设计客户端API
+		输入
+			模板ID
+		输出
+			Map数据
+
+
+{
+ "sessionContext": {
+    "userReferenceNumber": "1234567890",
+    "stepCode": "1",
+    "channel": "TMS",
+    "serviceCode": "0001"
+  },
+  "productNumber": "c55222c8-2c89-466b-9c8c-59ca6c6cec4d"
+}
