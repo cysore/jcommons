@@ -36,7 +36,7 @@ public abstract class _ {
 	}
 
 	/**
-	 * 断言一个对象的值不为空
+	 * 断言一个对象的值为空
 	 * 
 	 * @param obj
 	 * @return
