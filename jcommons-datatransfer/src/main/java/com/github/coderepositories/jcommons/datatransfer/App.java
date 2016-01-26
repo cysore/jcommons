@@ -7,5 +7,6 @@ package com.github.coderepositories.jcommons.datatransfer;
 public class App {
 	public static void main(String[] args) {
 		System.out.println("Hello World!");
+		System.out.println("niubao");
 	}
 }
