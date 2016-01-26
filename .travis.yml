@@ -4,6 +4,23 @@ jdk:
   - oraclejdk7
   - oraclejdk8
 
+# blacklist 黑名单
+branches:
+  except:
+    - legacy
+    - experimental
+
+# whitelist 白名单
+branches:
+  only:
+    - master
+    - develop
+
+before_install:
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  - sudo apt-get update -q
+  - sudo apt-get install gcc-4.8 -y
+
 install:
   - mvn install -Dmaven.test.skip=true
 
