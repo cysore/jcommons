@@ -49,6 +49,7 @@ public abstract class _ {
 	 * 断言一个对象的值为非空
 	 * 
 	 * <pre>
+	 * 
 	 * 	obj 为Null, 返回 false
 	 * 	obj 为{@code CharSequence}(字符序列)，{@code obj.toString().trim().length()==0}, 返回 false
 	 * 	obj 为{@code Array}(数组), {@code obj.length == 0}, 返回 false
