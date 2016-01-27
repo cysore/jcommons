@@ -36,4 +36,4 @@ deploy:
   file: "node/data-transfer-excel.xml"
   skip_cleanup: true
   on:
-    tags: true
+    all_branches: true
