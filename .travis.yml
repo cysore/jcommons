@@ -30,10 +30,10 @@ notifications:
     on_success: always
     on_failure: always
 
-deploy:
-  provider: releases
-  api-key: "98b95fece68208e703744cbedc05399f2fc24a6e"
-  file: "node/data-transfer-excel.xml"
-  skip_cleanup: true
-  on:
-    all_branches: true
+# deploy:
+  # provider: releases
+  # api-key: "98b95fece68208e703744cbedc05399f2fc24a6e"
+  # file: "node/data-transfer-excel.xml"
+  # skip_cleanup: true
+  # on:
+   #  all_branches: true
