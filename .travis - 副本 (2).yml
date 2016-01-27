@@ -16,6 +16,11 @@ branches:
     - master
     - develop
 
+before_install:
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  - sudo apt-get update -q
+  - sudo apt-get install gcc-4.8 -y
+
 install:
   - mvn install -Dmaven.test.skip=true
 
@@ -30,11 +35,3 @@ notifications:
       - 1243610991@qq.com
     on_success: always
     on_failure: always
-
-deploy:
-  provider: releases
-  api-key: "ff86d23a5e12841eb1100df0019df738a0b2673b"
-  file: "node/data-transfer-excel.xml"
-  skip_cleanup: true
-  on:
-    tags: true
