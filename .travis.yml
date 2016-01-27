@@ -32,8 +32,8 @@ notifications:
 
 deploy:
   provider: releases
-  api-key: "ff86d23a5e12841eb1100df0019df738a0b2673b"
+  api-key: "98b95fece68208e703744cbedc05399f2fc24a6e"
   file: "node/data-transfer-excel.xml"
   skip_cleanup: true
   on:
-    tags: true
+    all_branches: true
