@@ -378,4 +378,8 @@ deploy:
     tags: true
 
 
+Skipping a deployment with the releases provider because this is not a tagged commit
+
+提交一个tag标记，处理Travis-CI的发布操作
+
  
