@@ -4,14 +4,13 @@ jdk:
   - oraclejdk7
   - oraclejdk8
 
-# blacklist 黑名单
+
 branches:
+  # blacklist 黑名单
   except:
     - legacy
     - experimental
-
-# whitelist 白名单
-branches:
+  # whitelist 白名单
   only:
     - master
     - develop
@@ -24,7 +23,7 @@ before_script:
 
 notifications:
   email:
-   recipients:
+    recipients:
       - 547933567@qq.com
       - 510647180@qq.com
       - 1243610991@qq.com
