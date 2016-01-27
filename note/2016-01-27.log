@@ -368,6 +368,7 @@ crontab -e //编辑某个用户的cron服务
 
 除了数字还有几个个特殊的符号就是"*"、"/"和"-"、","，*代表所有的取值范围内的数字，"/"代表每的意思,"*/5"表示每5个单位，"-"代表从某个数字到某个数字,","分开几个离散的数字
 
+
 deploy:
   provider: releases
   api-key: "ff86d23a5e12841eb1100df0019df738a0b2673b"
@@ -375,7 +376,6 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-
 
 
  

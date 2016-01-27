@@ -28,6 +28,7 @@ notifications:
       - 547933567@qq.com
       - 510647180@qq.com
       - 1243610991@qq.com
+<<<<<<< HEAD
     on_success: always
     on_failure: always
 
@@ -38,3 +39,7 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
+=======
+    on_success: [always|never|change] # default: change
+    on_failure: [always|never|change] # default: always
+>>>>>>> refs/remotes/origin/develop
