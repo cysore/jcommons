@@ -4,7 +4,7 @@
     <property name="name" value="zhangsan"/>
   </properties>
   <resources>
-    <resource class="com.sdf.sdf.A" file="document/template1.xml"/>
+    <resource file="template/excel-template-test.xml"/>
   </resources>
 </data-transfer-excel>
 
