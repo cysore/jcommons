@@ -24,8 +24,8 @@ before_script:
 notifications:
   email:
     recipients:
-      - 547933567@qq.com
-      - 510647180@qq.com
+      # - 547933567@qq.com
+      # - 510647180@qq.com
       - 1243610991@qq.com
     on_success: always
     on_failure: always
