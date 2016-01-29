@@ -40,6 +40,14 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
+
+		<!-- jcommons-core -->
+		<dependency>
+			<groupId>com.github.coderepositories</groupId>
+			<artifactId>jcommons-core</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
