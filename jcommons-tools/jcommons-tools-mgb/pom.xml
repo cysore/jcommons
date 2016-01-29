@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.github.coderepositories</groupId>
+		<artifactId>jcommons-tools</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<artifactId>jcommons-tools-mgb</artifactId>
+	<name>jcommons-tools-mgb</name>
+	<url>https://github.com/coderepositories/jcommons</url>
+
+	<description>My Java Commons Tools MGB</description>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>zhangguangyong</name>
+			<email>1243610991@qq.com</email>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git@github.com:coderepositories/jcommons.git</connection>
+		<developerConnection>scm:git@github.com:coderepositories/jcommons.git</developerConnection>
+		<url>https://github.com/coderepositories/jcommons</url>
+	</scm>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+
+		<plugins>
+
+			<!-- mybatis-generator 参考：http://mbg.cndocs.tk/running/runningWithMaven.html -->
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>${mybatis-generator.version}</version>
+
+				<!-- 驱动 -->
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>${mysql-connector-java.version}</version>
+					</dependency>
+				</dependencies>
+
+				<configuration>
+					<!-- XML配置文件位置 默认：${basedir}/src/main/resources/generatorConfig.xml -->
+					<configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
+					<!-- MGB生成文件存放的目录 默认：${project.build.directory}/generated-sources/mybatis-generator -->
+					<outputDirectory>${basedir}/src/main/java</outputDirectory>
+					<!-- 是否覆盖之前生成的文件 -->
+					<overwrite>true</overwrite>
+					<!-- 是否记录日志 -->
+					<verbose>true</verbose>
+				</configuration>
+
+			</plugin>
+
+		</plugins>
+
+	</build>
+
+</project>

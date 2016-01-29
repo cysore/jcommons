@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.github.coderepositories</groupId>
@@ -102,6 +101,7 @@
 		<!-- mybatis -->
 		<org.mybatis.version>3.2.8</org.mybatis.version>
 		<org.mybatis.mybatis-spring.version>1.2.2</org.mybatis.mybatis-spring.version>
+		<mybatis-generator.version>1.3.2</mybatis-generator.version>
 
 		<!-- dwr -->
 		<org.directwebremoting.dwr.version>3.0.0-rc3-RELEASE</org.directwebremoting.dwr.version>
@@ -721,5 +721,6 @@
 	<modules>
 		<module>jcommons-core</module>
 		<module>jcommons-datatransfer</module>
-	</modules>
+    <module>jcommons-tools</module>
+  </modules>
 </project>

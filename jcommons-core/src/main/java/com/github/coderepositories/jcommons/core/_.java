@@ -1,7 +1,17 @@
 package com.github.coderepositories.jcommons.core;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Array;
+import java.util.Iterator;
 import java.util.Map;
+
+import com.google.common.collect.Lists;
 
 /**
  * <p>
@@ -14,6 +24,8 @@ import java.util.Map;
  *         2016年1月21日 下午10:14:35
  */
 public abstract class _ {
+
+	static final String LINE_SEPARATOR = System.lineSeparator();
 
 	/**
 	 * 断言一个对象的值为Null
@@ -213,14 +225,14 @@ public abstract class _ {
 
 		// 数组元素类型
 		Class<?> componentType = parameterClass.getComponentType();
-		
+
 		// 判断参数是否为原始类型数组
 		if (!componentType.isPrimitive()) {
 			return primitiveArray;
 		}
-		
+
 		// 原始类型数组 -> 包装类型数组
-		if(byte.class == componentType){
+		if (byte.class == componentType) {
 			byte[] src = (byte[]) primitiveArray;
 			Byte[] dest = new Byte[src.length];
 			for (int i = 0; i < src.length; i++) {
@@ -228,8 +240,8 @@ public abstract class _ {
 			}
 			return dest;
 		}
-		
-		if(short.class == componentType){
+
+		if (short.class == componentType) {
 			short[] src = (short[]) primitiveArray;
 			Short[] dest = new Short[src.length];
 			for (int i = 0; i < src.length; i++) {
@@ -238,7 +250,7 @@ public abstract class _ {
 			return dest;
 		}
 
-		if(char.class == componentType){
+		if (char.class == componentType) {
 			char[] src = (char[]) primitiveArray;
 			Character[] dest = new Character[src.length];
 			for (int i = 0; i < src.length; i++) {
@@ -246,8 +258,8 @@ public abstract class _ {
 			}
 			return dest;
 		}
-		
-		if(int.class == componentType){
+
+		if (int.class == componentType) {
 			int[] src = (int[]) primitiveArray;
 			Integer[] dest = new Integer[src.length];
 			for (int i = 0; i < src.length; i++) {
@@ -256,7 +268,7 @@ public abstract class _ {
 			return dest;
 		}
 
-		if(int.class == componentType){
+		if (int.class == componentType) {
 			int[] src = (int[]) primitiveArray;
 			Integer[] dest = new Integer[src.length];
 			for (int i = 0; i < src.length; i++) {
@@ -265,7 +277,7 @@ public abstract class _ {
 			return dest;
 		}
 
-		if(long.class == componentType){
+		if (long.class == componentType) {
 			long[] src = (long[]) primitiveArray;
 			Long[] dest = new Long[src.length];
 			for (int i = 0; i < src.length; i++) {
@@ -274,7 +286,7 @@ public abstract class _ {
 			return dest;
 		}
 
-		if(float.class == componentType){
+		if (float.class == componentType) {
 			float[] src = (float[]) primitiveArray;
 			Float[] dest = new Float[src.length];
 			for (int i = 0; i < src.length; i++) {
@@ -283,7 +295,7 @@ public abstract class _ {
 			return dest;
 		}
 
-		if(double.class == componentType){
+		if (double.class == componentType) {
 			double[] src = (double[]) primitiveArray;
 			Double[] dest = new Double[src.length];
 			for (int i = 0; i < src.length; i++) {
@@ -291,8 +303,127 @@ public abstract class _ {
 			}
 			return dest;
 		}
-		
+
 		throw new RuntimeException("不支持的原始类型数组：" + parameterClass);
+	}
+
+	/**
+	 * 执行CMD命令
+	 * 
+	 * @param first
+	 *            第一个命令
+	 * @param rest
+	 *            剩余的命令
+	 */
+	public static void execCmd(String first, String... rest) {
+		execCmd(Lists.asList(first, rest));
+	}
+
+	/**
+	 * <pre>
+	 * 执行多个CMD命令
+	 * 处理方式：每个cmd命令都放入到一个.bat文件中，然后直接执行.bat文件
+	 * </pre>
+	 * 
+	 * @param cmds
+	 */
+	public static void execCmd(Iterable<String> cmds) {
+		String home = System.getProperty("user.home");
+		File bat = null;
+		BufferedWriter bw = null;
+
+		try {
+			StringBuilder sb = new StringBuilder("echo off" + LINE_SEPARATOR);
+			Iterator<String> itera = cmds.iterator();
+			while (itera.hasNext()) {
+				sb.append(itera.next()).append(LINE_SEPARATOR);
+			}
+			
+			bat = new File(home, System.currentTimeMillis() + ".bat");
+			bw = new BufferedWriter(new FileWriter(bat));
+			bw.write(sb.toString());
+			bw.flush();
+			execCmd(bat.getPath());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// 关闭流
+			if (notNull(bw)) {
+				try {
+					bw.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			// 删除临时bat文件
+			if (notNull(bat)) {
+				bat.delete();
+			}
+		}
+	}
+
+	/**
+	 * 执行CMD命令
+	 * 
+	 * @param cmd
+	 */
+	private static void execCmd(String cmd) {
+		Process p = null;
+		try {
+			Runtime rt = Runtime.getRuntime();
+			p = rt.exec(cmd);
+			// 获取进程的标准输入流
+			final InputStream is1 = p.getInputStream();
+			// 获取进城的错误流
+			final InputStream is2 = p.getErrorStream();
+			// 启动两个线程，一个线程负责读标准输出流，另一个负责读标准错误流
+			new Thread() {
+				public void run() {
+					BufferedReader br1 = new BufferedReader(new InputStreamReader(is1));
+					try {
+						String line1 = null;
+						while ((line1 = br1.readLine()) != null) {
+							if (line1 != null) {
+							}
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					} finally {
+						try {
+							is1.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}.start();
+
+			new Thread() {
+				public void run() {
+					BufferedReader br2 = new BufferedReader(new InputStreamReader(is2));
+					try {
+						String line2 = null;
+						while ((line2 = br2.readLine()) != null) {
+							if (line2 != null) {
+							}
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					} finally {
+						try {
+							is2.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}.start();
+
+			p.waitFor();
+			p.destroy();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

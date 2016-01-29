@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+  
+<generatorConfiguration> 
+	<context id="mysqlTables" targetRuntime="MyBatis3" defaultModelType="flat" >
+		<!-- 关闭注释 -->
+		<commentGenerator>
+			<property name="suppressDate" value="false"/>
+		</commentGenerator>
+		
+		<!-- 数据库连接信息 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://10.1.1.92:3306/tmsdb_dev"
+		 userId="tmsdev" password="tmsdev"/>
+		
+		<!-- 指定生成的类型为java类型，避免数据库中number等类型字段 -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false"/>
+		</javaTypeResolver>
+		
+		<!-- 生成model模型，对应的包，存放位置可以指定具体的路径,如/ProjectName/src，也可以使用MAVEN来自动生成 -->
+		<javaModelGenerator targetPackage="com.penging.tms.common.entity" targetProject="MAVEN">
+			<property name="enableSubPackages" value="true"/>
+		</javaModelGenerator>
+		
+		<!--对应的xml mapper文件  -->
+		<sqlMapGenerator targetPackage="com.penging.tms.common.repository" targetProject="MAVEN">
+			<property name="enableSubPackages" value="true"/>
+		</sqlMapGenerator>
+		
+		<!-- 对应的dao接口 -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.penging.tms.common.repository" targetProject="MAVEN">
+			<property name="enableSubPackages" value="true"/>
+		</javaClientGenerator>
+		
+		<!-- Table -->
+		<table tableName="tms_proc_pending_prod" domainObjectName="TmsProcPendingProdEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_ivmt_amount_xref" domainObjectName="TmsIvmtAmountXrefEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_ivmt_amount_xref_hist" domainObjectName="TmsIvmtAmountXrefHistEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_ivmt_auto" domainObjectName="TmsIvmtAutoEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_ivmt_mast" domainObjectName="TmsIvmtMastEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_ivmt_mast_hist" domainObjectName="TmsIvmtMastHistEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_ivmt_profit" domainObjectName="TmsIvmtProfitEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_ivmt_profit_hist" domainObjectName="TmsIvmtProfitHistEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_ivmt_reserve" domainObjectName="TmsIvmtReserveEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_ivmt_trsf_log" domainObjectName="TmsIvmtTrsfLogEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_proc_clear_config" domainObjectName="TmsProcClearConfigEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_proc_clear_log" domainObjectName="TmsProcClearLogEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_proc_control" domainObjectName="TmsProcControlEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_proc_ivmt_log" domainObjectName="TmsProcIvmtLogEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_proc_prod_log" domainObjectName="TmsProcProdLogEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_proc_request_log" domainObjectName="TmsProcRequestLogEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_proc_settle_log" domainObjectName="TmsProcSettleLogEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_prod_mast" domainObjectName="TmsProdMastEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_prod_mast_hist" domainObjectName="TmsProdMastHistEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_prod_mast_log" domainObjectName="TmsProdMastLogEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		<table tableName="tms_prod_template" domainObjectName="TmsProdTemplateEntity" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+		
+	</context>
+</generatorConfiguration>
