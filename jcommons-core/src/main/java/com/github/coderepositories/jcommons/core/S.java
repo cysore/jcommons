@@ -23,7 +23,7 @@ import com.google.common.collect.Lists;
  * 
  *         2016年1月21日 下午10:14:35
  */
-public abstract class _ {
+public abstract class S {
 
 	static final String LINE_SEPARATOR = System.lineSeparator();
 

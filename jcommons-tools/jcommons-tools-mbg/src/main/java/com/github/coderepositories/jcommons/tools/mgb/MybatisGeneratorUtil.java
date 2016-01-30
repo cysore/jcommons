@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.github.coderepositories.jcommons.core._;
+import com.github.coderepositories.jcommons.core.S;
 import com.google.common.io.Files;
 
 @SuppressWarnings("all")
@@ -222,7 +222,7 @@ public class MybatisGeneratorUtil {
 	 */
 	private static void doAutoGeneratorFile(File toFolder) {
 		File pomFile = new File(toFolder, "pom.xml");
-		_.execCmd(Arrays.asList("mvn -f " + pomFile.getAbsolutePath() + " mybatis-generator:generate"));
+		S.execCmd(Arrays.asList("mvn -f " + pomFile.getAbsolutePath() + " mybatis-generator:generate"));
 	}
 	
 	/**
