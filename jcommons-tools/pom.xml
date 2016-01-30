@@ -36,6 +36,6 @@
 	</scm>
 
 	<modules>
-		<module>jcommons-tools-mgb</module>
+		<module>jcommons-tools-mbg</module>
 	</modules>
 </project>
