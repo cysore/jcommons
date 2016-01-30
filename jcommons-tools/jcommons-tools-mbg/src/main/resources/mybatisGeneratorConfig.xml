@@ -29,7 +29,7 @@
 			<property name="enableSubPackages" value="true"/>
 		</sqlMapGenerator>
 		
-		<!-- 对应的dao接口 -->
+		<!-- 对应的dao接口 --> 
 		<javaClientGenerator type="XMLMAPPER" targetPackage="com.penging.tms.common.repository" targetProject="MAVEN">
 			<property name="enableSubPackages" value="true"/>
 		</javaClientGenerator>

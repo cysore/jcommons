@@ -12,9 +12,9 @@ import com.github.coderepositories.jcommons.core.S;
 import com.google.common.io.Files;
 
 @SuppressWarnings("all")
-public class MybatisGeneratorUtil {
+public class MybatisGeneratorUtils {
 
-	static Logger logger = Logger.getLogger(MybatisGeneratorUtil.class.getName());
+	static Logger logger = Logger.getLogger(MybatisGeneratorUtils.class.getName());
 
 	/**
 	 * 工作空间目录

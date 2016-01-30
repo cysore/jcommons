@@ -47,7 +47,13 @@
 			<artifactId>jcommons-core</artifactId>
 			<version>1.0</version>
 		</dependency>
-		
+
+		<!-- xStream -->
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -71,7 +77,7 @@
 
 				<configuration>
 					<!-- XML配置文件位置 默认：${basedir}/src/main/resources/generatorConfig.xml -->
-					<configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
+					<configurationFile>${basedir}/src/main/resources/mybatisGeneratorConfig.xml</configurationFile>
 					<!-- MGB生成文件存放的目录 默认：${project.build.directory}/generated-sources/mybatis-generator -->
 					<outputDirectory>${basedir}/src/main/java</outputDirectory>
 					<!-- 是否覆盖之前生成的文件 -->

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<customConfiguration>
+	<tableConfig>
+		<properties>
+			<property name="1" value="11" />
+		</properties>
+		<include>a,b</include>
+		<exclude>c,d</exclude>
+	</tableConfig>
+	
+	<customCode>
+		<startLimit>.*CUSTOM_CODE_START.*</startLimit>
+		<endLimit>.*CUSTOM_CODE_END.*</endLimit>
+		<output>${basedir}/backup</output>
+	</customCode>
+
+</customConfiguration>
