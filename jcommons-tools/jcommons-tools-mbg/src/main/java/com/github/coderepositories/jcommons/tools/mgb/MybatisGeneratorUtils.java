@@ -20,7 +20,6 @@ public class MybatisGeneratorUtils {
 	 * 工作空间目录
 	 */
 	static final String WORKSPACE = System.getProperty("user.dir");
-
 	/**
 	 * 正则匹配：Entity.java, EntityMapper.java, Mapper.xml
 	 */

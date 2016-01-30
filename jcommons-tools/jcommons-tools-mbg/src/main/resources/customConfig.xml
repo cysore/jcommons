@@ -3,10 +3,17 @@
 <customConfiguration>
 	<tableConfig>
 		<properties>
-			<property name="1" value="11" />
+			<property name="enableCountByExample" value="false" />
+			<property name="enableDeleteByExample" value="false" />
+			<property name="enableSelectByExample" value="false" />
+			<property name="enableUpdateByExample" value="false" />
 		</properties>
+		
+		<domainObjectNameSuffix>Entity</domainObjectNameSuffix>
+		
 		<include>a,b</include>
 		<exclude>c,d</exclude>
+		
 	</tableConfig>
 	
 	<customCode>

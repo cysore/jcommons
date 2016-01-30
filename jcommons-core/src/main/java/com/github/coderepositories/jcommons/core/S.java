@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Array;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.github.coderepositories.jcommons.core.date.Dates;
 import com.google.common.collect.Lists;
 
 /**
@@ -338,7 +340,7 @@ public abstract class S {
 			while (itera.hasNext()) {
 				sb.append(itera.next()).append(LINE_SEPARATOR);
 			}
-			
+
 			bat = new File(home, System.currentTimeMillis() + ".bat");
 			bw = new BufferedWriter(new FileWriter(bat));
 			bw.write(sb.toString());
@@ -424,6 +426,32 @@ public abstract class S {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * 日期对象转换为日期字符串
+	 * 
+	 * @param date
+	 *            日期对象
+	 * @param pattern
+	 *            日期字符串模式
+	 * @return
+	 */
+	public static String dateFormat(Date date, String pattern) {
+		return Dates.format(date, pattern);
+	}
+
+	/**
+	 * 日期字符串转换为日期对象
+	 * 
+	 * @param date
+	 *            日期字符串
+	 * @param pattern
+	 *            日期字符串模式
+	 * @return
+	 */
+	public static Date dateParse(String date, String pattern) {
+		return Dates.parse(date, pattern);
 	}
 
 }
