@@ -9,10 +9,10 @@ cd %cd%
 echo "execute git fetch origin..."
 git fetch origin
 
-echo "execute git merge origin/master..."
-git merge origin/master
+echo "execute git merge origin/develop..."
+git merge origin/develop
 
-echo "execute git push origin master..."
-git push origin master
+echo "execute git push origin develop..."
+git push origin develop
 
 pause
