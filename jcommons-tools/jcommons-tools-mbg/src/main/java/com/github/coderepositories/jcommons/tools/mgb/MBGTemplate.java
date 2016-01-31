@@ -1,23 +1,36 @@
 package com.github.coderepositories.jcommons.tools.mgb;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.dbutils.DbUtils;
 
 import com.github.coderepositories.jcommons.core.S;
+import com.github.coderepositories.jcommons.tools.mgb.config.Context;
+import com.github.coderepositories.jcommons.tools.mgb.config.JavaClientGenerator;
+import com.github.coderepositories.jcommons.tools.mgb.config.JavaModelGenerator;
+import com.github.coderepositories.jcommons.tools.mgb.config.JavaTypeResolver;
 import com.github.coderepositories.jcommons.tools.mgb.config.JdbcConnection;
 import com.github.coderepositories.jcommons.tools.mgb.config.MybatisGeneratorConfiguration;
+import com.github.coderepositories.jcommons.tools.mgb.config.SqlMapGenerator;
+import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomCode;
 import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomConfiguration;
 import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomTableConfig;
+import com.github.coderepositories.jcommons.tools.mgb.config.table.Table;
 import com.github.coderepositories.jcommons.tools.mgb.dbinfo.DbInfos;
 import com.github.coderepositories.jcommons.tools.mgb.dbinfo.TableMetadata;
+import com.google.common.io.Files;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -28,9 +41,12 @@ public class MBGTemplate {
 
 	// 编译目录
 	static final String CLASSES = ClassLoader.getSystemResource("").getFile();
-
+	
+	// 默认字符
+	static final Charset DEFAULT_CHARSET = Charset.defaultCharset();
+	
 	// 获取配置信息
-	public static ConfigInfo loadConfig(String mybatisGeneratorConfig, String customConfig) throws SQLException {
+	public static ConfigInfo loadConfig(String mybatisGeneratorConfig, String customConfig) throws SQLException, IOException {
 		File mbgConfigFile = new File(CLASSES, mybatisGeneratorConfig);
 		File customConfigFile = new File(CLASSES, customConfig);
 
@@ -44,17 +60,20 @@ public class MBGTemplate {
 		configInfo.setMbgConfig(mbgCoinfgBean);
 		configInfo.setCustomConfig(customConfigBean);
 
-		generateTableTemplate(configInfo);
-
+		// getCustomTables(configInfo);
+		// mergeConfig(configInfo);
+		getCustomCodes(configInfo);
 		return configInfo;
 	}
 
 	/**
-	 * 生成表格模板
+	 * 获取自定义表
 	 * 
+	 * @param configInfo
+	 * @return
 	 * @throws SQLException
 	 */
-	private static void generateTableTemplate(ConfigInfo configInfo) throws SQLException {
+	private static List<Table> getCustomTables(ConfigInfo configInfo) throws SQLException {
 		MybatisGeneratorConfiguration mbgConfig = configInfo.getMbgConfig();
 		CustomConfiguration customConfig = configInfo.getCustomConfig();
 
@@ -73,22 +92,158 @@ public class MBGTemplate {
 		CustomTableConfig tableConfig = customConfig.getTableConfig();
 		String propsInfo = tableConfig.getPropsInfo();
 		String domainObjectNameSuffix = tableConfig.getDomainObjectNameSuffix();
-		
+
 		StringBuilder tableTemplate = new StringBuilder();
 		String tableName = null;
 		String className = null;
-		
+
 		for (TableMetadata tableMetadata : tables) {
 			tableName = tableMetadata.getTableName();
 			className = tableName2ClassName(tableName).concat(domainObjectNameSuffix);
-			tableTemplate.append("<table tableName=\""+tableName+"\" domainObjectName=\""+className+"\" "+propsInfo+"/>").append(System.lineSeparator());
+			tableTemplate.append(
+					"<table tableName=\"" + tableName + "\" domainObjectName=\"" + className + "\" " + propsInfo + "/>")
+					.append(System.lineSeparator());
+		}
+
+		Class<Context> cls = Context.class;
+		XStreamAlias alias = cls.getAnnotation(XStreamAlias.class);
+		String aliasValue = alias.value();
+
+		String tableXml = tableTemplate.toString();
+		tableXml = "<" + aliasValue + ">" + tableXml + "</" + aliasValue + ">";
+
+		XStream xstream = new XStream();
+		xstream.autodetectAnnotations(true);
+		xstream.alias(aliasValue, cls);
+		Context context = (Context) xstream.fromXML(tableXml);
+		return context.getTables();
+	}
+
+	/**
+	 * 获取自定义代码
+	 * 
+	 * @param configInfo
+	 * @return
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	private static String getCustomCodes(ConfigInfo configInfo) throws SQLException, IOException {
+		MybatisGeneratorConfiguration mbgConfig = configInfo.getMbgConfig();
+		// 获取扫描目录 targetProject / targetPackage
+		Context context = mbgConfig.getContext();
+
+		JavaModelGenerator javaModelGenerator = context.getJavaModelGenerator();
+		String javaModelTargetProject = javaModelGenerator.getTargetProject();
+		String javaModelTargetPackage = javaModelGenerator.getTargetPackage();
+		File javaModelTargetPath = assembleTargetPath(javaModelTargetProject, javaModelTargetPackage);
+
+		SqlMapGenerator sqlMapGenerator = context.getSqlMapGenerator();
+		String sqlMapTargetProject = sqlMapGenerator.getTargetProject();
+		String sqlMapTargetPackage = sqlMapGenerator.getTargetPackage();
+		File sqlMapTargetPath = assembleTargetPath(sqlMapTargetProject, sqlMapTargetPackage);
+
+		JavaClientGenerator javaClientGenerator = context.getJavaClientGenerator();
+		String javaClientTargetProject = javaClientGenerator.getTargetProject();
+		String javaClientTargetPackage = javaClientGenerator.getTargetPackage();
+		File javaClientTargetPath = assembleTargetPath(javaClientTargetProject, javaClientTargetPackage);
+
+		File[] javaModelFiles = javaModelTargetPath.listFiles(new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".java");
+			}
+		});
+
+		File[] sqlMapFiles = sqlMapTargetPath.listFiles(new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith("Mapper.xml");
+			}
+		});
+
+		File[] javaClientFiles = javaClientTargetPath.listFiles(new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith("Mapper.java");
+			}
+		});
+
+		List<File> matchedFiles = new ArrayList<>();
+		matchedFiles.addAll(Arrays.asList(javaModelFiles));
+		matchedFiles.addAll(Arrays.asList(sqlMapFiles));
+		matchedFiles.addAll(Arrays.asList(javaClientFiles));
+
+		CustomConfiguration customConfig = configInfo.getCustomConfig();
+		CustomCode customCode = customConfig.getCustomCode();
+		String startLimit = customCode.getStartLimit();
+		String endLimit = customCode.getEndLimit();
+		
+		for (File file : matchedFiles) {
+			String customCodeContent = findCustomCodeContent(file, startLimit, endLimit);
+			if(! customCodeContent.isEmpty()){
+				System.out.println(customCodeContent);
+			}
 		}
 		
-		System.out.println(tableTemplate.toString());
+
+		return null;
 	}
 
 	// 合并配置文件
-	public void mergeConfig(String mybatisGeneratorConfig, String customConfig) {
+	private static MybatisGeneratorConfiguration mergeConfig(ConfigInfo configInfo) throws SQLException {
+		MybatisGeneratorConfiguration mbgConfig = configInfo.getMbgConfig();
+		Context context = mbgConfig.getContext();
+		List<Table> customTables = getCustomTables(configInfo);
+		context.getTables().addAll(customTables);
+		return mbgConfig;
+		// XStream xstream = new XStream();
+		// xstream.autodetectAnnotations(true);
+		// xstream.alias(mbgConfig.getClass().getAnnotation(XStreamAlias.class).value(),
+		// mbgConfig.getClass());
+		//
+		// String xml = xstream.toXML(mbgConfig);
+	}
+	
+	/**
+	 * 获取自定义代码内容
+	 * 
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 */
+	private static String findCustomCodeContent(File file, String startLimit, String endLimit) throws IOException {
+		List<String> lines = Files.readLines(file, DEFAULT_CHARSET);
+		StringBuilder content = new StringBuilder();
+		boolean flag = false;
+		for (String line : lines) {
+			if (line.matches(startLimit)) {
+				flag = true;
+			}
+			if (flag) {
+				content.append(line).append(System.lineSeparator());
+			}
+			if (line.matches(endLimit)) {
+				flag = false;
+			}
+		}
+		return content.toString();
+	}
+	
+	/**
+	 * 组装目标路径
+	 * 
+	 * @param targetProject
+	 * @param targetPackage
+	 * @return
+	 */
+	private static File assembleTargetPath(String targetProject, String targetPackage) {
+		String targetPackagePath = targetPackage.replace(".", "/");
+
+		if ("MAVEN".equalsIgnoreCase(targetProject)) {
+			return new File(BASE_DIR, "src/main/java/" + targetPackagePath);
+		}
+
+		return new File(targetProject, targetPackagePath);
 	}
 
 	/**

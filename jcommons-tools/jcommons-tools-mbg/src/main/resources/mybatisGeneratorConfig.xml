@@ -16,7 +16,7 @@
 
 		<!-- 数据库连接信息 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://10.1.1.92:3306/tmsdb_dev" userId="tmsdev"
+			connectionURL="jdbc:mysql://192.168.1.12:3306/tmsdb_dev" userId="tmsdev"
 			password="tmsdev" />
 
 		<!-- 指定生成的类型为java类型，避免数据库中number等类型字段 -->
@@ -50,60 +50,6 @@
 			enableCountByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" enableUpdateByExample="false" />
 		<table tableName="tms_ivmt_amount_xref_hist" domainObjectName="TmsIvmtAmountXrefHistEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_ivmt_auto" domainObjectName="TmsIvmtAutoEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_ivmt_mast" domainObjectName="TmsIvmtMastEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_ivmt_mast_hist" domainObjectName="TmsIvmtMastHistEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_ivmt_profit" domainObjectName="TmsIvmtProfitEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_ivmt_profit_hist" domainObjectName="TmsIvmtProfitHistEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_ivmt_reserve" domainObjectName="TmsIvmtReserveEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_ivmt_trsf_log" domainObjectName="TmsIvmtTrsfLogEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_proc_clear_config" domainObjectName="TmsProcClearConfigEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_proc_clear_log" domainObjectName="TmsProcClearLogEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_proc_control" domainObjectName="TmsProcControlEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_proc_ivmt_log" domainObjectName="TmsProcIvmtLogEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_proc_prod_log" domainObjectName="TmsProcProdLogEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_proc_request_log" domainObjectName="TmsProcRequestLogEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_proc_settle_log" domainObjectName="TmsProcSettleLogEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_prod_mast" domainObjectName="TmsProdMastEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_prod_mast_hist" domainObjectName="TmsProdMastHistEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_prod_mast_log" domainObjectName="TmsProdMastLogEntity"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false" />
-		<table tableName="tms_prod_template" domainObjectName="TmsProdTemplateEntity"
 			enableCountByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" enableUpdateByExample="false" />
 
