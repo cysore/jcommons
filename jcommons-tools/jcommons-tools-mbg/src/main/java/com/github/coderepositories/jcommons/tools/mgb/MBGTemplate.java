@@ -41,12 +41,13 @@ public class MBGTemplate {
 
 	// 编译目录
 	static final String CLASSES = ClassLoader.getSystemResource("").getFile();
-	
+
 	// 默认字符
 	static final Charset DEFAULT_CHARSET = Charset.defaultCharset();
-	
+
 	// 获取配置信息
-	public static ConfigInfo loadConfig(String mybatisGeneratorConfig, String customConfig) throws SQLException, IOException {
+	public static ConfigInfo loadConfig(String mybatisGeneratorConfig, String customConfig)
+			throws SQLException, IOException {
 		File mbgConfigFile = new File(CLASSES, mybatisGeneratorConfig);
 		File customConfigFile = new File(CLASSES, customConfig);
 
@@ -99,7 +100,7 @@ public class MBGTemplate {
 
 		for (TableMetadata tableMetadata : tables) {
 			tableName = tableMetadata.getTableName();
-			className = tableName2ClassName(tableName).concat(domainObjectNameSuffix);
+			className = tableNameToClassName(tableName).concat(domainObjectNameSuffix);
 			tableTemplate.append(
 					"<table tableName=\"" + tableName + "\" domainObjectName=\"" + className + "\" " + propsInfo + "/>")
 					.append(System.lineSeparator());
@@ -177,14 +178,13 @@ public class MBGTemplate {
 		CustomCode customCode = customConfig.getCustomCode();
 		String startLimit = customCode.getStartLimit();
 		String endLimit = customCode.getEndLimit();
-		
+
 		for (File file : matchedFiles) {
 			String customCodeContent = findCustomCodeContent(file, startLimit, endLimit);
-			if(! customCodeContent.isEmpty()){
+			if (!customCodeContent.isEmpty()) {
 				System.out.println(customCodeContent);
 			}
 		}
-		
 
 		return null;
 	}
@@ -203,7 +203,7 @@ public class MBGTemplate {
 		//
 		// String xml = xstream.toXML(mbgConfig);
 	}
-	
+
 	/**
 	 * 获取自定义代码内容
 	 * 
@@ -228,7 +228,7 @@ public class MBGTemplate {
 		}
 		return content.toString();
 	}
-	
+
 	/**
 	 * 组装目标路径
 	 * 
@@ -252,18 +252,20 @@ public class MBGTemplate {
 	 * @param tableName
 	 * @return
 	 */
-	private static String tableName2ClassName(String tableName) {
-		return formatToHump(tableName, "_", true);
+	private static String tableNameToClassName(String tableName) {
+		return formatToHumpNamed(tableName, "_", true);
 	}
 
 	/**
-	 * 字符串分隔，分隔后的每段字符串首字母大写或小写
+	 * 格式化为驼峰命名
 	 * 
 	 * @param str
+	 *            需要格式化话的字符串
 	 * @param separator
+	 *            字符串分隔符
 	 * @return
 	 */
-	public static String formatToHump(String str, String separator, boolean letterUpper) {
+	public static String formatToHumpNamed(String str, String separator, boolean letterUpper) {
 		StringBuilder sb = new StringBuilder();
 		String[] items = str.split(separator);
 		for (int i = 0; i < items.length; i++) {
@@ -330,10 +332,10 @@ public class MBGTemplate {
 		XStream xstream = new XStream();
 		xstream.autodetectAnnotations(true);
 
-		Class<? extends Object> mappingClass = obj.getClass();
-		XStreamAlias alias = mappingClass.getAnnotation(XStreamAlias.class);
+		Class<? extends Object> objClass = obj.getClass();
+		XStreamAlias alias = objClass.getAnnotation(XStreamAlias.class);
 		String rootAlias = alias.value();
-		xstream.alias(rootAlias, mappingClass);
+		xstream.alias(rootAlias, objClass);
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter(config);

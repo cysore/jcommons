@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <customConfiguration>
+	<!-- 数据库表配置 -->
 	<tableConfig>
+		<!-- 数据库表的公共配置属性 -->
 		<properties>
 			<property name="enableCountByExample" value="false" />
 			<property name="enableDeleteByExample" value="false" />
@@ -9,17 +11,29 @@
 			<property name="enableUpdateByExample" value="false" />
 		</properties>
 		
+		<!-- 数据库表生成实体的统一后缀 -->
 		<domainObjectNameSuffix>Entity</domainObjectNameSuffix>
 		
+		<!-- 需要导入的表 -->
 		<include>a,b</include>
+
+		<!-- 需要排除的表 -->
 		<exclude>c,d</exclude>
 		
 	</tableConfig>
 	
+	<!-- 自定义代码配置 -->
 	<customCode>
+
+		<!-- 自定义代码开始边界匹配 -->
 		<startLimit>.*CUSTOM_CODE_START.*</startLimit>
+
+		<!-- 自定义代码结束边界匹配 -->
 		<endLimit>.*CUSTOM_CODE_END.*</endLimit>
+
+		<!-- 自定义代码输出目录 -->
 		<output>${basedir}/backup</output>
+
 	</customCode>
 
 </customConfiguration>

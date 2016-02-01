@@ -16,7 +16,7 @@
 
 		<!-- 数据库连接信息 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://192.168.1.12:3306/tmsdb_dev" userId="tmsdev"
+			connectionURL="jdbc:mysql://10.1.1.92:3306/tmsdb_dev" userId="tmsdev"
 			password="tmsdev" />
 
 		<!-- 指定生成的类型为java类型，避免数据库中number等类型字段 -->
@@ -41,7 +41,7 @@
 			targetPackage="com.penging.tms.common.repository" targetProject="MAVEN">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
-
+	
 		<!-- Table -->
 		<table tableName="tms_proc_pending_prod" domainObjectName="TmsProcPendingProdEntity"
 			enableCountByExample="false" enableDeleteByExample="false"
