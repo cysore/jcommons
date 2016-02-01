@@ -12,7 +12,11 @@ git fetch origin
 echo "execute git merge origin/develop..."
 git merge origin/develop
 
+echo "execute git add"
+git add .
+
+echo "execute git commit"
+git commit -m "jcommons commit"
+
 echo "execute git push origin develop..."
 git push origin develop
-
-pause

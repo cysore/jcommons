@@ -11,5 +11,3 @@ git fetch origin
 
 echo "execute git merge origin/develop..."
 git merge origin/develop
-
-pause
