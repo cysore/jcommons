@@ -15,10 +15,16 @@
 		<domainObjectNameSuffix>Entity</domainObjectNameSuffix>
 		
 		<!-- 需要导入的表 -->
-		<include>tms_ivmt_amount_xref,tms_ivmt_amount_xref_hist</include>
-
+		<includes>
+			<include>tms_ivmt_amount_xref</include>
+			<include>tms_ivmt_amount_xref_hist</include>
+		</includes>
+		
 		<!-- 需要排除的表 -->
-		<exclude>c,d</exclude>
+		<excludes>
+			<exclude>tms_ivmt_amount_xref</exclude>
+			<exclude>tms_ivmt_amount_xref_hist</exclude>
+		</excludes>
 		
 	</tableConfig>
 	

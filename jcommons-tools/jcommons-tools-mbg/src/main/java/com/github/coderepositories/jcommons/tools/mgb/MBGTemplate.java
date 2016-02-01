@@ -48,7 +48,7 @@ public class MBGTemplate {
 	static final String MBG_CONFIG_FILE = "generatorConfig.xml";
 
 	static final String CUSTOM_CONFIG_FILE = "customConfig.xml";
-	
+
 	// 自定义内容记录文件中，文件行的标识
 	static final String CUSTOM_CONTENT_FILE_LINE_FLAG = "#";
 
@@ -61,13 +61,13 @@ public class MBGTemplate {
 	public static void start() {
 		try {
 			Config config = loadConfig(MBG_CONFIG_FILE, CUSTOM_CONFIG_FILE);
-			
+
 			File customContent = saveCustomContent(config);
-			
+
 			MBGConfiguration mergeConfig = mergeConfig(config);
-			
+
 			generateCode(mergeConfig, customContent);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -112,19 +112,19 @@ public class MBGTemplate {
 	private static MBGConfiguration mergeConfig(Config config) throws SQLException {
 		MBGConfiguration mbgConfig = config.getMbgConfig();
 		Context context = mbgConfig.getContext();
-		
+
 		List<Table> tables = context.getTables();
-		if(S.isEmpty(tables)){
+		if (S.isEmpty(tables)) {
 			tables = new ArrayList<>();
 		}
-		
+
 		List<Table> customTables = getCustomTables(config);
-		if(S.notEmpty(customTables)){
+		if (S.notEmpty(customTables)) {
 			tables.addAll(customTables);
 		}
-		
+
 		context.setTables(tables);
-		
+
 		return mbgConfig;
 	}
 
@@ -132,22 +132,22 @@ public class MBGTemplate {
 	private static void generateCode(MBGConfiguration mbgConfig, File customContent) throws IOException {
 		Context context = mbgConfig.getContext();
 		List<Table> tables = context.getTables();
-		
+
 		// TODO 备份需要更新的文件
-		
+
 		// 每个table的对应的entity name
 		List<String> entityNames = new ArrayList<>();
 		for (Table table : tables) {
 			entityNames.add(table.getDomainObjectName());
 		}
-		
+
 		// 自动生成的文件
 		Map<String, File> fileNameWithFileMap = new LinkedHashMap<>();
 		List<File> generatorFiles = findGeneratorFiles(mbgConfig);
 		for (File file : generatorFiles) {
 			fileNameWithFileMap.put(file.getName(), file);
 		}
-		
+
 		// 删除需要更新的文件----------------------------
 		Set<String> fileNames = fileNameWithFileMap.keySet();
 		String entityFileName = null;
@@ -157,36 +157,36 @@ public class MBGTemplate {
 			entityFileName = entityName.concat(".java");
 			mapperFileName = entityName.concat("Mapper.java");
 			mapperXmlFileName = entityName.concat("Mapper.xml");
-			
-			if(fileNames.contains(entityFileName)){
+
+			if (fileNames.contains(entityFileName)) {
 				fileNameWithFileMap.get(entityFileName).delete();
 			}
-			if(fileNames.contains(mapperFileName)){
+			if (fileNames.contains(mapperFileName)) {
 				fileNameWithFileMap.get(mapperFileName).delete();
 			}
-			if(fileNames.contains(mapperXmlFileName)){
+			if (fileNames.contains(mapperXmlFileName)) {
 				fileNameWithFileMap.get(mapperXmlFileName).delete();
 			}
 		}
-		
+
 		// 生成文件 ----------------------------------
-		File mergedMbgConfigFile = new File(BASE_DIR, generateFileName()+".xml");
-		
+		File mergedMbgConfigFile = new File(BASE_DIR, generateFileName() + ".xml");
+
 		// a.生成合并的 mbgConfig.xml
 		writeConfig(mergedMbgConfigFile, mbgConfig);
-		
+
 		String mbgConfigContent = Files.toString(mergedMbgConfigFile, DEFAULT_CHARSET);
 		String mbgConfigDTD = getMBGConfigDTD();
 		Files.write(mbgConfigDTD.concat(mbgConfigContent), mergedMbgConfigFile, DEFAULT_CHARSET);
-		
+
 		// b.执行maven命令调用MBG插件生成代码
 		File pomFile = new File(BASE_DIR, "pom.xml");
-		S.execCmd(Arrays.asList("mvn -f " + pomFile.getAbsolutePath()
-				+ " -Dmybatis.generator.configurationFile="+mergedMbgConfigFile.getAbsolutePath()+" mybatis-generator:generate"));
-		
+		S.execCmd(Arrays.asList("mvn -f " + pomFile.getAbsolutePath() + " -Dmybatis.generator.configurationFile="
+				+ mergedMbgConfigFile.getAbsolutePath() + " mybatis-generator:generate"));
+
 		// c.删除合并的 mbgConfig.xml
-		 mergedMbgConfigFile.delete();
-		
+		mergedMbgConfigFile.delete();
+
 		// d.添加自定义内容
 		loadCustomContent(customContent);
 	}
@@ -223,30 +223,28 @@ public class MBGTemplate {
 		for (TableMetadata tableMetadata : tables) {
 			allTableNames.add(tableMetadata.getTableName());
 		}
-		
+
 		// 最终匹配的表
 		List<String> machedTableNames = new ArrayList<>();
-		
+
 		// 需要导入的表
-		String include = tableConfig.getInclude();
-		
+		List<String> includes = tableConfig.getIncludes();
+
 		// 需要排除的表
-		String exclude = tableConfig.getExclude();
-		
+		List<String> excludes = tableConfig.getExcludes();
+
 		// 优先级 include > exclude > database
-		if(S.notEmpty(include)){
-			String[] includes = include.split(",");
-			machedTableNames.addAll(Arrays.asList(includes));
-		}else if(S.notEmpty(exclude)){
-			String[] excludes = exclude.split(",");
+		if (S.notEmpty(includes)) {
+			machedTableNames.addAll(includes);
+		} else if (S.notEmpty(excludes)) {
 			for (String e : excludes) {
 				allTableNames.remove(e);
 			}
 			machedTableNames.addAll(allTableNames);
-		}else{
+		} else {
 			machedTableNames.addAll(allTableNames);
 		}
-		
+
 		StringBuilder tableTags = new StringBuilder();
 		String className = null;
 		for (String tableName : machedTableNames) {
@@ -255,7 +253,7 @@ public class MBGTemplate {
 					"<table tableName=\"" + tableName + "\" domainObjectName=\"" + className + "\" " + propsInfo + "/>")
 					.append(System.lineSeparator());
 		}
-		
+
 		Class<Context> cls = Context.class;
 		XStreamAlias alias = cls.getAnnotation(XStreamAlias.class);
 		String aliasValue = alias.value();
@@ -389,7 +387,7 @@ public class MBGTemplate {
 	 */
 	private static void loadCustomContent(File from) throws IOException {
 		List<String> lines = Files.readLines(from, DEFAULT_CHARSET);
-		if( lines.isEmpty() ){
+		if (lines.isEmpty()) {
 			// 没有自定义内容
 			System.out.println("没有自定义内容: " + from);
 			return;
@@ -397,7 +395,7 @@ public class MBGTemplate {
 		File file = null;
 		StringBuilder customCodeContent = new StringBuilder();
 		for (String line : lines) {
-			if (line.matches("^"+CUSTOM_CONTENT_FILE_LINE_FLAG+".*")) {
+			if (line.matches("^" + CUSTOM_CONTENT_FILE_LINE_FLAG + ".*")) {
 				if (null != file) {
 					appendCustomContentTo(file, customCodeContent.toString());
 					customCodeContent.setLength(0);
@@ -409,7 +407,7 @@ public class MBGTemplate {
 		}
 		appendCustomContentTo(file, customCodeContent.toString());
 	}
-	
+
 	/**
 	 * 追加自定义内容到一个文件
 	 * 
@@ -440,7 +438,7 @@ public class MBGTemplate {
 		}
 		Files.write(appendCustomCodeContent, to, DEFAULT_CHARSET);
 	}
-	
+
 	/**
 	 * 组装目标路径
 	 * 
@@ -564,20 +562,17 @@ public class MBGTemplate {
 			}
 		}
 	}
-	
-	public static String getMBGConfigDTD(){
+
+	public static String getMBGConfigDTD() {
 		StringBuilder dtd = new StringBuilder();
-		dtd.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
-			.append(System.lineSeparator())
-			.append("<!DOCTYPE generatorConfiguration")
-			.append(System.lineSeparator())
-			.append("  PUBLIC \"-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN\"")
-			.append(System.lineSeparator())
-			.append(" \"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd\">")
-			.append(System.lineSeparator());
-		return dtd.toString();	
+		dtd.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>").append(System.lineSeparator())
+				.append("<!DOCTYPE generatorConfiguration").append(System.lineSeparator())
+				.append("  PUBLIC \"-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN\"")
+				.append(System.lineSeparator()).append(" \"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd\">")
+				.append(System.lineSeparator());
+		return dtd.toString();
 	}
-	
+
 	private static Connection getConnection(String url, String user, String password) {
 		try {
 			return DriverManager.getConnection(url, user, password);
@@ -589,7 +584,7 @@ public class MBGTemplate {
 
 	public static void main(String[] args) {
 		try {
-			  start();
+			start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -25,4 +25,15 @@ public interface TmsIvmtAmountXrefEntityMapper {
     int updateByPrimaryKey1(TmsIvmtAmountXrefEntity record);
     
     /* CUSTOM_CODE_END */
+
+    /* CUSTOM_CODE_START */
+
+    /**
+     * 
+     * @param record
+     * @return
+     */
+    int updateByPrimaryKey1(TmsIvmtAmountXrefEntity record);
+    
+    /* CUSTOM_CODE_END */
 }

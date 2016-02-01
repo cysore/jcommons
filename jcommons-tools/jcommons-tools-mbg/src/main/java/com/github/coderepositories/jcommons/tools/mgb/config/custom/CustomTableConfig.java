@@ -1,10 +1,12 @@
 package com.github.coderepositories.jcommons.tools.mgb.config.custom;
 
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 /**
  * Table配置
@@ -18,10 +20,12 @@ public class CustomTableConfig {
 	private Properties properties;
 
 	private String domainObjectNameSuffix;
+	
+	@XStreamImplicit(itemFieldName="include")
+	private List<String> includes;
 
-	private String include;
-
-	private String exclude;
+	@XStreamImplicit(itemFieldName="exclude")
+	private List<String> excludes;
 
 	/**
 	 * 获取Table公共的属性配置信息
@@ -45,20 +49,20 @@ public class CustomTableConfig {
 		this.properties = properties;
 	}
 
-	public String getInclude() {
-		return include;
+	public List<String> getIncludes() {
+		return includes;
 	}
 
-	public void setInclude(String include) {
-		this.include = include;
+	public void setIncludes(List<String> includes) {
+		this.includes = includes;
 	}
 
-	public String getExclude() {
-		return exclude;
+	public List<String> getExcludes() {
+		return excludes;
 	}
 
-	public void setExclude(String exclude) {
-		this.exclude = exclude;
+	public void setExcludes(List<String> excludes) {
+		this.excludes = excludes;
 	}
 
 	public String getDomainObjectNameSuffix() {

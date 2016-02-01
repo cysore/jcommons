@@ -64,9 +64,10 @@
 		添加自定义代码到新的文件
 		
 
+V1.1版本 2016/2/1 17:57:30
+	把customConfig.xml 合并到 generatorConfig.xml
 	
-echo off
-taskkill /f /fi "SERVICES eq Tomcat7-Projects" /im tomcat7.exe
-ping 127.0.0.1 -n 2  1>nul
-net start Tomcat7-Projects
-ping 127.0.0.1 -n 2  1>nul
+
+
+
+	
