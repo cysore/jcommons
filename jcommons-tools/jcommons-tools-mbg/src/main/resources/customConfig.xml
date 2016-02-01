@@ -15,7 +15,7 @@
 		<domainObjectNameSuffix>Entity</domainObjectNameSuffix>
 		
 		<!-- 需要导入的表 -->
-		<include>a,b</include>
+		<include>tms_ivmt_amount_xref,tms_ivmt_amount_xref_hist</include>
 
 		<!-- 需要排除的表 -->
 		<exclude>c,d</exclude>
@@ -32,7 +32,7 @@
 		<endLimit>.*CUSTOM_CODE_END.*</endLimit>
 
 		<!-- 自定义代码输出目录 -->
-		<output>${basedir}/backup</output>
+		<output>mbgcustom</output>
 
 	</customCode>
 

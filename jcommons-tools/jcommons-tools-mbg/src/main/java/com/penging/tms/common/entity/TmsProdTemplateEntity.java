@@ -144,7 +144,7 @@ public class TmsProdTemplateEntity {
 
     private BigDecimal codAdjustRatio;
 
-    private String flgLoadHandled;
+    private String flgDisburse;
 
     private String txtSpecifyUsers;
 
@@ -710,12 +710,12 @@ public class TmsProdTemplateEntity {
         this.codAdjustRatio = codAdjustRatio;
     }
 
-    public String getFlgLoadHandled() {
-        return flgLoadHandled;
+    public String getFlgDisburse() {
+        return flgDisburse;
     }
 
-    public void setFlgLoadHandled(String flgLoadHandled) {
-        this.flgLoadHandled = flgLoadHandled;
+    public void setFlgDisburse(String flgDisburse) {
+        this.flgDisburse = flgDisburse;
     }
 
     public String getTxtSpecifyUsers() {

@@ -150,7 +150,7 @@ public class TmsProdMastLogEntity {
 
     private Integer codProfitMethod;
 
-    private String flgLoadHandled;
+    private String flgDisburse;
 
     private String txtSpecifyUsers;
 
@@ -740,12 +740,12 @@ public class TmsProdMastLogEntity {
         this.codProfitMethod = codProfitMethod;
     }
 
-    public String getFlgLoadHandled() {
-        return flgLoadHandled;
+    public String getFlgDisburse() {
+        return flgDisburse;
     }
 
-    public void setFlgLoadHandled(String flgLoadHandled) {
-        this.flgLoadHandled = flgLoadHandled;
+    public void setFlgDisburse(String flgDisburse) {
+        this.flgDisburse = flgDisburse;
     }
 
     public String getTxtSpecifyUsers() {

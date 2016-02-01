@@ -49,5 +49,24 @@
 		customConfig.xml
 
 接口
+	加载配置
+		xml -> bean
+		使用XStream组件就行解析
 	
+	合并配置
+		对table就行合并
 	
+	保存自定义代码
+	
+	生成代码
+		删除需要更新的文件
+		生成需要更新的文件
+		添加自定义代码到新的文件
+		
+
+	
+echo off
+taskkill /f /fi "SERVICES eq Tomcat7-Projects" /im tomcat7.exe
+ping 127.0.0.1 -n 2  1>nul
+net start Tomcat7-Projects
+ping 127.0.0.1 -n 2  1>nul

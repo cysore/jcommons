@@ -42,7 +42,7 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 	
-		<!-- Table -->
+		<!-- Table 
 		<table tableName="tms_proc_pending_prod" domainObjectName="TmsProcPendingProdEntity"
 			enableCountByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" enableUpdateByExample="false" />
@@ -52,6 +52,6 @@
 		<table tableName="tms_ivmt_amount_xref_hist" domainObjectName="TmsIvmtAmountXrefHistEntity"
 			enableCountByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" enableUpdateByExample="false" />
-
+		-->
 	</context>
 </generatorConfiguration>

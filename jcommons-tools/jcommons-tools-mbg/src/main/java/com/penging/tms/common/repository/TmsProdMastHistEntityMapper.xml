@@ -75,7 +75,7 @@
     <result column="cod_break_hold_no" property="codBreakHoldNo" jdbcType="VARCHAR" />
     <result column="cod_acct_guarantee" property="codAcctGuarantee" jdbcType="VARCHAR" />
     <result column="cod_profit_method" property="codProfitMethod" jdbcType="INTEGER" />
-    <result column="flg_load_handled" property="flgLoadHandled" jdbcType="CHAR" />
+    <result column="flg_disburse" property="flgDisburse" jdbcType="CHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.penging.tms.common.entity.TmsProdMastHistEntity" extends="BaseResultMap" >
     <result column="txt_specify_users" property="txtSpecifyUsers" jdbcType="LONGVARCHAR" />
@@ -95,7 +95,7 @@
     cod_comp_totally, dat_last_process, dat_next_process, dat_last_charge, dat_next_charge, 
     flg_principalization, dat_create, cod_create_user, cod_create_org, dat_modify, cod_modify_user, 
     cod_modify_org, ctr_update_srlno, amt_adjust, cod_adjust_ratio, cod_break_hold_no, 
-    cod_acct_guarantee, cod_profit_method, flg_load_handled
+    cod_acct_guarantee, cod_profit_method, flg_disburse
   </sql>
   <sql id="Blob_Column_List" >
     txt_specify_users, txt_prod_info
@@ -137,7 +137,7 @@
       cod_create_org, dat_modify, cod_modify_user, 
       cod_modify_org, ctr_update_srlno, amt_adjust, 
       cod_adjust_ratio, cod_break_hold_no, cod_acct_guarantee, 
-      cod_profit_method, flg_load_handled, txt_specify_users, 
+      cod_profit_method, flg_disburse, txt_specify_users, 
       txt_prod_info)
     values (#{codId,jdbcType=BIGINT}, #{codProdNo,jdbcType=VARCHAR}, #{codTemplateNo,jdbcType=VARCHAR}, 
       #{codExternProdNo,jdbcType=VARCHAR}, #{codOrigProdNo,jdbcType=VARCHAR}, #{codIvmtNo,jdbcType=VARCHAR}, 
@@ -163,7 +163,7 @@
       #{codCreateOrg,jdbcType=VARCHAR}, #{datModify,jdbcType=TIMESTAMP}, #{codModifyUser,jdbcType=VARCHAR}, 
       #{codModifyOrg,jdbcType=VARCHAR}, #{ctrUpdateSrlno,jdbcType=INTEGER}, #{amtAdjust,jdbcType=DECIMAL}, 
       #{codAdjustRatio,jdbcType=DECIMAL}, #{codBreakHoldNo,jdbcType=VARCHAR}, #{codAcctGuarantee,jdbcType=VARCHAR}, 
-      #{codProfitMethod,jdbcType=INTEGER}, #{flgLoadHandled,jdbcType=CHAR}, #{txtSpecifyUsers,jdbcType=LONGVARCHAR}, 
+      #{codProfitMethod,jdbcType=INTEGER}, #{flgDisburse,jdbcType=CHAR}, #{txtSpecifyUsers,jdbcType=LONGVARCHAR}, 
       #{txtProdInfo,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.penging.tms.common.entity.TmsProdMastHistEntity" >
@@ -388,8 +388,8 @@
       <if test="codProfitMethod != null" >
         cod_profit_method,
       </if>
-      <if test="flgLoadHandled != null" >
-        flg_load_handled,
+      <if test="flgDisburse != null" >
+        flg_disburse,
       </if>
       <if test="txtSpecifyUsers != null" >
         txt_specify_users,
@@ -618,8 +618,8 @@
       <if test="codProfitMethod != null" >
         #{codProfitMethod,jdbcType=INTEGER},
       </if>
-      <if test="flgLoadHandled != null" >
-        #{flgLoadHandled,jdbcType=CHAR},
+      <if test="flgDisburse != null" >
+        #{flgDisburse,jdbcType=CHAR},
       </if>
       <if test="txtSpecifyUsers != null" >
         #{txtSpecifyUsers,jdbcType=LONGVARCHAR},
@@ -848,8 +848,8 @@
       <if test="codProfitMethod != null" >
         cod_profit_method = #{codProfitMethod,jdbcType=INTEGER},
       </if>
-      <if test="flgLoadHandled != null" >
-        flg_load_handled = #{flgLoadHandled,jdbcType=CHAR},
+      <if test="flgDisburse != null" >
+        flg_disburse = #{flgDisburse,jdbcType=CHAR},
       </if>
       <if test="txtSpecifyUsers != null" >
         txt_specify_users = #{txtSpecifyUsers,jdbcType=LONGVARCHAR},
@@ -934,7 +934,7 @@
       cod_break_hold_no = #{codBreakHoldNo,jdbcType=VARCHAR},
       cod_acct_guarantee = #{codAcctGuarantee,jdbcType=VARCHAR},
       cod_profit_method = #{codProfitMethod,jdbcType=INTEGER},
-      flg_load_handled = #{flgLoadHandled,jdbcType=CHAR},
+      flg_disburse = #{flgDisburse,jdbcType=CHAR},
       txt_specify_users = #{txtSpecifyUsers,jdbcType=LONGVARCHAR},
       txt_prod_info = #{txtProdInfo,jdbcType=LONGVARCHAR}
     where cod_id = #{codId,jdbcType=BIGINT}
@@ -1013,7 +1013,7 @@
       cod_break_hold_no = #{codBreakHoldNo,jdbcType=VARCHAR},
       cod_acct_guarantee = #{codAcctGuarantee,jdbcType=VARCHAR},
       cod_profit_method = #{codProfitMethod,jdbcType=INTEGER},
-      flg_load_handled = #{flgLoadHandled,jdbcType=CHAR}
+      flg_disburse = #{flgDisburse,jdbcType=CHAR}
     where cod_id = #{codId,jdbcType=BIGINT}
   </update>
 </mapper>

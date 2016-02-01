@@ -88,7 +88,7 @@ public class TmsIvmtMastHistEntity {
 
     private Integer ctrUpdateSrlno;
 
-    private String flgLoanHandled;
+    private String flgDisburse;
 
     public Long getCodId() {
         return codId;
@@ -426,11 +426,11 @@ public class TmsIvmtMastHistEntity {
         this.ctrUpdateSrlno = ctrUpdateSrlno;
     }
 
-    public String getFlgLoanHandled() {
-        return flgLoanHandled;
+    public String getFlgDisburse() {
+        return flgDisburse;
     }
 
-    public void setFlgLoanHandled(String flgLoanHandled) {
-        this.flgLoanHandled = flgLoanHandled;
+    public void setFlgDisburse(String flgDisburse) {
+        this.flgDisburse = flgDisburse;
     }
 }

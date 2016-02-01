@@ -10,7 +10,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  *         2016年1月30日 下午1:18:03
  */
 @XStreamAlias("generatorConfiguration")
-public class MybatisGeneratorConfiguration {
+public class MBGConfiguration {
 
 	private Context context;
 

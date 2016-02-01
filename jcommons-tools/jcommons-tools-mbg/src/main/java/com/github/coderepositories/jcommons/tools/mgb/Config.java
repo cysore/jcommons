@@ -1,6 +1,6 @@
 package com.github.coderepositories.jcommons.tools.mgb;
 
-import com.github.coderepositories.jcommons.tools.mgb.config.MybatisGeneratorConfiguration;
+import com.github.coderepositories.jcommons.tools.mgb.config.MBGConfiguration;
 import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomConfiguration;
 
 /**
@@ -10,17 +10,17 @@ import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomConfig
  *
  *         2016年1月30日 下午4:56:21
  */
-public class ConfigInfo {
+public class Config {
 
-	private MybatisGeneratorConfiguration mbgConfig;
+	private MBGConfiguration mbgConfig;
 
 	private CustomConfiguration customConfig;
 
-	public MybatisGeneratorConfiguration getMbgConfig() {
+	public MBGConfiguration getMbgConfig() {
 		return mbgConfig;
 	}
 
-	public void setMbgConfig(MybatisGeneratorConfiguration mbgConfig) {
+	public void setMbgConfig(MBGConfiguration mbgConfig) {
 		this.mbgConfig = mbgConfig;
 	}
 

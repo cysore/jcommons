@@ -14,7 +14,7 @@ public interface TmsIvmtAmountXrefEntityMapper {
     int updateByPrimaryKeySelective(TmsIvmtAmountXrefEntity record);
 
     int updateByPrimaryKey(TmsIvmtAmountXrefEntity record);
-    
+
     /* CUSTOM_CODE_START */
 
     /**
@@ -25,5 +25,4 @@ public interface TmsIvmtAmountXrefEntityMapper {
     int updateByPrimaryKey1(TmsIvmtAmountXrefEntity record);
     
     /* CUSTOM_CODE_END */
-    
 }

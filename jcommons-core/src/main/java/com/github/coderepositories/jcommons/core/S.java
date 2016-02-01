@@ -345,22 +345,11 @@ public abstract class S {
 			bw = new BufferedWriter(new FileWriter(bat));
 			bw.write(sb.toString());
 			bw.flush();
+			bw.close();
 			execCmd(bat.getPath());
+			bat.delete();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			// 关闭流
-			if (notNull(bw)) {
-				try {
-					bw.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			// 删除临时bat文件
-			if (notNull(bat)) {
-				bat.delete();
-			}
 		}
 	}
 
@@ -386,6 +375,7 @@ public abstract class S {
 						String line1 = null;
 						while ((line1 = br1.readLine()) != null) {
 							if (line1 != null) {
+								System.out.println(line1);
 							}
 						}
 					} catch (IOException e) {
