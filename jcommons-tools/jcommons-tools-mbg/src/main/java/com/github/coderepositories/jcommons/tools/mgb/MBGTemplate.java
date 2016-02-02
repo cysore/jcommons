@@ -467,9 +467,18 @@ public class MBGTemplate {
 		});
 
 		List<File> matchedFiles = new ArrayList<>();
-		matchedFiles.addAll(Arrays.asList(javaModelFiles));
-		matchedFiles.addAll(Arrays.asList(sqlMapFiles));
-		matchedFiles.addAll(Arrays.asList(javaClientFiles));
+		
+		if(S.notEmpty(javaModelFiles)){
+			matchedFiles.addAll(Arrays.asList(javaModelFiles));
+		}
+
+		if(S.notEmpty(sqlMapFiles)){
+			matchedFiles.addAll(Arrays.asList(sqlMapFiles));
+		}
+
+		if(S.notEmpty(javaClientFiles)){
+			matchedFiles.addAll(Arrays.asList(javaClientFiles));
+		}
 
 		return matchedFiles;
 	}
