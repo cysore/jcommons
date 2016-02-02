@@ -64,8 +64,26 @@
 		添加自定义代码到新的文件
 		
 
-V1.1版本 2016/2/1 17:57:30
-	把customConfig.xml 合并到 generatorConfig.xml
+V1.1版本
+	把customConfig.xml 合并到 generatorConfig.xml(会有DTD解析错误，放到以后的版本解决)
+	把mbgConfig.xml 修改为 generatorConfig.xml,遵循Mybatis Generator 默认的命名规则
+	增加备份、恢复功能
+		在生成新的代码前，对之前生成的代码就行备份
+			/mbg
+				/时间戳
+					/javaModel 	(Entity.java)
+					/sqlMap		(Mapper.xml)
+					/javaClient	(Mapper.java)
+					customContent
+		生成新代码失败后，回滚所有操作，恢复操作前的状态
+			发生异常，进行回滚
+
+v1.2版本 
+	添加Maven插件版本
+	调整框架结构，做到容易扩展
+
+
+
 	
 
 

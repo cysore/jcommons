@@ -5,7 +5,7 @@ import java.net.URL;
 
 import org.junit.Test;
 
-import com.github.coderepositories.jcommons.tools.mgb.config.MBGConfiguration;
+import com.github.coderepositories.jcommons.tools.mgb.config.GeneratorConfiguration;
 import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomConfiguration;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -22,7 +22,7 @@ public class MBGConfigurationTest {
 		try {
 
 			File config = new File(CLASSES.getFile(), MYBATIS_GENERATOR_CONFIG_FILE);
-			Object obj = new MBGConfiguration();
+			Object obj = new GeneratorConfiguration();
 			readConfig(config, obj);
 			writeConfig(config, obj);
 

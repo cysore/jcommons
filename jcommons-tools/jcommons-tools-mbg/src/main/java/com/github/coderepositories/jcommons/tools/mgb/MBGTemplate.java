@@ -25,9 +25,9 @@ import com.github.coderepositories.jcommons.tools.mgb.config.JavaClientGenerator
 import com.github.coderepositories.jcommons.tools.mgb.config.JavaModelGenerator;
 import com.github.coderepositories.jcommons.tools.mgb.config.JavaTypeResolver;
 import com.github.coderepositories.jcommons.tools.mgb.config.JdbcConnection;
-import com.github.coderepositories.jcommons.tools.mgb.config.MBGConfiguration;
+import com.github.coderepositories.jcommons.tools.mgb.config.GeneratorConfiguration;
 import com.github.coderepositories.jcommons.tools.mgb.config.SqlMapGenerator;
-import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomCode;
+import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomContent;
 import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomConfiguration;
 import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomTableConfig;
 import com.github.coderepositories.jcommons.tools.mgb.config.table.Table;
@@ -37,17 +37,42 @@ import com.google.common.io.Files;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+/**
+ * Mybatis Generator Teamplate
+ * 
+ * @author zhangguangyong
+ *
+ *         2016年2月2日 上午11:19:53
+ */
 @SuppressWarnings("all")
 public class MBGTemplate {
-	// 当前工作目录
+	/**
+	 * 当前工作目录
+	 */
 	static final String BASE_DIR = System.getProperty("user.dir");
 
-	// 编译目录
-	static final String CLASSES = ClassLoader.getSystemResource("").getFile();
+	/**
+	 * 编译后输出目录 classes
+	 */
+	static final String CLASSES_DIR = ClassLoader.getSystemResource("").getFile();
 
 	static final String MBG_CONFIG_FILE = "generatorConfig.xml";
 
 	static final String CUSTOM_CONFIG_FILE = "customConfig.xml";
+
+	static final String CUSTOM_CONTENT_FILE = "CustomContent";
+
+	static final String JAVA_MODEL_FOLDER = "javaModel";
+
+	static final String JAVA_CLIENT_FOLDER = "javaClient";
+
+	static final String SQL_MAP_FOLDER = "sqlMap";
+
+	static final String JAVA_MODEL_FILE_SUFFIX = ".java";
+
+	static final String JAVA_CLIENT_FILE_SUFFIX = "Mapper.java";
+
+	static final String SQL_MAP_FILE_SUFFIX = "Mapper.xml";
 
 	// 自定义内容记录文件中，文件行的标识
 	static final String CUSTOM_CONTENT_FILE_LINE_FLAG = "#";
@@ -64,7 +89,7 @@ public class MBGTemplate {
 
 			File customContent = saveCustomContent(config);
 
-			MBGConfiguration mergeConfig = mergeConfig(config);
+			GeneratorConfiguration mergeConfig = mergeConfig(config);
 
 			generateCode(mergeConfig, customContent);
 
@@ -76,17 +101,17 @@ public class MBGTemplate {
 	/**
 	 * 加载配置信息
 	 * 
-	 * @param mbgConfig
+	 * @param generatorConfig
 	 * @param customConfig
 	 * @return
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	public static Config loadConfig(String mbgConfig, String customConfig) throws SQLException, IOException {
-		File mbgConfigFile = new File(CLASSES, mbgConfig);
-		File customConfigFile = new File(CLASSES, customConfig);
+	public static Config loadConfig(String generatorConfig, String customConfig) throws SQLException, IOException {
+		File mbgConfigFile = new File(CLASSES_DIR, generatorConfig);
+		File customConfigFile = new File(CLASSES_DIR, customConfig);
 
-		MBGConfiguration mbgCoinfgBean = new MBGConfiguration();
+		GeneratorConfiguration mbgCoinfgBean = new GeneratorConfiguration();
 		CustomConfiguration customConfigBean = new CustomConfiguration();
 
 		readConfig(mbgConfigFile, mbgCoinfgBean);
@@ -101,16 +126,19 @@ public class MBGTemplate {
 
 	// 保存自定义内容
 	private static File saveCustomContent(Config config) throws SQLException, IOException {
-		String output = config.getCustomConfig().getCustomCode().getOutput();
+		String output = config.getCustomConfig().getCustomContent().getOutput();
 		String customContent = getCustomContent(config);
-		File file = new File(output, generateFileName());
+		String generateFileName = generateFileName();
+
+		File file = new File(output + File.separator + generateFileName, CUSTOM_CONTENT_FILE);
+		Files.createParentDirs(file);
 		Files.write(customContent, file, DEFAULT_CHARSET);
 		return file;
 	}
 
 	// 合并配置文件
-	private static MBGConfiguration mergeConfig(Config config) throws SQLException {
-		MBGConfiguration mbgConfig = config.getMbgConfig();
+	private static GeneratorConfiguration mergeConfig(Config config) throws SQLException {
+		GeneratorConfiguration mbgConfig = config.getMbgConfig();
 		Context context = mbgConfig.getContext();
 
 		List<Table> tables = context.getTables();
@@ -129,11 +157,40 @@ public class MBGTemplate {
 	}
 
 	// 生成代码
-	private static void generateCode(MBGConfiguration mbgConfig, File customContent) throws IOException {
+	private static void generateCode(GeneratorConfiguration mbgConfig, File customContent) throws IOException {
 		Context context = mbgConfig.getContext();
 		List<Table> tables = context.getTables();
 
-		// TODO 备份需要更新的文件
+		// 备份自动生成的文件-----------------------------------
+		String parent = customContent.getParent();
+
+		// 文件名与文件的映射
+		Map<String, File> fileNameWithFileMap = new LinkedHashMap<>();
+
+		// 自动生成的文件
+		List<File> generatorFiles = findGeneratorFiles(mbgConfig);
+
+		// 备份文件
+		File backFile = null;
+		String fileName = null;
+		for (File file : generatorFiles) {
+			fileName = file.getName();
+			// 备份
+			if (fileName.endsWith(SQL_MAP_FILE_SUFFIX)) {
+				backFile = new File(parent + File.separator + SQL_MAP_FOLDER + File.separator + fileName);
+			} else if (fileName.endsWith(JAVA_CLIENT_FILE_SUFFIX)) {
+				backFile = new File(parent + File.separator + JAVA_CLIENT_FOLDER + File.separator + fileName);
+			} else {
+				backFile = new File(parent + File.separator + JAVA_MODEL_FOLDER + File.separator + fileName);
+			}
+
+			// 创建父目录，进行备份
+			Files.createParentDirs(backFile);
+			Files.write(Files.toString(file, DEFAULT_CHARSET), backFile, DEFAULT_CHARSET);
+
+			// 文件名与文件的映射，后面步骤会用到
+			fileNameWithFileMap.put(fileName, file);
+		}
 
 		// 每个table的对应的entity name
 		List<String> entityNames = new ArrayList<>();
@@ -141,31 +198,34 @@ public class MBGTemplate {
 			entityNames.add(table.getDomainObjectName());
 		}
 
-		// 自动生成的文件
-		Map<String, File> fileNameWithFileMap = new LinkedHashMap<>();
-		List<File> generatorFiles = findGeneratorFiles(mbgConfig);
-		for (File file : generatorFiles) {
-			fileNameWithFileMap.put(file.getName(), file);
-		}
+		// 删除需要更新的文件,同时记录这些文件----------------------------
+		List<String> updateFileNames = new ArrayList<>();
+		File updateFile = null;
 
-		// 删除需要更新的文件----------------------------
 		Set<String> fileNames = fileNameWithFileMap.keySet();
 		String entityFileName = null;
 		String mapperFileName = null;
 		String mapperXmlFileName = null;
+
 		for (String entityName : entityNames) {
-			entityFileName = entityName.concat(".java");
-			mapperFileName = entityName.concat("Mapper.java");
-			mapperXmlFileName = entityName.concat("Mapper.xml");
+			entityFileName = entityName.concat(JAVA_MODEL_FILE_SUFFIX);
+			mapperFileName = entityName.concat(JAVA_CLIENT_FILE_SUFFIX);
+			mapperXmlFileName = entityName.concat(SQL_MAP_FILE_SUFFIX);
 
 			if (fileNames.contains(entityFileName)) {
-				fileNameWithFileMap.get(entityFileName).delete();
+				updateFile = fileNameWithFileMap.get(entityFileName);
+				updateFileNames.add(updateFile.getAbsolutePath());
+				updateFile.delete();
 			}
 			if (fileNames.contains(mapperFileName)) {
-				fileNameWithFileMap.get(mapperFileName).delete();
+				updateFile = fileNameWithFileMap.get(mapperFileName);
+				updateFileNames.add(updateFile.getAbsolutePath());
+				updateFile.delete();
 			}
 			if (fileNames.contains(mapperXmlFileName)) {
-				fileNameWithFileMap.get(mapperXmlFileName).delete();
+				updateFile = fileNameWithFileMap.get(mapperXmlFileName);
+				updateFileNames.add(updateFile.getAbsolutePath());
+				updateFile.delete();
 			}
 		}
 
@@ -188,7 +248,7 @@ public class MBGTemplate {
 		mergedMbgConfigFile.delete();
 
 		// d.添加自定义内容
-		loadCustomContent(customContent);
+		loadCustomContent(updateFileNames, customContent);
 	}
 
 	/**
@@ -199,7 +259,7 @@ public class MBGTemplate {
 	 * @throws SQLException
 	 */
 	private static List<Table> getCustomTables(Config config) throws SQLException {
-		MBGConfiguration mbgConfig = config.getMbgConfig();
+		GeneratorConfiguration mbgConfig = config.getMbgConfig();
 		CustomConfiguration customConfig = config.getCustomConfig();
 
 		// JDBC配置信息
@@ -277,14 +337,14 @@ public class MBGTemplate {
 	 * @throws IOException
 	 */
 	private static String getCustomContent(Config config) throws SQLException, IOException {
-		MBGConfiguration mbgConfig = config.getMbgConfig();
+		GeneratorConfiguration mbgConfig = config.getMbgConfig();
 		// 获取扫描目录 targetProject / targetPackage
 		List<File> files = findGeneratorFiles(mbgConfig);
 
 		CustomConfiguration customConfig = config.getCustomConfig();
-		CustomCode customCode = customConfig.getCustomCode();
-		String startLimit = customCode.getStartLimit();
-		String endLimit = customCode.getEndLimit();
+		CustomContent customContent = customConfig.getCustomContent();
+		String startLimit = customContent.getStartLimit();
+		String endLimit = customContent.getEndLimit();
 
 		StringBuilder customCodeFileContent = new StringBuilder();
 		String customCodeContent = null;
@@ -305,7 +365,7 @@ public class MBGTemplate {
 	 * @param mbgConfig
 	 * @return
 	 */
-	private static List<File> findGeneratorFiles(MBGConfiguration mbgConfig) {
+	private static List<File> findGeneratorFiles(GeneratorConfiguration mbgConfig) {
 		// 获取扫描目录 targetProject / targetPackage
 		Context context = mbgConfig.getContext();
 
@@ -327,21 +387,21 @@ public class MBGTemplate {
 		File[] javaModelFiles = javaModelTargetPath.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
-				return name.endsWith(".java");
+				return name.endsWith(JAVA_MODEL_FILE_SUFFIX);
 			}
 		});
 
 		File[] sqlMapFiles = sqlMapTargetPath.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
-				return name.endsWith("Mapper.xml");
+				return name.endsWith(SQL_MAP_FILE_SUFFIX);
 			}
 		});
 
 		File[] javaClientFiles = javaClientTargetPath.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
-				return name.endsWith("Mapper.java");
+				return name.endsWith(JAVA_CLIENT_FILE_SUFFIX);
 			}
 		});
 
@@ -381,11 +441,14 @@ public class MBGTemplate {
 	/**
 	 * 加载自定义内容
 	 * 
+	 * @param updateFileNames
+	 *            需要更新的文件
+	 * 
 	 * @param from
 	 *            自定义内容内容文件
 	 * @throws IOException
 	 */
-	private static void loadCustomContent(File from) throws IOException {
+	private static void loadCustomContent(List<String> updateFileNames, File from) throws IOException {
 		List<String> lines = Files.readLines(from, DEFAULT_CHARSET);
 		if (lines.isEmpty()) {
 			// 没有自定义内容
@@ -395,9 +458,15 @@ public class MBGTemplate {
 		File file = null;
 		StringBuilder customCodeContent = new StringBuilder();
 		for (String line : lines) {
+			// 文件路径行
 			if (line.matches("^" + CUSTOM_CONTENT_FILE_LINE_FLAG + ".*")) {
+				// 文件不为空，说明已经读取了一个文件的自定义内容
 				if (null != file) {
-					appendCustomContentTo(file, customCodeContent.toString());
+					// 如果这个文件包含在这次更新的文件中，那么就把自定义内容添加到末尾
+					if(updateFileNames.contains(file.getName())){
+						appendCustomContentTo(file, customCodeContent.toString());
+					}
+					// 清空自定义内容，重新接受下一个文件的自定义内容哦
 					customCodeContent.setLength(0);
 				}
 				file = new File(line.replace(CUSTOM_CONTENT_FILE_LINE_FLAG, ""));
@@ -405,7 +474,10 @@ public class MBGTemplate {
 			}
 			customCodeContent.append(line).append(System.lineSeparator());
 		}
-		appendCustomContentTo(file, customCodeContent.toString());
+		
+		if(updateFileNames.contains(file.getName())){
+			appendCustomContentTo(file, customCodeContent.toString());
+		}
 	}
 
 	/**
@@ -523,6 +595,9 @@ public class MBGTemplate {
 	private static void readConfig(File config, Object obj) {
 		XStream xstream = new XStream();
 		xstream.autodetectAnnotations(true);
+
+		xstream.alias("include", String.class);
+		xstream.alias("exclude", String.class);
 
 		Class<? extends Object> objClass = obj.getClass();
 		XStreamAlias alias = objClass.getAnnotation(XStreamAlias.class);

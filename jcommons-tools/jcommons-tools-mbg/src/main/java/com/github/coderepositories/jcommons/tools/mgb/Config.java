@@ -1,6 +1,6 @@
 package com.github.coderepositories.jcommons.tools.mgb;
 
-import com.github.coderepositories.jcommons.tools.mgb.config.MBGConfiguration;
+import com.github.coderepositories.jcommons.tools.mgb.config.GeneratorConfiguration;
 import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomConfiguration;
 
 /**
@@ -12,15 +12,15 @@ import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomConfig
  */
 public class Config {
 
-	private MBGConfiguration mbgConfig;
+	private GeneratorConfiguration mbgConfig;
 
 	private CustomConfiguration customConfig;
 
-	public MBGConfiguration getMbgConfig() {
+	public GeneratorConfiguration getMbgConfig() {
 		return mbgConfig;
 	}
 
-	public void setMbgConfig(MBGConfiguration mbgConfig) {
+	public void setMbgConfig(GeneratorConfiguration mbgConfig) {
 		this.mbgConfig = mbgConfig;
 	}
 

@@ -9,12 +9,17 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  *
  *         2016年1月30日 下午12:49:16
  */
-@XStreamAlias("customConfiguration") 
+@XStreamAlias("customConfiguration")
 public class CustomConfiguration {
-
+	/**
+	 * 自定义Table配置
+	 */
 	private CustomTableConfig tableConfig;
 
-	private CustomCode customCode;
+	/**
+	 * 自定义内容配置
+	 */
+	private CustomContent customContent;
 
 	public CustomTableConfig getTableConfig() {
 		return tableConfig;
@@ -24,13 +29,12 @@ public class CustomConfiguration {
 		this.tableConfig = tableConfig;
 	}
 
-	public CustomCode getCustomCode() {
-		return customCode;
+	public CustomContent getCustomContent() {
+		return customContent;
 	}
 
-	public void setCustomCode(CustomCode customCode) {
-		this.customCode = customCode;
+	public void setCustomContent(CustomContent customContent) {
+		this.customContent = customContent;
 	}
 
-	
 }

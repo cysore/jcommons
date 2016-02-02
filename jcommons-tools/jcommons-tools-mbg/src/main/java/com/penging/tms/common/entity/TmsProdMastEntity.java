@@ -152,6 +152,10 @@ public class TmsProdMastEntity {
 
     private String flgDisburse;
 
+    private BigDecimal amtTrsfUnit;
+
+    private BigDecimal amtTrsfDistribution;
+
     private String txtSpecifyUsers;
 
     private String txtProdInfo;
@@ -746,6 +750,22 @@ public class TmsProdMastEntity {
 
     public void setFlgDisburse(String flgDisburse) {
         this.flgDisburse = flgDisburse;
+    }
+
+    public BigDecimal getAmtTrsfUnit() {
+        return amtTrsfUnit;
+    }
+
+    public void setAmtTrsfUnit(BigDecimal amtTrsfUnit) {
+        this.amtTrsfUnit = amtTrsfUnit;
+    }
+
+    public BigDecimal getAmtTrsfDistribution() {
+        return amtTrsfDistribution;
+    }
+
+    public void setAmtTrsfDistribution(BigDecimal amtTrsfDistribution) {
+        this.amtTrsfDistribution = amtTrsfDistribution;
     }
 
     public String getTxtSpecifyUsers() {

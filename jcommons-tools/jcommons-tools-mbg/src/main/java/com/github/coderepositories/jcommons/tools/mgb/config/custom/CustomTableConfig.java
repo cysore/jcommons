@@ -6,10 +6,9 @@ import java.util.Properties;
 import java.util.Set;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 /**
- * Table配置
+ * 自定义Table公共配置
  * 
  * @author zhangguangyong
  *
@@ -17,14 +16,24 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
  */
 @XStreamAlias("tableConfig")
 public class CustomTableConfig {
+	/**
+	 * Table公共属性配置
+	 */
 	private Properties properties;
-
-	private String domainObjectNameSuffix;
 	
-	@XStreamImplicit(itemFieldName="include")
-	private List<String> includes;
+	/**
+	 * Table映射实体的统一后缀
+	 */
+	private String domainObjectNameSuffix;
 
-	@XStreamImplicit(itemFieldName="exclude")
+	/**
+	 * 需要导入的Table(优先于excludes)
+	 */
+	private List<String> includes;
+	
+	/**
+	 * 需要排除的Table
+	 */
 	private List<String> excludes;
 
 	/**
