@@ -27,6 +27,9 @@ import com.google.common.collect.Lists;
  */
 public abstract class S {
 
+	/**
+	 * 换行符
+	 */
 	static final String LINE_SEPARATOR = System.lineSeparator();
 
 	/**

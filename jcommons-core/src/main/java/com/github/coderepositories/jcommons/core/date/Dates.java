@@ -346,7 +346,15 @@ public abstract class Dates {
 		return plus(date, millis, DateTimeField.MILLIS);
 	}
 
-	static Date plus(Date date, int plus, DateTimeField field) {
+	/**
+	 * 日期计算
+	 * 
+	 * @param date
+	 * @param plus
+	 * @param field
+	 * @return
+	 */
+	private static Date plus(Date date, int plus, DateTimeField field) {
 		DateTime dt = new DateTime(date);
 		switch (field) {
 		case YEAR:
@@ -377,78 +385,195 @@ public abstract class Dates {
 		return dt.toDate();
 	}
 
+	/**
+	 * 获取星期数相对于年份
+	 * 
+	 * @param date
+	 * @return
+	 */
 	public static int getWeekOfYear(Date date) {
 		return new DateTime(date.getTime()).getWeekOfWeekyear();
 	}
 
+	/**
+	 * 获取天数相对于星期
+	 * 
+	 * @param date
+	 * @return
+	 */
 	public static int getDayOfWeek(Date date) {
 		return new DateTime(date.getTime()).getDayOfWeek();
 	}
 
+	/**
+	 * 获取天数相对于月份
+	 * 
+	 * @param date
+	 * @return
+	 */
 	public static int getDayOfMonth(Date date) {
 		return new DateTime(date.getTime()).getDayOfMonth();
 	}
 
+	/**
+	 * 获取天数相对于年份
+	 * 
+	 * @param date
+	 * @return
+	 */
 	public static int getDayOfYear(Date date) {
 		return new DateTime(date.getTime()).getDayOfYear();
 	}
 
+	/**
+	 * 获取月份相对于年份
+	 * 
+	 * @param date
+	 * @return
+	 */
 	public static int getMonthOfYear(Date date) {
 		return new DateTime(date.getTime()).getMonthOfYear();
 	}
 
+	/**
+	 * 获取小时相对于天
+	 * 
+	 * @param date
+	 * @return
+	 */
 	public static int getHourOfDay(Date date) {
 		return new DateTime(date.getTime()).getHourOfDay();
 	}
 
+	/**
+	 * 获取分钟相对于小时
+	 * 
+	 * @param date
+	 * @return
+	 */
 	public static int getMinuteOfHour(Date date) {
 		return new DateTime(date.getTime()).getMinuteOfHour();
 	}
 
+	/**
+	 * 获取分钟相对于天
+	 * 
+	 * @param date
+	 * @return
+	 */
 	public static int getMinuteOfDay(Date date) {
 		return new DateTime(date.getTime()).getMinuteOfDay();
 	}
 
+	/**
+	 * 获取当前秒钟相对于分钟
+	 * 
+	 * @param date
+	 * @return
+	 */
 	public static int getSecondOfMinute(Date date) {
 		return new DateTime(date.getTime()).getSecondOfMinute();
 	}
 
+	/**
+	 * 获取当前秒钟相对于天
+	 * 
+	 * @param date
+	 * @return
+	 */
 	public static int getSecondOfDay(Date date) {
 		return new DateTime(date.getTime()).getSecondOfDay();
 	}
 
+	/**
+	 * 获取当前毫秒相对于秒
+	 * 
+	 * @param date
+	 * @return
+	 */
 	public static int getMillisOfSecond(Date date) {
 		return new DateTime(date.getTime()).getMillisOfSecond();
 	}
 
+	/**
+	 * 获取当前毫秒相对于天
+	 * 
+	 * @param date
+	 * @return
+	 */
 	public static int getMillisOfDay(Date date) {
 		return new DateTime(date.getTime()).getMillisOfDay();
 	}
 
+	/**
+	 * 获取当前日期-时间的字符串格式
+	 * 
+	 * @return
+	 */
 	public static String getCurrentDateTime() {
 		return formatDateTime(new Date());
 	}
 
+	/**
+	 * 获取当前日期的字符串格式
+	 * 
+	 * @return
+	 */
 	public static String getCurrentDate() {
 		return formatDate(new Date());
 	}
 
+	/**
+	 * 获取当前时间的字符串格式
+	 * 
+	 * @return
+	 */
 	public static String getCurrentTime() {
 		return formatTime(new Date());
 	}
 
+	/**
+	 * Double 转 Date,主要用于Excel解析
+	 * 
+	 * @param date
+	 * @return
+	 */
 	public static Date getJavaDate(double date) {
 		return getJavaDate(date, (TimeZone) null);
 	}
 
+	/**
+	 * Double 转 Date,主要用于Excel解析
+	 * 
+	 * @param date
+	 * @param tz
+	 * @return
+	 */
 	public static Date getJavaDate(double date, TimeZone tz) {
 		return getJavaDate(date, false, tz);
 	}
 
+	/**
+	 * Double 转 Date,主要用于Excel解析
+	 * 
+	 * @param date
+	 * @param use1904windowing
+	 * @param tz
+	 * @return
+	 */
 	public static Date getJavaDate(double date, boolean use1904windowing, TimeZone tz) {
 		return getJavaCalendar(date, use1904windowing, tz, false).getTime();
 	}
 
+	/**
+	 * Double 转 Date,主要用于Excel解析
+	 * 
+	 * @param date
+	 * @param use1904windowing
+	 * @param timeZone
+	 * @param roundSeconds
+	 * @return
+	 */
 	public static Calendar getJavaCalendar(double date, boolean use1904windowing, TimeZone timeZone,
 			boolean roundSeconds) {
 		int wholeDays = (int) Math.floor(date);
@@ -463,6 +588,15 @@ public abstract class Dates {
 		return calendar;
 	}
 
+	/**
+	 * Double 转 Date,主要用于Excel解析
+	 * 
+	 * @param calendar
+	 * @param wholeDays
+	 * @param millisecondsInDay
+	 * @param use1904windowing
+	 * @param roundSeconds
+	 */
 	public static void setCalendar(Calendar calendar, int wholeDays, int millisecondsInDay, boolean use1904windowing,
 			boolean roundSeconds) {
 		int startYear = 1900;
