@@ -8,8 +8,15 @@ import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
+/**
+ * 数据库元信息查看工具
+ * 
+ * @author zhangguangyong
+ *
+ *         2016年2月2日 下午2:08:56
+ */
 public abstract class DbInfos {
-	
+
 	/**
 	 * 获取数据库的所有表信息
 	 * 
@@ -45,7 +52,5 @@ public abstract class DbInfos {
 		DbUtils.close(conn);
 		return returnValue;
 	}
-	
-	
 
 }

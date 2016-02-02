@@ -12,16 +12,16 @@ import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomConfig
  */
 public class Config {
 
-	private GeneratorConfiguration mbgConfig;
+	private GeneratorConfiguration generatorConfig;
 
 	private CustomConfiguration customConfig;
 
-	public GeneratorConfiguration getMbgConfig() {
-		return mbgConfig;
+	public GeneratorConfiguration getGeneratorConfig() {
+		return generatorConfig;
 	}
 
-	public void setMbgConfig(GeneratorConfiguration mbgConfig) {
-		this.mbgConfig = mbgConfig;
+	public void setGeneratorConfig(GeneratorConfiguration generatorConfig) {
+		this.generatorConfig = generatorConfig;
 	}
 
 	public CustomConfiguration getCustomConfig() {

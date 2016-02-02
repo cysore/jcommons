@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.dbutils.DbUtils;
+import org.apache.commons.io.IOUtils;
 
 import com.github.coderepositories.jcommons.core.S;
 import com.github.coderepositories.jcommons.tools.mgb.config.Context;
@@ -56,41 +57,82 @@ public class MBGTemplate {
 	 */
 	static final String CLASSES_DIR = ClassLoader.getSystemResource("").getFile();
 
-	static final String MBG_CONFIG_FILE = "generatorConfig.xml";
+	/**
+	 * Mybatis Generator Config File
+	 */
+	static final String GENERATOR_CONFIG_FILE = "generatorConfig.xml";
 
+	/**
+	 * 自定义配置文件
+	 */
 	static final String CUSTOM_CONFIG_FILE = "customConfig.xml";
 
+	/**
+	 * 自定义内容文件
+	 */
 	static final String CUSTOM_CONTENT_FILE = "CustomContent";
 
+	/**
+	 * Entity.java 备份文件夹
+	 */
 	static final String JAVA_MODEL_FOLDER = "javaModel";
 
+	/**
+	 * Mapper.java 备份文件夹
+	 */
 	static final String JAVA_CLIENT_FOLDER = "javaClient";
 
+	/**
+	 * Mapper.xml 备份文件夹
+	 */
 	static final String SQL_MAP_FOLDER = "sqlMap";
 
+	/**
+	 * Entity.java 文件后缀
+	 */
 	static final String JAVA_MODEL_FILE_SUFFIX = ".java";
 
+	/**
+	 * Mapper.java 文件后缀
+	 */
 	static final String JAVA_CLIENT_FILE_SUFFIX = "Mapper.java";
 
+	/**
+	 * Mapper.xml 文件后缀
+	 */
 	static final String SQL_MAP_FILE_SUFFIX = "Mapper.xml";
 
-	// 自定义内容记录文件中，文件行的标识
+	/**
+	 * 自定义内容记录文件中，文件行的标识
+	 */
 	static final String CUSTOM_CONTENT_FILE_LINE_FLAG = "#";
 
-	// 默认字符
+	/**
+	 * 默认字符
+	 */
 	static final Charset DEFAULT_CHARSET = Charset.defaultCharset();
 
-	// 换行符
+	/**
+	 * 换行符
+	 */
 	static final String LINE_SEPARATOR = System.lineSeparator();
 
+	/**
+	 * 启动接口
+	 */
 	public static void start() {
 		try {
-			Config config = loadConfig(MBG_CONFIG_FILE, CUSTOM_CONFIG_FILE);
 
+			// 加载配置信息
+			Config config = loadConfig(GENERATOR_CONFIG_FILE, CUSTOM_CONFIG_FILE);
+
+			// 保存自定义内容
 			File customContent = saveCustomContent(config);
 
+			// 合并配置信息
 			GeneratorConfiguration mergeConfig = mergeConfig(config);
 
+			// 生成代码
 			generateCode(mergeConfig, customContent);
 
 		} catch (Exception e) {
@@ -108,23 +150,30 @@ public class MBGTemplate {
 	 * @throws IOException
 	 */
 	public static Config loadConfig(String generatorConfig, String customConfig) throws SQLException, IOException {
-		File mbgConfigFile = new File(CLASSES_DIR, generatorConfig);
+		File generatorConfigFile = new File(CLASSES_DIR, generatorConfig);
 		File customConfigFile = new File(CLASSES_DIR, customConfig);
 
-		GeneratorConfiguration mbgCoinfgBean = new GeneratorConfiguration();
+		GeneratorConfiguration generatorCoinfgBean = new GeneratorConfiguration();
 		CustomConfiguration customConfigBean = new CustomConfiguration();
 
-		readConfig(mbgConfigFile, mbgCoinfgBean);
+		readConfig(generatorConfigFile, generatorCoinfgBean);
 		readConfig(customConfigFile, customConfigBean);
 
 		Config config = new Config();
-		config.setMbgConfig(mbgCoinfgBean);
+		config.setGeneratorConfig(generatorCoinfgBean);
 		config.setCustomConfig(customConfigBean);
 
 		return config;
 	}
 
-	// 保存自定义内容
+	/**
+	 * 保存自定义内容
+	 * 
+	 * @param config
+	 * @return
+	 * @throws SQLException
+	 * @throws IOException
+	 */
 	private static File saveCustomContent(Config config) throws SQLException, IOException {
 		String output = config.getCustomConfig().getCustomContent().getOutput();
 		String customContent = getCustomContent(config);
@@ -136,10 +185,16 @@ public class MBGTemplate {
 		return file;
 	}
 
-	// 合并配置文件
+	/**
+	 * 合并配置文件
+	 * 
+	 * @param config
+	 * @return
+	 * @throws SQLException
+	 */
 	private static GeneratorConfiguration mergeConfig(Config config) throws SQLException {
-		GeneratorConfiguration mbgConfig = config.getMbgConfig();
-		Context context = mbgConfig.getContext();
+		GeneratorConfiguration generatorConfig = config.getGeneratorConfig();
+		Context context = generatorConfig.getContext();
 
 		List<Table> tables = context.getTables();
 		if (S.isEmpty(tables)) {
@@ -153,10 +208,16 @@ public class MBGTemplate {
 
 		context.setTables(tables);
 
-		return mbgConfig;
+		return generatorConfig;
 	}
 
-	// 生成代码
+	/**
+	 * 生成代码
+	 * 
+	 * @param mbgConfig
+	 * @param customContent
+	 * @throws IOException
+	 */
 	private static void generateCode(GeneratorConfiguration mbgConfig, File customContent) throws IOException {
 		Context context = mbgConfig.getContext();
 		List<Table> tables = context.getTables();
@@ -259,11 +320,11 @@ public class MBGTemplate {
 	 * @throws SQLException
 	 */
 	private static List<Table> getCustomTables(Config config) throws SQLException {
-		GeneratorConfiguration mbgConfig = config.getMbgConfig();
+		GeneratorConfiguration generatorConfig = config.getGeneratorConfig();
 		CustomConfiguration customConfig = config.getCustomConfig();
 
 		// JDBC配置信息
-		JdbcConnection jdbc = mbgConfig.getContext().getJdbcConnection();
+		JdbcConnection jdbc = generatorConfig.getContext().getJdbcConnection();
 		DbUtils.loadDriver(jdbc.getDriverClass());
 		String url = jdbc.getConnectionURL();
 		Connection conn = getConnection(url, jdbc.getUserId(), jdbc.getPassword());
@@ -337,9 +398,9 @@ public class MBGTemplate {
 	 * @throws IOException
 	 */
 	private static String getCustomContent(Config config) throws SQLException, IOException {
-		GeneratorConfiguration mbgConfig = config.getMbgConfig();
+		GeneratorConfiguration generatorConfig = config.getGeneratorConfig();
 		// 获取扫描目录 targetProject / targetPackage
-		List<File> files = findGeneratorFiles(mbgConfig);
+		List<File> files = findGeneratorFiles(generatorConfig);
 
 		CustomConfiguration customConfig = config.getCustomConfig();
 		CustomContent customContent = customConfig.getCustomContent();
@@ -463,7 +524,7 @@ public class MBGTemplate {
 				// 文件不为空，说明已经读取了一个文件的自定义内容
 				if (null != file) {
 					// 如果这个文件包含在这次更新的文件中，那么就把自定义内容添加到末尾
-					if(updateFileNames.contains(file.getName())){
+					if (updateFileNames.contains(file.getName())) {
 						appendCustomContentTo(file, customCodeContent.toString());
 					}
 					// 清空自定义内容，重新接受下一个文件的自定义内容哦
@@ -474,8 +535,8 @@ public class MBGTemplate {
 			}
 			customCodeContent.append(line).append(System.lineSeparator());
 		}
-		
-		if(updateFileNames.contains(file.getName())){
+
+		if (updateFileNames.contains(file.getName())) {
 			appendCustomContentTo(file, customCodeContent.toString());
 		}
 	}
@@ -638,6 +699,11 @@ public class MBGTemplate {
 		}
 	}
 
+	/**
+	 * 获取MybatisGeneratorConfig.xml的DTD定义
+	 * 
+	 * @return
+	 */
 	public static String getMBGConfigDTD() {
 		StringBuilder dtd = new StringBuilder();
 		dtd.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>").append(System.lineSeparator())
@@ -648,6 +714,14 @@ public class MBGTemplate {
 		return dtd.toString();
 	}
 
+	/**
+	 * 获取数据库连接
+	 * 
+	 * @param url
+	 * @param user
+	 * @param password
+	 * @return
+	 */
 	private static Connection getConnection(String url, String user, String password) {
 		try {
 			return DriverManager.getConnection(url, user, password);
