@@ -36,6 +36,7 @@ public abstract class S {
 	 * 断言一个对象的值为Null
 	 * 
 	 * @param obj
+	 *            校验对象
 	 * @return
 	 */
 	public static boolean isNull(Object obj) {
@@ -46,6 +47,7 @@ public abstract class S {
 	 * 断言一个对象的值不为Null
 	 * 
 	 * @param obj
+	 *            校验对象
 	 * @return
 	 */
 	public static boolean notNull(Object obj) {
@@ -75,6 +77,7 @@ public abstract class S {
 	 * </pre>
 	 * 
 	 * @param obj
+	 *            校验对象
 	 * @return
 	 */
 	public static boolean notEmpty(Object obj) {
@@ -112,6 +115,7 @@ public abstract class S {
 	 * 检查Null值，如果 reference 为Null，则抛出{@code NullPointerException}异常
 	 * 
 	 * @param reference
+	 *            校验对象
 	 * @return
 	 */
 	public static <T> T checkNotNull(T reference) {
@@ -125,6 +129,7 @@ public abstract class S {
 	 * 检查Null值，如果 reference 为Null，则抛出{@code NullPointerException}异常
 	 * 
 	 * @param reference
+	 *            校验对象
 	 * @param errorMessage
 	 *            错误消息描述
 	 * @return
@@ -140,6 +145,7 @@ public abstract class S {
 	 * 检查Null值，如果 reference 为Null，则抛出{@code NullPointerException}异常
 	 * 
 	 * @param reference
+	 *            校验对象
 	 * @param errorMessageTemplate
 	 *            错误消息模板
 	 * @param errorMessageArgs
@@ -157,6 +163,7 @@ public abstract class S {
 	 * 检查空值，如果 reference 为空，则抛出{@code EmptyValueException}异常
 	 * 
 	 * @param reference
+	 *            校验对象
 	 * @return
 	 */
 	public static <T> T checkNotEmpty(T reference) {
@@ -170,6 +177,7 @@ public abstract class S {
 	 * 检查空值，如果 reference 为空，则抛出{@code EmptyValueException}异常
 	 * 
 	 * @param reference
+	 *            校验对象
 	 * @param errorMessage
 	 *            自定义错误消息描述
 	 * @return
@@ -185,6 +193,7 @@ public abstract class S {
 	 * 检查空值，如果 reference 为空，则抛出{@code EmptyValueException}异常
 	 * 
 	 * @param reference
+	 *            校验对象
 	 * @param errorMessageTemplate
 	 *            错误消息模板
 	 * @param errorMessageArgs
@@ -212,6 +221,7 @@ public abstract class S {
 	 * </pre>
 	 * 
 	 * @param primitiveArray
+	 *            原始类型数组
 	 * @return
 	 */
 	public static Object toObjectArray(Object primitiveArray) {
@@ -360,6 +370,7 @@ public abstract class S {
 	 * 执行CMD命令
 	 * 
 	 * @param cmd
+	 *            CMD命令
 	 */
 	private static void execCmd(String cmd) {
 		Process p = null;

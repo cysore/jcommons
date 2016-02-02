@@ -1,5 +1,6 @@
 package com.github.coderepositories.jcommons.datatransfer.excel.configuration;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +9,10 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 @XStreamAlias("excel")
-public class ExcelLabel {
+public class ExcelLabel implements Serializable{
 	
+	private static final long serialVersionUID = 7341995954763784092L;
+
 	@XStreamAsAttribute
 	private String namespace;
 	
