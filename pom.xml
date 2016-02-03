@@ -565,6 +565,7 @@
 					<version>${org.apache.maven.plugins.surefire.version}</version>
 					<configuration>
 						<skip>true</skip>
+						<argLine>-Dfile.encoding=UTF-8</argLine>
 					</configuration>
 				</plugin>
 
@@ -606,6 +607,15 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>${org.apache.maven.plugins.javadoc.version}</version>
+				<configuration>
+					<show>private</show>
+					<nohelp>true</nohelp>
+					<aggregate>true</aggregate>
+					<charset>UTF-8</charset>
+					<encoding>UTF-8</encoding>
+					<docencoding>UTF-8</docencoding>
+				</configuration>
+
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -615,6 +625,7 @@
 					</execution>
 				</executions>
 			</plugin>
+
 		</plugins>
 	</build>
 
