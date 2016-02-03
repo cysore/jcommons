@@ -94,4 +94,12 @@ https://github.com/binshaoqq/Nirvana.git
 
 
 
-	
+
+<module fileurl="file://D:/Workspace/github/zhangguangyong/codes/codes.iml" filepath="D:/Workspace/github/zhangguangyong/codes/codes.iml"/>
+
+<module fileurl="file://D:/Workspace/github/myresources/penging-codes-tms/tms-xparent.iml" filepath="D:/Workspace/github/myresources/penging-codes-tms/tms-xparent.iml"/>
+
+
+// 删除远程分支
+git push --delete origin devel
+

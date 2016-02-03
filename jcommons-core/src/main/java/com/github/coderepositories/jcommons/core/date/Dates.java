@@ -282,11 +282,10 @@ public abstract class Dates {
 
 	/**
 	 * 添加星期
-	 * 
 	 * @param date
-	 * @param months
-	 * @return
-	 */
+	 * @param weeks
+     * @return
+     */
 	public static Date plusWeeks(Date date, int weeks) {
 		return plus(date, weeks, DateTimeField.WEEKS);
 	}

@@ -1,35 +1,9 @@
 package com.github.coderepositories.jcommons.tools.mgb;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileWriter;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.commons.dbutils.DbUtils;
-import org.apache.commons.io.IOUtils;
-
 import com.github.coderepositories.jcommons.core.S;
-import com.github.coderepositories.jcommons.tools.mgb.config.Context;
-import com.github.coderepositories.jcommons.tools.mgb.config.JavaClientGenerator;
-import com.github.coderepositories.jcommons.tools.mgb.config.JavaModelGenerator;
-import com.github.coderepositories.jcommons.tools.mgb.config.JavaTypeResolver;
-import com.github.coderepositories.jcommons.tools.mgb.config.JdbcConnection;
-import com.github.coderepositories.jcommons.tools.mgb.config.GeneratorConfiguration;
-import com.github.coderepositories.jcommons.tools.mgb.config.SqlMapGenerator;
-import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomContent;
+import com.github.coderepositories.jcommons.tools.mgb.config.*;
 import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomConfiguration;
+import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomContent;
 import com.github.coderepositories.jcommons.tools.mgb.config.custom.CustomTableConfig;
 import com.github.coderepositories.jcommons.tools.mgb.config.table.Table;
 import com.github.coderepositories.jcommons.tools.mgb.dbinfo.DbInfos;
@@ -37,6 +11,18 @@ import com.github.coderepositories.jcommons.tools.mgb.dbinfo.TableMetadata;
 import com.google.common.io.Files;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import org.apache.commons.dbutils.DbUtils;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.*;
 
 /**
  * Mybatis Generator Teamplate
@@ -47,15 +33,16 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  */
 @SuppressWarnings("all")
 public class MBGTemplate {
-	/**
-	 * 当前工作目录
-	 */
-	static final String BASE_DIR = System.getProperty("user.dir");
 
 	/**
 	 * 编译后输出目录 classes
 	 */
 	static final String CLASSES_DIR = ClassLoader.getSystemResource("").getFile();
+
+	/**
+	 * 当前项目路径
+	 */
+	static final String PROJECT_DIR = new File(CLASSES_DIR).getParentFile().getParent();
 
 	/**
 	 * Mybatis Generator Config File
@@ -179,7 +166,7 @@ public class MBGTemplate {
 		String customContent = getCustomContent(config);
 		String generateFileName = generateFileName();
 
-		File file = new File(output + File.separator + generateFileName, CUSTOM_CONTENT_FILE);
+		File file = new File(PROJECT_DIR + File.separator + output + File.separator + generateFileName, CUSTOM_CONTENT_FILE);
 		Files.createParentDirs(file);
 		Files.write(customContent, file, DEFAULT_CHARSET);
 		return file;
@@ -291,7 +278,7 @@ public class MBGTemplate {
 		}
 
 		// 生成文件 ----------------------------------
-		File mergedMbgConfigFile = new File(BASE_DIR, generateFileName() + ".xml");
+		File mergedMbgConfigFile = new File(PROJECT_DIR, generateFileName() + ".xml");
 
 		// a.生成合并的 mbgConfig.xml
 		writeConfig(mergedMbgConfigFile, mbgConfig);
@@ -301,7 +288,7 @@ public class MBGTemplate {
 		Files.write(mbgConfigDTD.concat(mbgConfigContent), mergedMbgConfigFile, DEFAULT_CHARSET);
 
 		// b.执行maven命令调用MBG插件生成代码
-		File pomFile = new File(BASE_DIR, "pom.xml");
+		File pomFile = new File(PROJECT_DIR, "pom.xml");
 		S.execCmd(Arrays.asList("mvn -f " + pomFile.getAbsolutePath() + " -Dmybatis.generator.configurationFile="
 				+ mergedMbgConfigFile.getAbsolutePath() + " mybatis-generator:generate"));
 
@@ -592,7 +579,7 @@ public class MBGTemplate {
 		String targetPackagePath = targetPackage.replace(".", "/");
 
 		if ("MAVEN".equalsIgnoreCase(targetProject)) {
-			return new File(BASE_DIR, "src/main/java/" + targetPackagePath);
+			return new File(PROJECT_DIR, "src/main/java/" + targetPackagePath);
 		}
 
 		return new File(targetProject, targetPackagePath);
@@ -742,10 +729,13 @@ public class MBGTemplate {
 
 	public static void main(String[] args) {
 		try {
+			// 启动
 			start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
+
 
 }
