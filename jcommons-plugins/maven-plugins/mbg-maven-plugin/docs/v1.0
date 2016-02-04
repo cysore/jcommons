@@ -50,6 +50,22 @@ Maven Plugin 学习篇
             
             定义参数在一个Mojo
             
+            tableProperties
+            
+            tableIncludes
+            
+            tableExcludes
+            
+            domainObjectNameSuffix
+            
+            customContentStartLimit
+            
+            customContentEndLimit
+            
+            customContentOutputDirectory
+            
+            
+            
                     
             
                 

@@ -1,30 +1,7 @@
 package com.github.coderepositories.jcommons.tools.mbg;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.commons.dbutils.DbUtils;
-
 import com.github.coderepositories.jcommons.core.S;
-import com.github.coderepositories.jcommons.tools.mbg.config.Context;
-import com.github.coderepositories.jcommons.tools.mbg.config.GeneratorConfiguration;
-import com.github.coderepositories.jcommons.tools.mbg.config.JavaClientGenerator;
-import com.github.coderepositories.jcommons.tools.mbg.config.JavaModelGenerator;
-import com.github.coderepositories.jcommons.tools.mbg.config.JdbcConnection;
-import com.github.coderepositories.jcommons.tools.mbg.config.SqlMapGenerator;
+import com.github.coderepositories.jcommons.tools.mbg.config.*;
 import com.github.coderepositories.jcommons.tools.mbg.config.custom.CustomConfiguration;
 import com.github.coderepositories.jcommons.tools.mbg.config.custom.CustomContent;
 import com.github.coderepositories.jcommons.tools.mbg.config.custom.CustomTableConfig;
@@ -34,6 +11,17 @@ import com.github.coderepositories.jcommons.tools.mbg.dbinfo.TableMetadata;
 import com.google.common.io.Files;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import org.apache.commons.dbutils.DbUtils;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.*;
 
 /**
  * Mybatis Generator Teamplate
@@ -115,14 +103,34 @@ public class MBGTemplate {
      */
     static final String LINE_SEPARATOR = System.lineSeparator();
 
-    /**
-     * 启动接口
-     */
     public static void start() {
         try {
 
             // 加载配置信息
             Config config = loadConfig(GENERATOR_CONFIG_FILE, CUSTOM_CONFIG_FILE);
+
+            // 保存自定义内容
+            File customContent = saveCustomContent(config);
+
+            // 合并配置信息
+            GeneratorConfiguration mergeConfig = mergeConfig(config);
+
+            // 生成代码
+            generateCode(mergeConfig, customContent);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * 启动接口
+     */
+    public static void start(File generatorConfig, CustomConfiguration customConfig) {
+        try {
+
+            // 加载配置信息
+            Config config = loadConfig(generatorConfig, customConfig);
 
             // 保存自定义内容
             File customContent = saveCustomContent(config);
@@ -160,6 +168,26 @@ public class MBGTemplate {
         Config config = new Config();
         config.setGeneratorConfig(generatorCoinfgBean);
         config.setCustomConfig(customConfigBean);
+
+        return config;
+    }
+
+    /**
+     * 加载配置信息
+     * @param generatorConfig
+     * @param customConfig
+     * @return
+     * @throws SQLException
+     * @throws IOException
+     */
+    public static Config loadConfig(File generatorConfig, CustomConfiguration customConfig) throws SQLException, IOException {
+        GeneratorConfiguration generatorCoinfgBean = new GeneratorConfiguration();
+
+        readConfig(generatorConfig, generatorCoinfgBean);
+
+        Config config = new Config();
+        config.setGeneratorConfig(generatorCoinfgBean);
+        config.setCustomConfig(customConfig);
 
         return config;
     }

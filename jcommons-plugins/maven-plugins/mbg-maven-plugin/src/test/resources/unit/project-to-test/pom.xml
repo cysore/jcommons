@@ -16,18 +16,87 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                
+
                 <groupId>com.github.coderepositories</groupId>
                 <artifactId>mbg-maven-plugin</artifactId>
                 <version>1.0</version>
                 <configuration>
-                    <!-- Specify the MyMojo parameter -->
+                    <!-- Specify the MyMojo parameter 
                     <outputDirectory>target/test-harness/project-to-test</outputDirectory>
+                    
+                    <myBoolean>true</myBoolean>
+                    <myInteger>100</myInteger>
+                    <myDate>2016-02-04 2:22:55.1 PM</myDate>
+                    
+                    <myArray>
+                        <param>a</param>
+                        <param>b</param>
+                    </myArray>
+                    
+                    <myList>
+                        <param>1</param>
+                        <param>a</param>
+                    </myList>
+                    -->
+
+                    <generatorConfiguretionFile>src/main/resources/generatorConfig.xml</generatorConfiguretionFile>
+                    
+                    <tableConfig>
+                        <properties>
+
+                            <property>
+                                <name>enableCountByExample</name>
+                                <value>false</value>
+                            </property>
+                            <property>
+                                <name>enableDeleteByExample</name>
+                                <value>false</value>
+                            </property>
+                            <property>
+                                <name>enableSelectByExample</name>
+                                <value>false</value>
+                            </property>
+                            <property>
+                                <name>enableUpdateByExample</name>
+                                <value>false</value>
+                            </property>
+
+                        </properties>
+
+                        <domainObjectNameSuffix>Entity</domainObjectNameSuffix>
+
+                        <!-- 需要导入的表 
+                        <includes>
+                            <include>tms_ivmt_amount_xref</include>
+                            <include>tms_ivmt_amount_xref_hist</include>
+                        </includes>
+                        -->
+
+                        <!-- 需要排除的表 -->
+                        <excludes>
+                            <exclude>tms_ivmt_amount_xref</exclude>
+                            <exclude>tms_ivmt_amount_xref_hist</exclude>
+                        </excludes>
+
+                    </tableConfig>
+
+                    <customContent>
+                        <!-- 自定义代码开始边界匹配 -->
+                        <startLimit>.*CUSTOM_CONTENT_START.*</startLimit>
+
+                        <!-- 自定义代码结束边界匹配 -->
+                        <endLimit>.*CUSTOM_CONTENT_END.*</endLimit>
+
+                        <!-- 自定义代码输出目录 -->
+                        <output>mbg</output>
+                    </customContent>
+
                 </configuration>
 
             </plugin>
