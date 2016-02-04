@@ -1,0 +1,63 @@
+Maven Plugin 学习篇
+    编写Maven插件
+        Maven插件的命名规范
+            <yourplugin>-maven-plugin 
+                自定义插件尽量使用这种名称，将来调用的时候Maven能够按照这种约定缩短调用命令
+            maven-<yourplugin>-plugin
+                这种命令规范，是Maven官方的插件命名，如果使用这种命名会有侵权的嫌疑
+        
+        Maven 插件 POM 定义
+            groupId 
+                插件所属组，你可能会有自己的一个插件组
+            artifactId
+                插件名称
+            version
+                插件版本
+            packaging
+                这里需要设置为 maven-plugin
+            dependencies
+                Maven插件的依赖组件
+                
+            完整的配置请参考例子   
+                
+        
+        执行命令
+            全限名称
+                mvn groupId:artifactId:version:goal
+            简短名称,省略版本号
+                mvn groupId:artifactId:goal
+            最短名称，配置groupId,artifactId按照Maven约定命名
+                mvn artifactId:goal
+                                                                             
+        配置自己的插件在一个指定生命周期
+            <excutions>
+                <excution>
+                    <phase>compile</phase>
+                    <goals>
+                        <goal>sayhi</goal>
+                    </goals>
+                </excution>
+            </excutions>
+            
+        
+        Example例子
+            创建一个Maven插件
+                mvn archetype:generate \
+                  -DgroupId=sample.plugin \
+                  -DartifactId=hello-maven-plugin \
+                  -DarchetypeGroupId=org.apache.maven.archetypes \
+                  -DarchetypeArtifactId=maven-archetype-plugin
+            
+            定义参数在一个Mojo
+            
+                    
+            
+                
+            
+    测试Maven插件
+        
+
+        
+            
+        
+    
