@@ -99,6 +99,7 @@ mvn jcommons-plugins-mbg:touch
 cobertura-maven-plugin
 
 // maven插件教程
+https://maven.apache.org/guides/plugin/guide-java-plugin-development.html
 http://www.tuicool.com/articles/uaqyAn
 http://www.jianshu.com/p/a8f5830bbd98
 

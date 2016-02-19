@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.penging.tms.common.repository.TmsIvmtMastEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.penging.tms.common.entity.TmsIvmtMastEntity" >
+    <id column="cod_id" property="codId" jdbcType="BIGINT" />
+    <result column="cod_ivmt_no" property="codIvmtNo" jdbcType="VARCHAR" />
+    <result column="cod_prod_no" property="codProdNo" jdbcType="VARCHAR" />
+    <result column="cod_ivmt_type" property="codIvmtType" jdbcType="INTEGER" />
+    <result column="cod_prod_unit" property="codProdUnit" jdbcType="INTEGER" />
+    <result column="cod_ivmt_propotion" property="codIvmtPropotion" jdbcType="DECIMAL" />
+    <result column="cod_ivmt_unit" property="codIvmtUnit" jdbcType="INTEGER" />
+    <result column="amt_distribution" property="amtDistribution" jdbcType="DECIMAL" />
+    <result column="amt_ivmt_total" property="amtIvmtTotal" jdbcType="DECIMAL" />
+    <result column="amt_ivmt_principal" property="amtIvmtPrincipal" jdbcType="DECIMAL" />
+    <result column="amt_receive_principal" property="amtReceivePrincipal" jdbcType="DECIMAL" />
+    <result column="amt_profit_expect" property="amtProfitExpect" jdbcType="DECIMAL" />
+    <result column="amt_total_estimate" property="amtTotalEstimate" jdbcType="DECIMAL" />
+    <result column="amt_profit_actual" property="amtProfitActual" jdbcType="DECIMAL" />
+    <result column="amt_profit_additional" property="amtProfitAdditional" jdbcType="DECIMAL" />
+    <result column="amt_service_charge" property="amtServiceCharge" jdbcType="DECIMAL" />
+    <result column="amt_profit_adjust" property="amtProfitAdjust" jdbcType="DECIMAL" />
+    <result column="amt_recover" property="amtRecover" jdbcType="DECIMAL" />
+    <result column="amt_sum_extra_source" property="amtSumExtraSource" jdbcType="DECIMAL" />
+    <result column="amt_rat_sum_extra_source" property="amtRatSumExtraSource" jdbcType="DECIMAL" />
+    <result column="amt_transfer" property="amtTransfer" jdbcType="DECIMAL" />
+    <result column="amt_trade" property="amtTrade" jdbcType="DECIMAL" />
+    <result column="cod_cust_id" property="codCustId" jdbcType="VARCHAR" />
+    <result column="cod_acct_no" property="codAcctNo" jdbcType="VARCHAR" />
+    <result column="dat_ivmt" property="datIvmt" jdbcType="TIMESTAMP" />
+    <result column="cod_trsf_portion" property="codTrsfPortion" jdbcType="INTEGER" />
+    <result column="cod_trade_portion" property="codTradePortion" jdbcType="INTEGER" />
+    <result column="cod_trsf_count" property="codTrsfCount" jdbcType="INTEGER" />
+    <result column="cod_freeze_no" property="codFreezeNo" jdbcType="INTEGER" />
+    <result column="dat_calculation" property="datCalculation" jdbcType="TIMESTAMP" />
+    <result column="dat_distribution" property="datDistribution" jdbcType="TIMESTAMP" />
+    <result column="cod_channel_id" property="codChannelId" jdbcType="VARCHAR" />
+    <result column="cod_user_ref" property="codUserRef" jdbcType="VARCHAR" />
+    <result column="cod_txn_ref" property="codTxnRef" jdbcType="VARCHAR" />
+    <result column="dat_create" property="datCreate" jdbcType="TIMESTAMP" />
+    <result column="cod_create_user" property="codCreateUser" jdbcType="VARCHAR" />
+    <result column="cod_create_org" property="codCreateOrg" jdbcType="VARCHAR" />
+    <result column="dat_modify" property="datModify" jdbcType="TIMESTAMP" />
+    <result column="cod_modify_user" property="codModifyUser" jdbcType="VARCHAR" />
+    <result column="cod_modify_org" property="codModifyOrg" jdbcType="VARCHAR" />
+    <result column="ctr_update_srlno" property="ctrUpdateSrlno" jdbcType="INTEGER" />
+    <result column="flg_disburse" property="flgDisburse" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cod_id, cod_ivmt_no, cod_prod_no, cod_ivmt_type, cod_prod_unit, cod_ivmt_propotion, 
+    cod_ivmt_unit, amt_distribution, amt_ivmt_total, amt_ivmt_principal, amt_receive_principal, 
+    amt_profit_expect, amt_total_estimate, amt_profit_actual, amt_profit_additional, 
+    amt_service_charge, amt_profit_adjust, amt_recover, amt_sum_extra_source, amt_rat_sum_extra_source, 
+    amt_transfer, amt_trade, cod_cust_id, cod_acct_no, dat_ivmt, cod_trsf_portion, cod_trade_portion, 
+    cod_trsf_count, cod_freeze_no, dat_calculation, dat_distribution, cod_channel_id, 
+    cod_user_ref, cod_txn_ref, dat_create, cod_create_user, cod_create_org, dat_modify, 
+    cod_modify_user, cod_modify_org, ctr_update_srlno, flg_disburse
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tms_ivmt_mast
+    where cod_id = #{codId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tms_ivmt_mast
+    where cod_id = #{codId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.penging.tms.common.entity.TmsIvmtMastEntity" >
+    insert into tms_ivmt_mast (cod_id, cod_ivmt_no, cod_prod_no, 
+      cod_ivmt_type, cod_prod_unit, cod_ivmt_propotion, 
+      cod_ivmt_unit, amt_distribution, amt_ivmt_total, 
+      amt_ivmt_principal, amt_receive_principal, 
+      amt_profit_expect, amt_total_estimate, amt_profit_actual, 
+      amt_profit_additional, amt_service_charge, 
+      amt_profit_adjust, amt_recover, amt_sum_extra_source, 
+      amt_rat_sum_extra_source, amt_transfer, amt_trade, 
+      cod_cust_id, cod_acct_no, dat_ivmt, 
+      cod_trsf_portion, cod_trade_portion, cod_trsf_count, 
+      cod_freeze_no, dat_calculation, dat_distribution, 
+      cod_channel_id, cod_user_ref, cod_txn_ref, 
+      dat_create, cod_create_user, cod_create_org, 
+      dat_modify, cod_modify_user, cod_modify_org, 
+      ctr_update_srlno, flg_disburse)
+    values (#{codId,jdbcType=BIGINT}, #{codIvmtNo,jdbcType=VARCHAR}, #{codProdNo,jdbcType=VARCHAR}, 
+      #{codIvmtType,jdbcType=INTEGER}, #{codProdUnit,jdbcType=INTEGER}, #{codIvmtPropotion,jdbcType=DECIMAL}, 
+      #{codIvmtUnit,jdbcType=INTEGER}, #{amtDistribution,jdbcType=DECIMAL}, #{amtIvmtTotal,jdbcType=DECIMAL}, 
+      #{amtIvmtPrincipal,jdbcType=DECIMAL}, #{amtReceivePrincipal,jdbcType=DECIMAL}, 
+      #{amtProfitExpect,jdbcType=DECIMAL}, #{amtTotalEstimate,jdbcType=DECIMAL}, #{amtProfitActual,jdbcType=DECIMAL}, 
+      #{amtProfitAdditional,jdbcType=DECIMAL}, #{amtServiceCharge,jdbcType=DECIMAL}, 
+      #{amtProfitAdjust,jdbcType=DECIMAL}, #{amtRecover,jdbcType=DECIMAL}, #{amtSumExtraSource,jdbcType=DECIMAL}, 
+      #{amtRatSumExtraSource,jdbcType=DECIMAL}, #{amtTransfer,jdbcType=DECIMAL}, #{amtTrade,jdbcType=DECIMAL}, 
+      #{codCustId,jdbcType=VARCHAR}, #{codAcctNo,jdbcType=VARCHAR}, #{datIvmt,jdbcType=TIMESTAMP}, 
+      #{codTrsfPortion,jdbcType=INTEGER}, #{codTradePortion,jdbcType=INTEGER}, #{codTrsfCount,jdbcType=INTEGER}, 
+      #{codFreezeNo,jdbcType=INTEGER}, #{datCalculation,jdbcType=TIMESTAMP}, #{datDistribution,jdbcType=TIMESTAMP}, 
+      #{codChannelId,jdbcType=VARCHAR}, #{codUserRef,jdbcType=VARCHAR}, #{codTxnRef,jdbcType=VARCHAR}, 
+      #{datCreate,jdbcType=TIMESTAMP}, #{codCreateUser,jdbcType=VARCHAR}, #{codCreateOrg,jdbcType=VARCHAR}, 
+      #{datModify,jdbcType=TIMESTAMP}, #{codModifyUser,jdbcType=VARCHAR}, #{codModifyOrg,jdbcType=VARCHAR}, 
+      #{ctrUpdateSrlno,jdbcType=INTEGER}, #{flgDisburse,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.penging.tms.common.entity.TmsIvmtMastEntity" >
+    insert into tms_ivmt_mast
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="codId != null" >
+        cod_id,
+      </if>
+      <if test="codIvmtNo != null" >
+        cod_ivmt_no,
+      </if>
+      <if test="codProdNo != null" >
+        cod_prod_no,
+      </if>
+      <if test="codIvmtType != null" >
+        cod_ivmt_type,
+      </if>
+      <if test="codProdUnit != null" >
+        cod_prod_unit,
+      </if>
+      <if test="codIvmtPropotion != null" >
+        cod_ivmt_propotion,
+      </if>
+      <if test="codIvmtUnit != null" >
+        cod_ivmt_unit,
+      </if>
+      <if test="amtDistribution != null" >
+        amt_distribution,
+      </if>
+      <if test="amtIvmtTotal != null" >
+        amt_ivmt_total,
+      </if>
+      <if test="amtIvmtPrincipal != null" >
+        amt_ivmt_principal,
+      </if>
+      <if test="amtReceivePrincipal != null" >
+        amt_receive_principal,
+      </if>
+      <if test="amtProfitExpect != null" >
+        amt_profit_expect,
+      </if>
+      <if test="amtTotalEstimate != null" >
+        amt_total_estimate,
+      </if>
+      <if test="amtProfitActual != null" >
+        amt_profit_actual,
+      </if>
+      <if test="amtProfitAdditional != null" >
+        amt_profit_additional,
+      </if>
+      <if test="amtServiceCharge != null" >
+        amt_service_charge,
+      </if>
+      <if test="amtProfitAdjust != null" >
+        amt_profit_adjust,
+      </if>
+      <if test="amtRecover != null" >
+        amt_recover,
+      </if>
+      <if test="amtSumExtraSource != null" >
+        amt_sum_extra_source,
+      </if>
+      <if test="amtRatSumExtraSource != null" >
+        amt_rat_sum_extra_source,
+      </if>
+      <if test="amtTransfer != null" >
+        amt_transfer,
+      </if>
+      <if test="amtTrade != null" >
+        amt_trade,
+      </if>
+      <if test="codCustId != null" >
+        cod_cust_id,
+      </if>
+      <if test="codAcctNo != null" >
+        cod_acct_no,
+      </if>
+      <if test="datIvmt != null" >
+        dat_ivmt,
+      </if>
+      <if test="codTrsfPortion != null" >
+        cod_trsf_portion,
+      </if>
+      <if test="codTradePortion != null" >
+        cod_trade_portion,
+      </if>
+      <if test="codTrsfCount != null" >
+        cod_trsf_count,
+      </if>
+      <if test="codFreezeNo != null" >
+        cod_freeze_no,
+      </if>
+      <if test="datCalculation != null" >
+        dat_calculation,
+      </if>
+      <if test="datDistribution != null" >
+        dat_distribution,
+      </if>
+      <if test="codChannelId != null" >
+        cod_channel_id,
+      </if>
+      <if test="codUserRef != null" >
+        cod_user_ref,
+      </if>
+      <if test="codTxnRef != null" >
+        cod_txn_ref,
+      </if>
+      <if test="datCreate != null" >
+        dat_create,
+      </if>
+      <if test="codCreateUser != null" >
+        cod_create_user,
+      </if>
+      <if test="codCreateOrg != null" >
+        cod_create_org,
+      </if>
+      <if test="datModify != null" >
+        dat_modify,
+      </if>
+      <if test="codModifyUser != null" >
+        cod_modify_user,
+      </if>
+      <if test="codModifyOrg != null" >
+        cod_modify_org,
+      </if>
+      <if test="ctrUpdateSrlno != null" >
+        ctr_update_srlno,
+      </if>
+      <if test="flgDisburse != null" >
+        flg_disburse,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="codId != null" >
+        #{codId,jdbcType=BIGINT},
+      </if>
+      <if test="codIvmtNo != null" >
+        #{codIvmtNo,jdbcType=VARCHAR},
+      </if>
+      <if test="codProdNo != null" >
+        #{codProdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="codIvmtType != null" >
+        #{codIvmtType,jdbcType=INTEGER},
+      </if>
+      <if test="codProdUnit != null" >
+        #{codProdUnit,jdbcType=INTEGER},
+      </if>
+      <if test="codIvmtPropotion != null" >
+        #{codIvmtPropotion,jdbcType=DECIMAL},
+      </if>
+      <if test="codIvmtUnit != null" >
+        #{codIvmtUnit,jdbcType=INTEGER},
+      </if>
+      <if test="amtDistribution != null" >
+        #{amtDistribution,jdbcType=DECIMAL},
+      </if>
+      <if test="amtIvmtTotal != null" >
+        #{amtIvmtTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="amtIvmtPrincipal != null" >
+        #{amtIvmtPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="amtReceivePrincipal != null" >
+        #{amtReceivePrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="amtProfitExpect != null" >
+        #{amtProfitExpect,jdbcType=DECIMAL},
+      </if>
+      <if test="amtTotalEstimate != null" >
+        #{amtTotalEstimate,jdbcType=DECIMAL},
+      </if>
+      <if test="amtProfitActual != null" >
+        #{amtProfitActual,jdbcType=DECIMAL},
+      </if>
+      <if test="amtProfitAdditional != null" >
+        #{amtProfitAdditional,jdbcType=DECIMAL},
+      </if>
+      <if test="amtServiceCharge != null" >
+        #{amtServiceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="amtProfitAdjust != null" >
+        #{amtProfitAdjust,jdbcType=DECIMAL},
+      </if>
+      <if test="amtRecover != null" >
+        #{amtRecover,jdbcType=DECIMAL},
+      </if>
+      <if test="amtSumExtraSource != null" >
+        #{amtSumExtraSource,jdbcType=DECIMAL},
+      </if>
+      <if test="amtRatSumExtraSource != null" >
+        #{amtRatSumExtraSource,jdbcType=DECIMAL},
+      </if>
+      <if test="amtTransfer != null" >
+        #{amtTransfer,jdbcType=DECIMAL},
+      </if>
+      <if test="amtTrade != null" >
+        #{amtTrade,jdbcType=DECIMAL},
+      </if>
+      <if test="codCustId != null" >
+        #{codCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="codAcctNo != null" >
+        #{codAcctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="datIvmt != null" >
+        #{datIvmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codTrsfPortion != null" >
+        #{codTrsfPortion,jdbcType=INTEGER},
+      </if>
+      <if test="codTradePortion != null" >
+        #{codTradePortion,jdbcType=INTEGER},
+      </if>
+      <if test="codTrsfCount != null" >
+        #{codTrsfCount,jdbcType=INTEGER},
+      </if>
+      <if test="codFreezeNo != null" >
+        #{codFreezeNo,jdbcType=INTEGER},
+      </if>
+      <if test="datCalculation != null" >
+        #{datCalculation,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datDistribution != null" >
+        #{datDistribution,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codChannelId != null" >
+        #{codChannelId,jdbcType=VARCHAR},
+      </if>
+      <if test="codUserRef != null" >
+        #{codUserRef,jdbcType=VARCHAR},
+      </if>
+      <if test="codTxnRef != null" >
+        #{codTxnRef,jdbcType=VARCHAR},
+      </if>
+      <if test="datCreate != null" >
+        #{datCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codCreateUser != null" >
+        #{codCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="codCreateOrg != null" >
+        #{codCreateOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="datModify != null" >
+        #{datModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codModifyUser != null" >
+        #{codModifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="codModifyOrg != null" >
+        #{codModifyOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="ctrUpdateSrlno != null" >
+        #{ctrUpdateSrlno,jdbcType=INTEGER},
+      </if>
+      <if test="flgDisburse != null" >
+        #{flgDisburse,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.penging.tms.common.entity.TmsIvmtMastEntity" >
+    update tms_ivmt_mast
+    <set >
+      <if test="codIvmtNo != null" >
+        cod_ivmt_no = #{codIvmtNo,jdbcType=VARCHAR},
+      </if>
+      <if test="codProdNo != null" >
+        cod_prod_no = #{codProdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="codIvmtType != null" >
+        cod_ivmt_type = #{codIvmtType,jdbcType=INTEGER},
+      </if>
+      <if test="codProdUnit != null" >
+        cod_prod_unit = #{codProdUnit,jdbcType=INTEGER},
+      </if>
+      <if test="codIvmtPropotion != null" >
+        cod_ivmt_propotion = #{codIvmtPropotion,jdbcType=DECIMAL},
+      </if>
+      <if test="codIvmtUnit != null" >
+        cod_ivmt_unit = #{codIvmtUnit,jdbcType=INTEGER},
+      </if>
+      <if test="amtDistribution != null" >
+        amt_distribution = #{amtDistribution,jdbcType=DECIMAL},
+      </if>
+      <if test="amtIvmtTotal != null" >
+        amt_ivmt_total = #{amtIvmtTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="amtIvmtPrincipal != null" >
+        amt_ivmt_principal = #{amtIvmtPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="amtReceivePrincipal != null" >
+        amt_receive_principal = #{amtReceivePrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="amtProfitExpect != null" >
+        amt_profit_expect = #{amtProfitExpect,jdbcType=DECIMAL},
+      </if>
+      <if test="amtTotalEstimate != null" >
+        amt_total_estimate = #{amtTotalEstimate,jdbcType=DECIMAL},
+      </if>
+      <if test="amtProfitActual != null" >
+        amt_profit_actual = #{amtProfitActual,jdbcType=DECIMAL},
+      </if>
+      <if test="amtProfitAdditional != null" >
+        amt_profit_additional = #{amtProfitAdditional,jdbcType=DECIMAL},
+      </if>
+      <if test="amtServiceCharge != null" >
+        amt_service_charge = #{amtServiceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="amtProfitAdjust != null" >
+        amt_profit_adjust = #{amtProfitAdjust,jdbcType=DECIMAL},
+      </if>
+      <if test="amtRecover != null" >
+        amt_recover = #{amtRecover,jdbcType=DECIMAL},
+      </if>
+      <if test="amtSumExtraSource != null" >
+        amt_sum_extra_source = #{amtSumExtraSource,jdbcType=DECIMAL},
+      </if>
+      <if test="amtRatSumExtraSource != null" >
+        amt_rat_sum_extra_source = #{amtRatSumExtraSource,jdbcType=DECIMAL},
+      </if>
+      <if test="amtTransfer != null" >
+        amt_transfer = #{amtTransfer,jdbcType=DECIMAL},
+      </if>
+      <if test="amtTrade != null" >
+        amt_trade = #{amtTrade,jdbcType=DECIMAL},
+      </if>
+      <if test="codCustId != null" >
+        cod_cust_id = #{codCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="codAcctNo != null" >
+        cod_acct_no = #{codAcctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="datIvmt != null" >
+        dat_ivmt = #{datIvmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codTrsfPortion != null" >
+        cod_trsf_portion = #{codTrsfPortion,jdbcType=INTEGER},
+      </if>
+      <if test="codTradePortion != null" >
+        cod_trade_portion = #{codTradePortion,jdbcType=INTEGER},
+      </if>
+      <if test="codTrsfCount != null" >
+        cod_trsf_count = #{codTrsfCount,jdbcType=INTEGER},
+      </if>
+      <if test="codFreezeNo != null" >
+        cod_freeze_no = #{codFreezeNo,jdbcType=INTEGER},
+      </if>
+      <if test="datCalculation != null" >
+        dat_calculation = #{datCalculation,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datDistribution != null" >
+        dat_distribution = #{datDistribution,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codChannelId != null" >
+        cod_channel_id = #{codChannelId,jdbcType=VARCHAR},
+      </if>
+      <if test="codUserRef != null" >
+        cod_user_ref = #{codUserRef,jdbcType=VARCHAR},
+      </if>
+      <if test="codTxnRef != null" >
+        cod_txn_ref = #{codTxnRef,jdbcType=VARCHAR},
+      </if>
+      <if test="datCreate != null" >
+        dat_create = #{datCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codCreateUser != null" >
+        cod_create_user = #{codCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="codCreateOrg != null" >
+        cod_create_org = #{codCreateOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="datModify != null" >
+        dat_modify = #{datModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codModifyUser != null" >
+        cod_modify_user = #{codModifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="codModifyOrg != null" >
+        cod_modify_org = #{codModifyOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="ctrUpdateSrlno != null" >
+        ctr_update_srlno = #{ctrUpdateSrlno,jdbcType=INTEGER},
+      </if>
+      <if test="flgDisburse != null" >
+        flg_disburse = #{flgDisburse,jdbcType=CHAR},
+      </if>
+    </set>
+    where cod_id = #{codId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.penging.tms.common.entity.TmsIvmtMastEntity" >
+    update tms_ivmt_mast
+    set cod_ivmt_no = #{codIvmtNo,jdbcType=VARCHAR},
+      cod_prod_no = #{codProdNo,jdbcType=VARCHAR},
+      cod_ivmt_type = #{codIvmtType,jdbcType=INTEGER},
+      cod_prod_unit = #{codProdUnit,jdbcType=INTEGER},
+      cod_ivmt_propotion = #{codIvmtPropotion,jdbcType=DECIMAL},
+      cod_ivmt_unit = #{codIvmtUnit,jdbcType=INTEGER},
+      amt_distribution = #{amtDistribution,jdbcType=DECIMAL},
+      amt_ivmt_total = #{amtIvmtTotal,jdbcType=DECIMAL},
+      amt_ivmt_principal = #{amtIvmtPrincipal,jdbcType=DECIMAL},
+      amt_receive_principal = #{amtReceivePrincipal,jdbcType=DECIMAL},
+      amt_profit_expect = #{amtProfitExpect,jdbcType=DECIMAL},
+      amt_total_estimate = #{amtTotalEstimate,jdbcType=DECIMAL},
+      amt_profit_actual = #{amtProfitActual,jdbcType=DECIMAL},
+      amt_profit_additional = #{amtProfitAdditional,jdbcType=DECIMAL},
+      amt_service_charge = #{amtServiceCharge,jdbcType=DECIMAL},
+      amt_profit_adjust = #{amtProfitAdjust,jdbcType=DECIMAL},
+      amt_recover = #{amtRecover,jdbcType=DECIMAL},
+      amt_sum_extra_source = #{amtSumExtraSource,jdbcType=DECIMAL},
+      amt_rat_sum_extra_source = #{amtRatSumExtraSource,jdbcType=DECIMAL},
+      amt_transfer = #{amtTransfer,jdbcType=DECIMAL},
+      amt_trade = #{amtTrade,jdbcType=DECIMAL},
+      cod_cust_id = #{codCustId,jdbcType=VARCHAR},
+      cod_acct_no = #{codAcctNo,jdbcType=VARCHAR},
+      dat_ivmt = #{datIvmt,jdbcType=TIMESTAMP},
+      cod_trsf_portion = #{codTrsfPortion,jdbcType=INTEGER},
+      cod_trade_portion = #{codTradePortion,jdbcType=INTEGER},
+      cod_trsf_count = #{codTrsfCount,jdbcType=INTEGER},
+      cod_freeze_no = #{codFreezeNo,jdbcType=INTEGER},
+      dat_calculation = #{datCalculation,jdbcType=TIMESTAMP},
+      dat_distribution = #{datDistribution,jdbcType=TIMESTAMP},
+      cod_channel_id = #{codChannelId,jdbcType=VARCHAR},
+      cod_user_ref = #{codUserRef,jdbcType=VARCHAR},
+      cod_txn_ref = #{codTxnRef,jdbcType=VARCHAR},
+      dat_create = #{datCreate,jdbcType=TIMESTAMP},
+      cod_create_user = #{codCreateUser,jdbcType=VARCHAR},
+      cod_create_org = #{codCreateOrg,jdbcType=VARCHAR},
+      dat_modify = #{datModify,jdbcType=TIMESTAMP},
+      cod_modify_user = #{codModifyUser,jdbcType=VARCHAR},
+      cod_modify_org = #{codModifyOrg,jdbcType=VARCHAR},
+      ctr_update_srlno = #{ctrUpdateSrlno,jdbcType=INTEGER},
+      flg_disburse = #{flgDisburse,jdbcType=CHAR}
+    where cod_id = #{codId,jdbcType=BIGINT}
+  </update>
+</mapper>
