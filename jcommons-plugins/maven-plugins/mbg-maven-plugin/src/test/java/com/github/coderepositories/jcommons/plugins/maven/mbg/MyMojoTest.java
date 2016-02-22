@@ -30,7 +30,8 @@ public class MyMojoTest extends AbstractMojoTestCase {
     /**
      * @throws Exception if any
      */
-    public void testSomething()
+    @SuppressWarnings("deprecation")
+	public void testSomething()
             throws Exception {
 
         File pom = getTestFile("src/test/resources/unit/project-to-test/pom.xml");

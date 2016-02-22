@@ -1,19 +1,13 @@
 package com.github.coderepositories.jcommons.core;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import com.github.coderepositories.jcommons.core.date.Dates;
+import com.google.common.collect.Lists;
+
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
-
-import com.github.coderepositories.jcommons.core.date.Dates;
-import com.google.common.collect.Lists;
 
 /**
  * <p>
@@ -344,8 +338,8 @@ public abstract class S {
 	 */
 	public static void execCmd(Iterable<String> cmds) {
 		String home = System.getProperty("user.home");
-		File bat = null;
-		BufferedWriter bw = null;
+		File bat;
+		BufferedWriter bw;
 
 		try {
 			StringBuilder sb = new StringBuilder("echo off" + LINE_SEPARATOR);

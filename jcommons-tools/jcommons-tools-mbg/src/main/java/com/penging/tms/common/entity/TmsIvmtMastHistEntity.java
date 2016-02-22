@@ -90,6 +90,8 @@ public class TmsIvmtMastHistEntity {
 
     private String flgDisburse;
 
+    private String codOrigProdNo;
+
     public Long getCodId() {
         return codId;
     }
@@ -432,5 +434,13 @@ public class TmsIvmtMastHistEntity {
 
     public void setFlgDisburse(String flgDisburse) {
         this.flgDisburse = flgDisburse;
+    }
+
+    public String getCodOrigProdNo() {
+        return codOrigProdNo;
+    }
+
+    public void setCodOrigProdNo(String codOrigProdNo) {
+        this.codOrigProdNo = codOrigProdNo;
     }
 }

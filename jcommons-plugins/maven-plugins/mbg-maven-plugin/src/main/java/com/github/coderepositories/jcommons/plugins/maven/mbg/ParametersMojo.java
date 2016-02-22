@@ -57,7 +57,7 @@ public class ParametersMojo extends AbstractMojo {
 
     // collections
     @Parameter
-    private List myList;
+    private List<?> myList;
 
     // maps
 

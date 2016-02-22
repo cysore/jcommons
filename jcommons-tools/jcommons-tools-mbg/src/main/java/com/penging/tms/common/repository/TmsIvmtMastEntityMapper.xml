@@ -44,6 +44,7 @@
     <result column="cod_modify_org" property="codModifyOrg" jdbcType="VARCHAR" />
     <result column="ctr_update_srlno" property="ctrUpdateSrlno" jdbcType="INTEGER" />
     <result column="flg_disburse" property="flgDisburse" jdbcType="CHAR" />
+    <result column="cod_orig_prod_no" property="codOrigProdNo" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     cod_id, cod_ivmt_no, cod_prod_no, cod_ivmt_type, cod_prod_unit, cod_ivmt_propotion, 
@@ -53,7 +54,7 @@
     amt_transfer, amt_trade, cod_cust_id, cod_acct_no, dat_ivmt, cod_trsf_portion, cod_trade_portion, 
     cod_trsf_count, cod_freeze_no, dat_calculation, dat_distribution, cod_channel_id, 
     cod_user_ref, cod_txn_ref, dat_create, cod_create_user, cod_create_org, dat_modify, 
-    cod_modify_user, cod_modify_org, ctr_update_srlno, flg_disburse
+    cod_modify_user, cod_modify_org, ctr_update_srlno, flg_disburse, cod_orig_prod_no
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -80,7 +81,8 @@
       cod_channel_id, cod_user_ref, cod_txn_ref, 
       dat_create, cod_create_user, cod_create_org, 
       dat_modify, cod_modify_user, cod_modify_org, 
-      ctr_update_srlno, flg_disburse)
+      ctr_update_srlno, flg_disburse, cod_orig_prod_no
+      )
     values (#{codId,jdbcType=BIGINT}, #{codIvmtNo,jdbcType=VARCHAR}, #{codProdNo,jdbcType=VARCHAR}, 
       #{codIvmtType,jdbcType=INTEGER}, #{codProdUnit,jdbcType=INTEGER}, #{codIvmtPropotion,jdbcType=DECIMAL}, 
       #{codIvmtUnit,jdbcType=INTEGER}, #{amtDistribution,jdbcType=DECIMAL}, #{amtIvmtTotal,jdbcType=DECIMAL}, 
@@ -95,7 +97,8 @@
       #{codChannelId,jdbcType=VARCHAR}, #{codUserRef,jdbcType=VARCHAR}, #{codTxnRef,jdbcType=VARCHAR}, 
       #{datCreate,jdbcType=TIMESTAMP}, #{codCreateUser,jdbcType=VARCHAR}, #{codCreateOrg,jdbcType=VARCHAR}, 
       #{datModify,jdbcType=TIMESTAMP}, #{codModifyUser,jdbcType=VARCHAR}, #{codModifyOrg,jdbcType=VARCHAR}, 
-      #{ctrUpdateSrlno,jdbcType=INTEGER}, #{flgDisburse,jdbcType=CHAR})
+      #{ctrUpdateSrlno,jdbcType=INTEGER}, #{flgDisburse,jdbcType=CHAR}, #{codOrigProdNo,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.penging.tms.common.entity.TmsIvmtMastEntity" >
     insert into tms_ivmt_mast
@@ -226,6 +229,9 @@
       <if test="flgDisburse != null" >
         flg_disburse,
       </if>
+      <if test="codOrigProdNo != null" >
+        cod_orig_prod_no,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="codId != null" >
@@ -353,6 +359,9 @@
       </if>
       <if test="flgDisburse != null" >
         #{flgDisburse,jdbcType=CHAR},
+      </if>
+      <if test="codOrigProdNo != null" >
+        #{codOrigProdNo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -482,6 +491,9 @@
       <if test="flgDisburse != null" >
         flg_disburse = #{flgDisburse,jdbcType=CHAR},
       </if>
+      <if test="codOrigProdNo != null" >
+        cod_orig_prod_no = #{codOrigProdNo,jdbcType=VARCHAR},
+      </if>
     </set>
     where cod_id = #{codId,jdbcType=BIGINT}
   </update>
@@ -527,7 +539,8 @@
       cod_modify_user = #{codModifyUser,jdbcType=VARCHAR},
       cod_modify_org = #{codModifyOrg,jdbcType=VARCHAR},
       ctr_update_srlno = #{ctrUpdateSrlno,jdbcType=INTEGER},
-      flg_disburse = #{flgDisburse,jdbcType=CHAR}
+      flg_disburse = #{flgDisburse,jdbcType=CHAR},
+      cod_orig_prod_no = #{codOrigProdNo,jdbcType=VARCHAR}
     where cod_id = #{codId,jdbcType=BIGINT}
   </update>
 </mapper>

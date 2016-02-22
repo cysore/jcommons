@@ -14,18 +14,20 @@
 		<!-- 数据库表生成实体的统一后缀 -->
 		<domainObjectNameSuffix>Entity</domainObjectNameSuffix>
 		
-		<!-- 需要导入的表 
+		<!-- 需要导入的表 -->
 		<includes>
-			<include>tms_ivmt_amount_xref</include>
-			<include>tms_ivmt_amount_xref_hist</include>
+			<include>tms_ivmt_mast</include>
+			<include>tms_ivmt_mast_hist</include>
 		</includes>
-		-->
+		
 		
 		<!-- 需要排除的表 -->
+		<!-- 
 		<excludes>
-			<exclude>tms_ivmt_amount_xref</exclude>
-			<exclude>tms_ivmt_amount_xref_hist</exclude>
+			<exclude>tms_ivmt_mast</exclude>
+			<exclude>tms_ivmt_mast_hist</exclude>
 		</excludes>
+		-->
 	</tableConfig>
 	
 	<!-- 自定义代码配置 -->
