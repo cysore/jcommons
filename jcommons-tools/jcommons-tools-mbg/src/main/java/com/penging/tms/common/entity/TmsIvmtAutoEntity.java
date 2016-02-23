@@ -6,41 +6,29 @@ import java.util.Date;
 public class TmsIvmtAutoEntity {
     private Long codId;
 
-    private String codReserveNo;
+    private String codCustCode;
 
-    private String codCustId;
+    private BigDecimal amtAutobid;
 
-    private Integer codProdCategory;
-
-    private Integer codReserveType;
-
-    private Integer codProdUnit;
-
-    private Integer codReservePortion;
-
-    private BigDecimal amtReserve;
+    private BigDecimal amtMinBalance;
 
     private BigDecimal ctrMinProfit;
 
     private BigDecimal ctrMaxProfit;
 
-    private Integer ctrMinUnit;
-
-    private Integer ctrMaxUnit;
-
-    private BigDecimal ctrMinIvmtAmount;
-
-    private BigDecimal ctrMaxIvmtAmount;
-
-    private Date ctrStartProfitDate;
-
-    private Date ctrEndProfitDate;
-
-    private BigDecimal ctrMinBalance;
-
     private Date ctrStartReserveDate;
 
     private Date ctrEndReserveDate;
+
+    private Integer codProdType;
+
+    private String flgActivate;
+
+    private String flgUseVc;
+
+    private Integer ctrLoanTermMin;
+
+    private Integer ctrLoanTermMax;
 
     private Date datCreate;
 
@@ -64,60 +52,28 @@ public class TmsIvmtAutoEntity {
         this.codId = codId;
     }
 
-    public String getCodReserveNo() {
-        return codReserveNo;
+    public String getCodCustCode() {
+        return codCustCode;
     }
 
-    public void setCodReserveNo(String codReserveNo) {
-        this.codReserveNo = codReserveNo;
+    public void setCodCustCode(String codCustCode) {
+        this.codCustCode = codCustCode;
     }
 
-    public String getCodCustId() {
-        return codCustId;
+    public BigDecimal getAmtAutobid() {
+        return amtAutobid;
     }
 
-    public void setCodCustId(String codCustId) {
-        this.codCustId = codCustId;
+    public void setAmtAutobid(BigDecimal amtAutobid) {
+        this.amtAutobid = amtAutobid;
     }
 
-    public Integer getCodProdCategory() {
-        return codProdCategory;
+    public BigDecimal getAmtMinBalance() {
+        return amtMinBalance;
     }
 
-    public void setCodProdCategory(Integer codProdCategory) {
-        this.codProdCategory = codProdCategory;
-    }
-
-    public Integer getCodReserveType() {
-        return codReserveType;
-    }
-
-    public void setCodReserveType(Integer codReserveType) {
-        this.codReserveType = codReserveType;
-    }
-
-    public Integer getCodProdUnit() {
-        return codProdUnit;
-    }
-
-    public void setCodProdUnit(Integer codProdUnit) {
-        this.codProdUnit = codProdUnit;
-    }
-
-    public Integer getCodReservePortion() {
-        return codReservePortion;
-    }
-
-    public void setCodReservePortion(Integer codReservePortion) {
-        this.codReservePortion = codReservePortion;
-    }
-
-    public BigDecimal getAmtReserve() {
-        return amtReserve;
-    }
-
-    public void setAmtReserve(BigDecimal amtReserve) {
-        this.amtReserve = amtReserve;
+    public void setAmtMinBalance(BigDecimal amtMinBalance) {
+        this.amtMinBalance = amtMinBalance;
     }
 
     public BigDecimal getCtrMinProfit() {
@@ -136,62 +92,6 @@ public class TmsIvmtAutoEntity {
         this.ctrMaxProfit = ctrMaxProfit;
     }
 
-    public Integer getCtrMinUnit() {
-        return ctrMinUnit;
-    }
-
-    public void setCtrMinUnit(Integer ctrMinUnit) {
-        this.ctrMinUnit = ctrMinUnit;
-    }
-
-    public Integer getCtrMaxUnit() {
-        return ctrMaxUnit;
-    }
-
-    public void setCtrMaxUnit(Integer ctrMaxUnit) {
-        this.ctrMaxUnit = ctrMaxUnit;
-    }
-
-    public BigDecimal getCtrMinIvmtAmount() {
-        return ctrMinIvmtAmount;
-    }
-
-    public void setCtrMinIvmtAmount(BigDecimal ctrMinIvmtAmount) {
-        this.ctrMinIvmtAmount = ctrMinIvmtAmount;
-    }
-
-    public BigDecimal getCtrMaxIvmtAmount() {
-        return ctrMaxIvmtAmount;
-    }
-
-    public void setCtrMaxIvmtAmount(BigDecimal ctrMaxIvmtAmount) {
-        this.ctrMaxIvmtAmount = ctrMaxIvmtAmount;
-    }
-
-    public Date getCtrStartProfitDate() {
-        return ctrStartProfitDate;
-    }
-
-    public void setCtrStartProfitDate(Date ctrStartProfitDate) {
-        this.ctrStartProfitDate = ctrStartProfitDate;
-    }
-
-    public Date getCtrEndProfitDate() {
-        return ctrEndProfitDate;
-    }
-
-    public void setCtrEndProfitDate(Date ctrEndProfitDate) {
-        this.ctrEndProfitDate = ctrEndProfitDate;
-    }
-
-    public BigDecimal getCtrMinBalance() {
-        return ctrMinBalance;
-    }
-
-    public void setCtrMinBalance(BigDecimal ctrMinBalance) {
-        this.ctrMinBalance = ctrMinBalance;
-    }
-
     public Date getCtrStartReserveDate() {
         return ctrStartReserveDate;
     }
@@ -206,6 +106,46 @@ public class TmsIvmtAutoEntity {
 
     public void setCtrEndReserveDate(Date ctrEndReserveDate) {
         this.ctrEndReserveDate = ctrEndReserveDate;
+    }
+
+    public Integer getCodProdType() {
+        return codProdType;
+    }
+
+    public void setCodProdType(Integer codProdType) {
+        this.codProdType = codProdType;
+    }
+
+    public String getFlgActivate() {
+        return flgActivate;
+    }
+
+    public void setFlgActivate(String flgActivate) {
+        this.flgActivate = flgActivate;
+    }
+
+    public String getFlgUseVc() {
+        return flgUseVc;
+    }
+
+    public void setFlgUseVc(String flgUseVc) {
+        this.flgUseVc = flgUseVc;
+    }
+
+    public Integer getCtrLoanTermMin() {
+        return ctrLoanTermMin;
+    }
+
+    public void setCtrLoanTermMin(Integer ctrLoanTermMin) {
+        this.ctrLoanTermMin = ctrLoanTermMin;
+    }
+
+    public Integer getCtrLoanTermMax() {
+        return ctrLoanTermMax;
+    }
+
+    public void setCtrLoanTermMax(Integer ctrLoanTermMax) {
+        this.ctrLoanTermMax = ctrLoanTermMax;
     }
 
     public Date getDatCreate() {

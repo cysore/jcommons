@@ -152,6 +152,8 @@ public class TmsProdMastLogEntity {
 
     private String flgDisburse;
 
+    private BigDecimal amtEstimateProfit;
+
     private String txtSpecifyUsers;
 
     private String txtProdInfo;
@@ -746,6 +748,14 @@ public class TmsProdMastLogEntity {
 
     public void setFlgDisburse(String flgDisburse) {
         this.flgDisburse = flgDisburse;
+    }
+
+    public BigDecimal getAmtEstimateProfit() {
+        return amtEstimateProfit;
+    }
+
+    public void setAmtEstimateProfit(BigDecimal amtEstimateProfit) {
+        this.amtEstimateProfit = amtEstimateProfit;
     }
 
     public String getTxtSpecifyUsers() {

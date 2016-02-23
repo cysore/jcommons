@@ -14,15 +14,4 @@ public interface TmsIvmtAmountXrefEntityMapper {
     int updateByPrimaryKeySelective(TmsIvmtAmountXrefEntity record);
 
     int updateByPrimaryKey(TmsIvmtAmountXrefEntity record);
-
-    /* CUSTOM_CONTENT_START */
-
-    /**
-     * 
-     * @param record
-     * @return
-     */
-    int updateByPrimaryKey1(TmsIvmtAmountXrefEntity record);
-    
-    /* CUSTOM_CONTENT_END */
 }

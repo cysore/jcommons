@@ -3,24 +3,18 @@
 <mapper namespace="com.penging.tms.common.repository.TmsIvmtAutoEntityMapper" >
   <resultMap id="BaseResultMap" type="com.penging.tms.common.entity.TmsIvmtAutoEntity" >
     <id column="cod_id" property="codId" jdbcType="BIGINT" />
-    <result column="cod_reserve_no" property="codReserveNo" jdbcType="VARCHAR" />
-    <result column="cod_cust_id" property="codCustId" jdbcType="VARCHAR" />
-    <result column="cod_prod_category" property="codProdCategory" jdbcType="INTEGER" />
-    <result column="cod_reserve_type" property="codReserveType" jdbcType="INTEGER" />
-    <result column="cod_prod_unit" property="codProdUnit" jdbcType="INTEGER" />
-    <result column="cod_reserve_portion" property="codReservePortion" jdbcType="INTEGER" />
-    <result column="amt_reserve" property="amtReserve" jdbcType="DECIMAL" />
+    <result column="cod_cust_code" property="codCustCode" jdbcType="VARCHAR" />
+    <result column="amt_autobid" property="amtAutobid" jdbcType="DECIMAL" />
+    <result column="amt_min_balance" property="amtMinBalance" jdbcType="DECIMAL" />
     <result column="ctr_min_profit" property="ctrMinProfit" jdbcType="DECIMAL" />
     <result column="ctr_max_profit" property="ctrMaxProfit" jdbcType="DECIMAL" />
-    <result column="ctr_min_unit" property="ctrMinUnit" jdbcType="INTEGER" />
-    <result column="ctr_max_unit" property="ctrMaxUnit" jdbcType="INTEGER" />
-    <result column="ctr_min_ivmt_amount" property="ctrMinIvmtAmount" jdbcType="DECIMAL" />
-    <result column="ctr_max_ivmt_amount" property="ctrMaxIvmtAmount" jdbcType="DECIMAL" />
-    <result column="ctr_start_profit_date" property="ctrStartProfitDate" jdbcType="TIMESTAMP" />
-    <result column="ctr_end_profit_date" property="ctrEndProfitDate" jdbcType="TIMESTAMP" />
-    <result column="ctr_min_balance" property="ctrMinBalance" jdbcType="DECIMAL" />
     <result column="ctr_start_reserve_date" property="ctrStartReserveDate" jdbcType="TIMESTAMP" />
     <result column="ctr_end_reserve_date" property="ctrEndReserveDate" jdbcType="TIMESTAMP" />
+    <result column="cod_prod_type" property="codProdType" jdbcType="INTEGER" />
+    <result column="flg_activate" property="flgActivate" jdbcType="CHAR" />
+    <result column="flg_use_vc" property="flgUseVc" jdbcType="CHAR" />
+    <result column="ctr_loan_term_min" property="ctrLoanTermMin" jdbcType="INTEGER" />
+    <result column="ctr_loan_term_max" property="ctrLoanTermMax" jdbcType="INTEGER" />
     <result column="dat_create" property="datCreate" jdbcType="TIMESTAMP" />
     <result column="cod_create_user" property="codCreateUser" jdbcType="VARCHAR" />
     <result column="cod_create_org" property="codCreateOrg" jdbcType="VARCHAR" />
@@ -30,11 +24,10 @@
     <result column="ctr_update_srlno" property="ctrUpdateSrlno" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    cod_id, cod_reserve_no, cod_cust_id, cod_prod_category, cod_reserve_type, cod_prod_unit, 
-    cod_reserve_portion, amt_reserve, ctr_min_profit, ctr_max_profit, ctr_min_unit, ctr_max_unit, 
-    ctr_min_ivmt_amount, ctr_max_ivmt_amount, ctr_start_profit_date, ctr_end_profit_date, 
-    ctr_min_balance, ctr_start_reserve_date, ctr_end_reserve_date, dat_create, cod_create_user, 
-    cod_create_org, dat_modify, cod_modify_user, cod_modify_org, ctr_update_srlno
+    cod_id, cod_cust_code, amt_autobid, amt_min_balance, ctr_min_profit, ctr_max_profit, 
+    ctr_start_reserve_date, ctr_end_reserve_date, cod_prod_type, flg_activate, flg_use_vc, 
+    ctr_loan_term_min, ctr_loan_term_max, dat_create, cod_create_user, cod_create_org, 
+    dat_modify, cod_modify_user, cod_modify_org, ctr_update_srlno
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -47,24 +40,22 @@
     where cod_id = #{codId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.penging.tms.common.entity.TmsIvmtAutoEntity" >
-    insert into tms_ivmt_auto (cod_id, cod_reserve_no, cod_cust_id, 
-      cod_prod_category, cod_reserve_type, cod_prod_unit, 
-      cod_reserve_portion, amt_reserve, ctr_min_profit, 
-      ctr_max_profit, ctr_min_unit, ctr_max_unit, 
-      ctr_min_ivmt_amount, ctr_max_ivmt_amount, ctr_start_profit_date, 
-      ctr_end_profit_date, ctr_min_balance, ctr_start_reserve_date, 
-      ctr_end_reserve_date, dat_create, cod_create_user, 
-      cod_create_org, dat_modify, cod_modify_user, 
-      cod_modify_org, ctr_update_srlno)
-    values (#{codId,jdbcType=BIGINT}, #{codReserveNo,jdbcType=VARCHAR}, #{codCustId,jdbcType=VARCHAR}, 
-      #{codProdCategory,jdbcType=INTEGER}, #{codReserveType,jdbcType=INTEGER}, #{codProdUnit,jdbcType=INTEGER}, 
-      #{codReservePortion,jdbcType=INTEGER}, #{amtReserve,jdbcType=DECIMAL}, #{ctrMinProfit,jdbcType=DECIMAL}, 
-      #{ctrMaxProfit,jdbcType=DECIMAL}, #{ctrMinUnit,jdbcType=INTEGER}, #{ctrMaxUnit,jdbcType=INTEGER}, 
-      #{ctrMinIvmtAmount,jdbcType=DECIMAL}, #{ctrMaxIvmtAmount,jdbcType=DECIMAL}, #{ctrStartProfitDate,jdbcType=TIMESTAMP}, 
-      #{ctrEndProfitDate,jdbcType=TIMESTAMP}, #{ctrMinBalance,jdbcType=DECIMAL}, #{ctrStartReserveDate,jdbcType=TIMESTAMP}, 
-      #{ctrEndReserveDate,jdbcType=TIMESTAMP}, #{datCreate,jdbcType=TIMESTAMP}, #{codCreateUser,jdbcType=VARCHAR}, 
-      #{codCreateOrg,jdbcType=VARCHAR}, #{datModify,jdbcType=TIMESTAMP}, #{codModifyUser,jdbcType=VARCHAR}, 
-      #{codModifyOrg,jdbcType=VARCHAR}, #{ctrUpdateSrlno,jdbcType=INTEGER})
+    insert into tms_ivmt_auto (cod_id, cod_cust_code, amt_autobid, 
+      amt_min_balance, ctr_min_profit, ctr_max_profit, 
+      ctr_start_reserve_date, ctr_end_reserve_date, 
+      cod_prod_type, flg_activate, flg_use_vc, 
+      ctr_loan_term_min, ctr_loan_term_max, dat_create, 
+      cod_create_user, cod_create_org, dat_modify, 
+      cod_modify_user, cod_modify_org, ctr_update_srlno
+      )
+    values (#{codId,jdbcType=BIGINT}, #{codCustCode,jdbcType=VARCHAR}, #{amtAutobid,jdbcType=DECIMAL}, 
+      #{amtMinBalance,jdbcType=DECIMAL}, #{ctrMinProfit,jdbcType=DECIMAL}, #{ctrMaxProfit,jdbcType=DECIMAL}, 
+      #{ctrStartReserveDate,jdbcType=TIMESTAMP}, #{ctrEndReserveDate,jdbcType=TIMESTAMP}, 
+      #{codProdType,jdbcType=INTEGER}, #{flgActivate,jdbcType=CHAR}, #{flgUseVc,jdbcType=CHAR}, 
+      #{ctrLoanTermMin,jdbcType=INTEGER}, #{ctrLoanTermMax,jdbcType=INTEGER}, #{datCreate,jdbcType=TIMESTAMP}, 
+      #{codCreateUser,jdbcType=VARCHAR}, #{codCreateOrg,jdbcType=VARCHAR}, #{datModify,jdbcType=TIMESTAMP}, 
+      #{codModifyUser,jdbcType=VARCHAR}, #{codModifyOrg,jdbcType=VARCHAR}, #{ctrUpdateSrlno,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.penging.tms.common.entity.TmsIvmtAutoEntity" >
     insert into tms_ivmt_auto
@@ -72,26 +63,14 @@
       <if test="codId != null" >
         cod_id,
       </if>
-      <if test="codReserveNo != null" >
-        cod_reserve_no,
+      <if test="codCustCode != null" >
+        cod_cust_code,
       </if>
-      <if test="codCustId != null" >
-        cod_cust_id,
+      <if test="amtAutobid != null" >
+        amt_autobid,
       </if>
-      <if test="codProdCategory != null" >
-        cod_prod_category,
-      </if>
-      <if test="codReserveType != null" >
-        cod_reserve_type,
-      </if>
-      <if test="codProdUnit != null" >
-        cod_prod_unit,
-      </if>
-      <if test="codReservePortion != null" >
-        cod_reserve_portion,
-      </if>
-      <if test="amtReserve != null" >
-        amt_reserve,
+      <if test="amtMinBalance != null" >
+        amt_min_balance,
       </if>
       <if test="ctrMinProfit != null" >
         ctr_min_profit,
@@ -99,32 +78,26 @@
       <if test="ctrMaxProfit != null" >
         ctr_max_profit,
       </if>
-      <if test="ctrMinUnit != null" >
-        ctr_min_unit,
-      </if>
-      <if test="ctrMaxUnit != null" >
-        ctr_max_unit,
-      </if>
-      <if test="ctrMinIvmtAmount != null" >
-        ctr_min_ivmt_amount,
-      </if>
-      <if test="ctrMaxIvmtAmount != null" >
-        ctr_max_ivmt_amount,
-      </if>
-      <if test="ctrStartProfitDate != null" >
-        ctr_start_profit_date,
-      </if>
-      <if test="ctrEndProfitDate != null" >
-        ctr_end_profit_date,
-      </if>
-      <if test="ctrMinBalance != null" >
-        ctr_min_balance,
-      </if>
       <if test="ctrStartReserveDate != null" >
         ctr_start_reserve_date,
       </if>
       <if test="ctrEndReserveDate != null" >
         ctr_end_reserve_date,
+      </if>
+      <if test="codProdType != null" >
+        cod_prod_type,
+      </if>
+      <if test="flgActivate != null" >
+        flg_activate,
+      </if>
+      <if test="flgUseVc != null" >
+        flg_use_vc,
+      </if>
+      <if test="ctrLoanTermMin != null" >
+        ctr_loan_term_min,
+      </if>
+      <if test="ctrLoanTermMax != null" >
+        ctr_loan_term_max,
       </if>
       <if test="datCreate != null" >
         dat_create,
@@ -152,26 +125,14 @@
       <if test="codId != null" >
         #{codId,jdbcType=BIGINT},
       </if>
-      <if test="codReserveNo != null" >
-        #{codReserveNo,jdbcType=VARCHAR},
+      <if test="codCustCode != null" >
+        #{codCustCode,jdbcType=VARCHAR},
       </if>
-      <if test="codCustId != null" >
-        #{codCustId,jdbcType=VARCHAR},
+      <if test="amtAutobid != null" >
+        #{amtAutobid,jdbcType=DECIMAL},
       </if>
-      <if test="codProdCategory != null" >
-        #{codProdCategory,jdbcType=INTEGER},
-      </if>
-      <if test="codReserveType != null" >
-        #{codReserveType,jdbcType=INTEGER},
-      </if>
-      <if test="codProdUnit != null" >
-        #{codProdUnit,jdbcType=INTEGER},
-      </if>
-      <if test="codReservePortion != null" >
-        #{codReservePortion,jdbcType=INTEGER},
-      </if>
-      <if test="amtReserve != null" >
-        #{amtReserve,jdbcType=DECIMAL},
+      <if test="amtMinBalance != null" >
+        #{amtMinBalance,jdbcType=DECIMAL},
       </if>
       <if test="ctrMinProfit != null" >
         #{ctrMinProfit,jdbcType=DECIMAL},
@@ -179,32 +140,26 @@
       <if test="ctrMaxProfit != null" >
         #{ctrMaxProfit,jdbcType=DECIMAL},
       </if>
-      <if test="ctrMinUnit != null" >
-        #{ctrMinUnit,jdbcType=INTEGER},
-      </if>
-      <if test="ctrMaxUnit != null" >
-        #{ctrMaxUnit,jdbcType=INTEGER},
-      </if>
-      <if test="ctrMinIvmtAmount != null" >
-        #{ctrMinIvmtAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="ctrMaxIvmtAmount != null" >
-        #{ctrMaxIvmtAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="ctrStartProfitDate != null" >
-        #{ctrStartProfitDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="ctrEndProfitDate != null" >
-        #{ctrEndProfitDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="ctrMinBalance != null" >
-        #{ctrMinBalance,jdbcType=DECIMAL},
-      </if>
       <if test="ctrStartReserveDate != null" >
         #{ctrStartReserveDate,jdbcType=TIMESTAMP},
       </if>
       <if test="ctrEndReserveDate != null" >
         #{ctrEndReserveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codProdType != null" >
+        #{codProdType,jdbcType=INTEGER},
+      </if>
+      <if test="flgActivate != null" >
+        #{flgActivate,jdbcType=CHAR},
+      </if>
+      <if test="flgUseVc != null" >
+        #{flgUseVc,jdbcType=CHAR},
+      </if>
+      <if test="ctrLoanTermMin != null" >
+        #{ctrLoanTermMin,jdbcType=INTEGER},
+      </if>
+      <if test="ctrLoanTermMax != null" >
+        #{ctrLoanTermMax,jdbcType=INTEGER},
       </if>
       <if test="datCreate != null" >
         #{datCreate,jdbcType=TIMESTAMP},
@@ -232,26 +187,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.penging.tms.common.entity.TmsIvmtAutoEntity" >
     update tms_ivmt_auto
     <set >
-      <if test="codReserveNo != null" >
-        cod_reserve_no = #{codReserveNo,jdbcType=VARCHAR},
+      <if test="codCustCode != null" >
+        cod_cust_code = #{codCustCode,jdbcType=VARCHAR},
       </if>
-      <if test="codCustId != null" >
-        cod_cust_id = #{codCustId,jdbcType=VARCHAR},
+      <if test="amtAutobid != null" >
+        amt_autobid = #{amtAutobid,jdbcType=DECIMAL},
       </if>
-      <if test="codProdCategory != null" >
-        cod_prod_category = #{codProdCategory,jdbcType=INTEGER},
-      </if>
-      <if test="codReserveType != null" >
-        cod_reserve_type = #{codReserveType,jdbcType=INTEGER},
-      </if>
-      <if test="codProdUnit != null" >
-        cod_prod_unit = #{codProdUnit,jdbcType=INTEGER},
-      </if>
-      <if test="codReservePortion != null" >
-        cod_reserve_portion = #{codReservePortion,jdbcType=INTEGER},
-      </if>
-      <if test="amtReserve != null" >
-        amt_reserve = #{amtReserve,jdbcType=DECIMAL},
+      <if test="amtMinBalance != null" >
+        amt_min_balance = #{amtMinBalance,jdbcType=DECIMAL},
       </if>
       <if test="ctrMinProfit != null" >
         ctr_min_profit = #{ctrMinProfit,jdbcType=DECIMAL},
@@ -259,32 +202,26 @@
       <if test="ctrMaxProfit != null" >
         ctr_max_profit = #{ctrMaxProfit,jdbcType=DECIMAL},
       </if>
-      <if test="ctrMinUnit != null" >
-        ctr_min_unit = #{ctrMinUnit,jdbcType=INTEGER},
-      </if>
-      <if test="ctrMaxUnit != null" >
-        ctr_max_unit = #{ctrMaxUnit,jdbcType=INTEGER},
-      </if>
-      <if test="ctrMinIvmtAmount != null" >
-        ctr_min_ivmt_amount = #{ctrMinIvmtAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="ctrMaxIvmtAmount != null" >
-        ctr_max_ivmt_amount = #{ctrMaxIvmtAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="ctrStartProfitDate != null" >
-        ctr_start_profit_date = #{ctrStartProfitDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="ctrEndProfitDate != null" >
-        ctr_end_profit_date = #{ctrEndProfitDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="ctrMinBalance != null" >
-        ctr_min_balance = #{ctrMinBalance,jdbcType=DECIMAL},
-      </if>
       <if test="ctrStartReserveDate != null" >
         ctr_start_reserve_date = #{ctrStartReserveDate,jdbcType=TIMESTAMP},
       </if>
       <if test="ctrEndReserveDate != null" >
         ctr_end_reserve_date = #{ctrEndReserveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codProdType != null" >
+        cod_prod_type = #{codProdType,jdbcType=INTEGER},
+      </if>
+      <if test="flgActivate != null" >
+        flg_activate = #{flgActivate,jdbcType=CHAR},
+      </if>
+      <if test="flgUseVc != null" >
+        flg_use_vc = #{flgUseVc,jdbcType=CHAR},
+      </if>
+      <if test="ctrLoanTermMin != null" >
+        ctr_loan_term_min = #{ctrLoanTermMin,jdbcType=INTEGER},
+      </if>
+      <if test="ctrLoanTermMax != null" >
+        ctr_loan_term_max = #{ctrLoanTermMax,jdbcType=INTEGER},
       </if>
       <if test="datCreate != null" >
         dat_create = #{datCreate,jdbcType=TIMESTAMP},
@@ -312,24 +249,18 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.penging.tms.common.entity.TmsIvmtAutoEntity" >
     update tms_ivmt_auto
-    set cod_reserve_no = #{codReserveNo,jdbcType=VARCHAR},
-      cod_cust_id = #{codCustId,jdbcType=VARCHAR},
-      cod_prod_category = #{codProdCategory,jdbcType=INTEGER},
-      cod_reserve_type = #{codReserveType,jdbcType=INTEGER},
-      cod_prod_unit = #{codProdUnit,jdbcType=INTEGER},
-      cod_reserve_portion = #{codReservePortion,jdbcType=INTEGER},
-      amt_reserve = #{amtReserve,jdbcType=DECIMAL},
+    set cod_cust_code = #{codCustCode,jdbcType=VARCHAR},
+      amt_autobid = #{amtAutobid,jdbcType=DECIMAL},
+      amt_min_balance = #{amtMinBalance,jdbcType=DECIMAL},
       ctr_min_profit = #{ctrMinProfit,jdbcType=DECIMAL},
       ctr_max_profit = #{ctrMaxProfit,jdbcType=DECIMAL},
-      ctr_min_unit = #{ctrMinUnit,jdbcType=INTEGER},
-      ctr_max_unit = #{ctrMaxUnit,jdbcType=INTEGER},
-      ctr_min_ivmt_amount = #{ctrMinIvmtAmount,jdbcType=DECIMAL},
-      ctr_max_ivmt_amount = #{ctrMaxIvmtAmount,jdbcType=DECIMAL},
-      ctr_start_profit_date = #{ctrStartProfitDate,jdbcType=TIMESTAMP},
-      ctr_end_profit_date = #{ctrEndProfitDate,jdbcType=TIMESTAMP},
-      ctr_min_balance = #{ctrMinBalance,jdbcType=DECIMAL},
       ctr_start_reserve_date = #{ctrStartReserveDate,jdbcType=TIMESTAMP},
       ctr_end_reserve_date = #{ctrEndReserveDate,jdbcType=TIMESTAMP},
+      cod_prod_type = #{codProdType,jdbcType=INTEGER},
+      flg_activate = #{flgActivate,jdbcType=CHAR},
+      flg_use_vc = #{flgUseVc,jdbcType=CHAR},
+      ctr_loan_term_min = #{ctrLoanTermMin,jdbcType=INTEGER},
+      ctr_loan_term_max = #{ctrLoanTermMax,jdbcType=INTEGER},
       dat_create = #{datCreate,jdbcType=TIMESTAMP},
       cod_create_user = #{codCreateUser,jdbcType=VARCHAR},
       cod_create_org = #{codCreateOrg,jdbcType=VARCHAR},

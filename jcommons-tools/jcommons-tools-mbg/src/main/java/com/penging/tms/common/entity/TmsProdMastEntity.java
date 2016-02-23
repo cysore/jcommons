@@ -156,6 +156,8 @@ public class TmsProdMastEntity {
 
     private BigDecimal amtTrsfDistribution;
 
+    private BigDecimal amtEstimateProfit;
+
     private String txtSpecifyUsers;
 
     private String txtProdInfo;
@@ -766,6 +768,14 @@ public class TmsProdMastEntity {
 
     public void setAmtTrsfDistribution(BigDecimal amtTrsfDistribution) {
         this.amtTrsfDistribution = amtTrsfDistribution;
+    }
+
+    public BigDecimal getAmtEstimateProfit() {
+        return amtEstimateProfit;
+    }
+
+    public void setAmtEstimateProfit(BigDecimal amtEstimateProfit) {
+        this.amtEstimateProfit = amtEstimateProfit;
     }
 
     public String getTxtSpecifyUsers() {
