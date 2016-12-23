@@ -10,7 +10,7 @@
 	</parent>
 	<artifactId>jcommons-datatransfer</artifactId>
 	<name>jcommons-datatransfer</name>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/coderepositories/jcommons</url>
 	<description>My Java Commons Lib Core</description>
 
 	<licenses>

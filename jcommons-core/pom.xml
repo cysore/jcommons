@@ -10,7 +10,7 @@
 	</parent>
 	<artifactId>jcommons-core</artifactId>
 	<name>jcommons-core</name>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/coderepositories/jcommons</url>
 	<description>My Java Commons Lib Core</description>
 
 	<licenses>

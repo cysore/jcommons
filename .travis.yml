@@ -1,0 +1,40 @@
+language: java
+
+jdk:
+# - oraclejdk8
+  - oraclejdk7
+  - openjdk7
+
+
+branches:
+  # blacklist 黑名单
+  except:
+    - legacy
+    - experimental
+  # whitelist 白名单
+  only:
+    - master
+    - develop
+
+install:
+  - mvn install -Dmaven.test.skip=true
+
+before_script:
+  - mvn clean
+
+notifications:
+  email:
+    recipients:
+      # - 547933567@qq.com
+      # - 510647180@qq.com
+      - 1243610991@qq.com
+    on_success: always
+    on_failure: always
+
+# deploy:
+  # provider: releases
+  # api-key: "98b95fece68208e703744cbedc05399f2fc24a6e"
+  # file: "node/data-transfer-excel.xml"
+  # skip_cleanup: true
+  # on:
+   #  all_branches: true

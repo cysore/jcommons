@@ -8,7 +8,7 @@
 	<packaging>pom</packaging>
 	<version>1.0</version>
 
-	<name>codes-parent</name>
+	<name>jcommons</name>
 	<url>https://github.com/coderepositories/jcommons</url>
 	<description>My Java Commons Lib</description>
 
@@ -33,27 +33,27 @@
 	</scm>
 
 	<properties>
-		<!-- ***************************** 项目基本设置 ***************************** -->
-		<!-- 项目编码 -->
+		<!-- ***************************** Base ***************************** -->
+		<!-- encoding -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- JDK版本 -->
+		<!-- JDK -->
 		<jdk.version>1.7</jdk.version>
-		<!-- WEB项目根据路径 -->
+		<!-- webapp -->
 		<webapp.path>src/main/webapp</webapp.path>
-		<!-- WEB项目的class路径 -->
+		<!-- classes -->
 		<class.path>src/main/webapp/WEB-INF/classes</class.path>
-		<!-- WEB项目的lib路径 -->
+		<!-- lib -->
 		<lib.path>src/main/webapp/WEB-INF/lib</lib.path>
 
-		<!-- ***************************** J2EE环境 ***************************** -->
+		<!-- ***************************** J2EE ***************************** -->
 		<servlet-api.version>3.1.0</servlet-api.version>
 		<jsp-api.version>2.2</jsp-api.version>
 		<jstl.version>1.2</jstl.version>
 
-		<!-- ***************************** Test组件 ***************************** -->
+		<!-- ***************************** Test ***************************** -->
 		<junit.version>4.11</junit.version>
 
-		<!-- ***************************** Apache组件 ***************************** -->
+		<!-- ***************************** Apaache ***************************** -->
 		<commons-lang.version>3.3.2</commons-lang.version>
 		<commons-collections.version>3.2.1</commons-collections.version>
 		<commons-io.version>2.4</commons-io.version>
@@ -75,11 +75,11 @@
 		<org.apache.ant.version>1.9.4</org.apache.ant.version>
 
 
-		<!-- ***************************** Google组件 ***************************** -->
+		<!-- ***************************** Google ***************************** -->
 		<com.google.guava.version>19.0</com.google.guava.version>
 
 
-		<!-- ***************************** Maven插件 ***************************** -->
+		<!-- ***************************** Maven ***************************** -->
 		<org.apache.maven.plugins.compiler.version>3.2</org.apache.maven.plugins.compiler.version>
 		<org.apache.maven.plugins.resources.version>2.7</org.apache.maven.plugins.resources.version>
 		<org.apache.maven.plugins.source.version>2.4</org.apache.maven.plugins.source.version>
@@ -90,7 +90,6 @@
 		<org.apache.maven.plugins.dependency.version>2.9</org.apache.maven.plugins.dependency.version>
 		<org.apache.maven.plugins.surefire.version>2.9</org.apache.maven.plugins.surefire.version>
 
-		<!-- ***************************** 框架 ***************************** -->
 
 		<!-- springframwork -->
 		<org.springframework.version>4.2.2.RELEASE</org.springframework.version>
@@ -102,6 +101,7 @@
 		<!-- mybatis -->
 		<org.mybatis.version>3.2.8</org.mybatis.version>
 		<org.mybatis.mybatis-spring.version>1.2.2</org.mybatis.mybatis-spring.version>
+		<mybatis-generator.version>1.3.2</mybatis-generator.version>
 
 		<!-- dwr -->
 		<org.directwebremoting.dwr.version>3.0.0-rc3-RELEASE</org.directwebremoting.dwr.version>
@@ -144,7 +144,6 @@
 
 	</properties>
 
-	<!-- 统一依赖管理 -->
 	<dependencyManagement>
 		<dependencies>
 			<!-- Test -->
@@ -491,6 +490,12 @@
 				<version>${org.springframework.version}</version>
 			</dependency>
 
+			<!-- MyBatis -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>${org.mybatis.version}</version>
+			</dependency>
 
 		</dependencies>
 	</dependencyManagement>
@@ -498,11 +503,9 @@
 
 	<build>
 
-		<!-- 统一Jar项目的测试源文件编译后的输出路径 -->
+		<!-- test output -->
 		<testOutputDirectory>target/classes</testOutputDirectory>
 
-
-		<!-- 统一插件配置声明 -->
 		<pluginManagement>
 			<plugins>
 				<!-- resources -->
@@ -530,9 +533,7 @@
 					<artifactId>maven-source-plugin</artifactId>
 					<version>${org.apache.maven.plugins.source.version}</version>
 					<configuration>
-						<!-- 导入pom文件 -->
 						<includePom>true</includePom>
-						<!-- 每次都重新创 -->
 						<forceCreation>true</forceCreation>
 					</configuration>
 					<executions>
@@ -563,20 +564,21 @@
 					</configuration>
 				</plugin>
 
-				<!-- surefire(测试) -->
+				<!-- surefire -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>${org.apache.maven.plugins.surefire.version}</version>
 					<configuration>
 						<skip>true</skip>
+						<argLine>-Dfile.encoding=UTF-8</argLine>
 					</configuration>
 				</plugin>
 
 			</plugins>
 		</pluginManagement>
 
-		<!-- 统一插件默认配置 -->
+		<!-- common plugins -->
 		<plugins>
 			<!-- compiler -->
 			<plugin>
@@ -611,6 +613,15 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>${org.apache.maven.plugins.javadoc.version}</version>
+				<configuration>
+					<show>private</show>
+					<nohelp>true</nohelp>
+					<aggregate>true</aggregate>
+					<charset>UTF-8</charset>
+					<encoding>UTF-8</encoding>
+					<docencoding>UTF-8</docencoding>
+				</configuration>
+
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -620,8 +631,10 @@
 					</execution>
 				</executions>
 			</plugin>
+
 		</plugins>
 	</build>
+
 
 	<!-- 统一发布管理,发布到公司的私服 <distributionManagement> <repository> <id>nexus-releases</id> 
 		<name>Nexus Release Repository</name> <url>http://202.204.75.10:8081/nexus/content/repositories/releases/</url> 
@@ -630,7 +643,6 @@
 		</snapshotRepository> </distributionManagement> -->
 	<!-- 发布到Maven中央仓库的配置，这里的配置最好是每个子项目共享，不要单独放在子项目中，否则可能会产生验证错误(Event: Failed: 
 		Signature Validation typeId signature-staging failureMessage Invalid Signature) -->
-
 	<profiles>
 		<profile>
 			<id>release</id>
@@ -721,5 +733,7 @@
 	<modules>
 		<module>jcommons-core</module>
 		<module>jcommons-datatransfer</module>
+		<module>jcommons-tools</module>
+		<module>jcommons-plugins</module>
 	</modules>
 </project>

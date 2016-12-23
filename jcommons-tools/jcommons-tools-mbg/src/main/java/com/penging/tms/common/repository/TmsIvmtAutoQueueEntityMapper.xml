@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.penging.tms.common.repository.TmsIvmtAutoQueueEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.penging.tms.common.entity.TmsIvmtAutoQueueEntity" >
+    <id column="cod_queue_id" property="codQueueId" jdbcType="BIGINT" />
+    <result column="cod_cust_code" property="codCustCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cod_queue_id, cod_cust_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tms_ivmt_auto_queue
+    where cod_queue_id = #{codQueueId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tms_ivmt_auto_queue
+    where cod_queue_id = #{codQueueId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.penging.tms.common.entity.TmsIvmtAutoQueueEntity" >
+    insert into tms_ivmt_auto_queue (cod_queue_id, cod_cust_code)
+    values (#{codQueueId,jdbcType=BIGINT}, #{codCustCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.penging.tms.common.entity.TmsIvmtAutoQueueEntity" >
+    insert into tms_ivmt_auto_queue
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="codQueueId != null" >
+        cod_queue_id,
+      </if>
+      <if test="codCustCode != null" >
+        cod_cust_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="codQueueId != null" >
+        #{codQueueId,jdbcType=BIGINT},
+      </if>
+      <if test="codCustCode != null" >
+        #{codCustCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.penging.tms.common.entity.TmsIvmtAutoQueueEntity" >
+    update tms_ivmt_auto_queue
+    <set >
+      <if test="codCustCode != null" >
+        cod_cust_code = #{codCustCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cod_queue_id = #{codQueueId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.penging.tms.common.entity.TmsIvmtAutoQueueEntity" >
+    update tms_ivmt_auto_queue
+    set cod_cust_code = #{codCustCode,jdbcType=VARCHAR}
+    where cod_queue_id = #{codQueueId,jdbcType=BIGINT}
+  </update>
+</mapper>

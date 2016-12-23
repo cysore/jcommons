@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-transfer-excel>
+  <properties>
+    <property name="name" value="zhangsan"/>
+  </properties>
+  <resources>
+    <resource file="template/excel-template-test.xml"/>
+  </resources>
+</data-transfer-excel>
+
+
